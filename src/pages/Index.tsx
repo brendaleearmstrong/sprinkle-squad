@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col items-center justify-center min-h-[80vh] space-y-8">
       <div className="text-center space-y-4">
@@ -18,12 +21,14 @@ const Index = () => {
           <Button 
             className="w-full text-lg bg-gradient-to-r from-sprinkle-pink to-cupcake-blue hover:opacity-90 transition-opacity"
             size="lg"
+            onClick={() => navigate("/parent-login")}
           >
             Parent Login
           </Button>
           <Button 
             className="w-full text-lg bg-gradient-to-r from-candy-yellow to-mint-green hover:opacity-90 transition-opacity"
             size="lg"
+            onClick={() => navigate("/kid-login")}
           >
             Kid Login
           </Button>

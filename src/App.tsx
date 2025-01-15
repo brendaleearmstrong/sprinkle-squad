@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MainLayout } from "./components/layout/MainLayout";
 import Index from "./pages/Index";
+import ParentLogin from "./pages/ParentLogin";
+import KidLogin from "./pages/KidLogin";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +19,8 @@ const App = () => (
         <Routes>
           <Route element={<MainLayout />}>
             <Route path="/" element={<Index />} />
+            <Route path="/parent-login" element={<ParentLogin />} />
+            <Route path="/kid-login" element={<KidLogin />} />
           </Route>
         </Routes>
       </BrowserRouter>
