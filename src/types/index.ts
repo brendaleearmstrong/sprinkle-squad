@@ -4,8 +4,9 @@ export interface Task {
   description: string;
   points: number;
   completed: boolean;
-  created_at: string;
   user_id: string;
+  parent_id: string;
+  created_at: string;
 }
 
 export interface Kid {
@@ -14,10 +15,21 @@ export interface Kid {
   pin: string;
   points: number;
   parent_id: string;
+  created_at: string;
 }
 
 export interface Parent {
   id: string;
   email: string;
   kids: Kid[];
+  created_at: string;
+}
+
+export interface Reward {
+  id: string;
+  title: string;
+  description: string;
+  points_cost: number;
+  parent_id: string;
+  created_at: string;
 }
