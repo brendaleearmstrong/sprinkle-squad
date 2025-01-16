@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/lib/supabase';
+import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
 
 export const useAuth = () => {
@@ -10,6 +10,11 @@ export const useAuth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      setLoading(false);
+      return;
+    }
+
     // Check active sessions and sets the user
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
@@ -26,6 +31,15 @@ export const useAuth = () => {
   }, []);
 
   const signIn = async (email: string, password: string) => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Not configured",
+        description: "Please connect to Supabase first",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -50,6 +64,15 @@ export const useAuth = () => {
   };
 
   const signUp = async (email: string, password: string) => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Not configured",
+        description: "Please connect to Supabase first",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signUp({
         email,
@@ -72,6 +95,15 @@ export const useAuth = () => {
   };
 
   const signOut = async () => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Not configured",
+        description: "Please connect to Supabase first",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
