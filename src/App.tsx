@@ -7,6 +7,8 @@ import { MainLayout } from "./components/layout/MainLayout";
 import Index from "./pages/Index";
 import ParentLogin from "./pages/ParentLogin";
 import KidLogin from "./pages/KidLogin";
+import ParentDashboard from "./pages/ParentDashboard";
+import KidDashboard from "./pages/KidDashboard";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,8 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/parent-login" element={<ParentLogin />} />
             <Route path="/kid-login" element={<KidLogin />} />
+            <Route path="/parent-dashboard" element={<ParentDashboard />} />
+            <Route path="/kid-dashboard" element={<KidDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>
