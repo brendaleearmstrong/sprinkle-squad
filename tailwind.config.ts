@@ -20,29 +20,26 @@ export default {
     extend: {
       colors: {
         // Primary Colors
-        "sprinkle-pink": "#FF69B4",
-        "cupcake-blue": "#87CEEB",
-        "candy-yellow": "#FFD700",
-        "mint-green": "#98FF98",
-        "lavender-purple": "#E6E6FA",
-        // Secondary Colors
-        "soft-cream": "#FFFDD0",
-        "cotton-candy": "#FFBCD9",
-        "pastel-sky": "#B0E0E6",
+        primary: {
+          DEFAULT: "#9b87f5",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "#7E69AB",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        // Pastel Colors
+        "soft-green": "#F2FCE2",
+        "soft-yellow": "#FEF7CD",
+        "soft-purple": "#E5DEFF",
+        "soft-pink": "#FFDEE2",
+        "soft-blue": "#D3E4FD",
         // Semantic Colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
@@ -70,9 +67,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        bubblegum: ["Bubblegum Sans", "cursive"],
-        comic: ["Comic Neue", "cursive"],
-        fredoka: ["Fredoka One", "cursive"],
+        sans: ["Inter", "sans-serif"],
+        display: ["Quicksand", "sans-serif"],
+        body: ["Nunito", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {
