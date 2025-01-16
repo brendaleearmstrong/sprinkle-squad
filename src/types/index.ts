@@ -21,7 +21,6 @@ export interface Kid {
 export interface Parent {
   id: string;
   email: string;
-  kids: Kid[];
   created_at: string;
 }
 

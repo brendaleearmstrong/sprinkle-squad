@@ -2,24 +2,36 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Star, Trophy, Gift } from "lucide-react";
+import { Star, Trophy, Gift, Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import type { Task } from "@/types";
+import { useNavigate } from "react-router-dom";
 
 const KidDashboard = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [points, setPoints] = useState(0);
+  const [kidData, setKidData] = useState<any>(null);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchTasks();
-    fetchPoints();
-  }, []);
+    const kidSession = localStorage.getItem("kidSession");
+    if (!kidSession) {
+      navigate("/kid-login");
+      return;
+    }
 
-  const fetchTasks = async () => {
+    const kid = JSON.parse(kidSession);
+    setKidData(kid);
+    setPoints(kid.points);
+    fetchTasks(kid.id);
+  }, [navigate]);
+
+  const fetchTasks = async (kidId: string) => {
     const { data, error } = await supabase
       .from("tasks")
       .select("*")
+      .eq("user_id", kidId)
       .eq("completed", false);
 
     if (error) {
@@ -34,21 +46,9 @@ const KidDashboard = () => {
     setTasks(data || []);
   };
 
-  const fetchPoints = async () => {
-    const { data: userData } = await supabase.auth.getUser();
-    if (!userData.user) return;
-
-    const { data, error } = await supabase
-      .from("kids")
-      .select("points")
-      .eq("id", userData.user.id)
-      .single();
-
-    if (error) return;
-    setPoints(data?.points || 0);
-  };
-
   const completeTask = async (taskId: string, taskPoints: number) => {
+    if (!kidData) return;
+
     const { error: updateError } = await supabase
       .from("tasks")
       .update({ completed: true })
@@ -67,7 +67,7 @@ const KidDashboard = () => {
     const { error: pointsError } = await supabase
       .from("kids")
       .update({ points: newPoints })
-      .eq("id", (await supabase.auth.getUser()).data.user?.id);
+      .eq("id", kidData.id);
 
     if (pointsError) {
       toast({
@@ -80,22 +80,46 @@ const KidDashboard = () => {
     setPoints(newPoints);
     setTasks(tasks.filter((task) => task.id !== taskId));
 
+    // Show celebration toast
     toast({
       title: "Woohoo! 🎉",
       description: `You earned ${taskPoints} sprinkles!`,
       className: "bg-gradient-to-r from-sprinkle-pink to-cupcake-blue text-white",
     });
+
+    // Show special celebration for milestone achievements
+    if (newPoints >= 100 && points < 100) {
+      toast({
+        title: "Achievement Unlocked! 🏆",
+        description: "You've reached 100 sprinkles! Amazing job!",
+        className: "bg-gradient-to-r from-candy-yellow to-mint-green text-white",
+      });
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("kidSession");
+    navigate("/kid-login");
   };
 
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-4xl font-bubblegum text-sprinkle-pink">
-          My Sprinkle Squad Dashboard
+          {kidData?.username}'s Dashboard
         </h1>
-        <div className="flex items-center gap-2 bg-gradient-to-r from-candy-yellow to-mint-green p-3 rounded-xl">
-          <Star className="text-white h-6 w-6" />
-          <span className="font-fredoka text-2xl text-white">{points}</span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 bg-gradient-to-r from-candy-yellow to-mint-green p-3 rounded-xl">
+            <Star className="text-white h-6 w-6" />
+            <span className="font-fredoka text-2xl text-white">{points}</span>
+          </div>
+          <Button 
+            onClick={handleLogout}
+            variant="outline"
+            className="border-2 border-sprinkle-pink text-sprinkle-pink hover:bg-sprinkle-pink hover:text-white"
+          >
+            Logout
+          </Button>
         </div>
       </div>
 
@@ -142,7 +166,7 @@ const KidDashboard = () => {
             <Gift className="h-8 w-8" />
             <div>
               <h3 className="font-bubblegum text-2xl">Reward Available!</h3>
-              <p className="font-comic">You have enough points to claim a reward!</p>
+              <p className="font-comic">You have enough sprinkles to claim a reward!</p>
             </div>
             <Button
               className="ml-auto bg-white text-sprinkle-pink hover:bg-opacity-90"
@@ -156,6 +180,17 @@ const KidDashboard = () => {
           </div>
         </Card>
       )}
+
+      {/* Floating background elements */}
+      <div className="fixed top-20 left-20 animate-float delay-100">
+        <Star className="w-12 h-12 text-lavender-purple opacity-20" />
+      </div>
+      <div className="fixed bottom-20 right-20 animate-float delay-200">
+        <Sparkles className="w-12 h-12 text-cotton-candy opacity-20" />
+      </div>
+      <div className="fixed top-1/2 left-1/3 animate-float delay-300">
+        <Gift className="w-10 h-10 text-mint-green opacity-20" />
+      </div>
     </div>
   );
 };
