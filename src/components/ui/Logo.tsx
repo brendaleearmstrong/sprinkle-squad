@@ -2,16 +2,14 @@ import { IceCream } from "lucide-react";
 
 export const Logo = () => {
   return (
-    <div className="flex items-center justify-center gap-3">
+    <div className="flex items-center justify-center gap-4">
       <div className="relative">
+        <div className="absolute inset-0 bg-gradient-to-br from-neon-pink via-hot-pink to-electric-purple blur-xl opacity-50 animate-pulse" />
         <IceCream 
-          className="w-12 h-12 text-berry-blast animate-float" 
-          strokeWidth={2.5}
+          className="w-20 h-20 text-electric-purple relative animate-float" 
+          strokeWidth={2}
         />
       </div>
-      <span className="bg-gradient-to-r from-berry-blast via-mint-chip to-caramel-drizzle bg-clip-text text-transparent text-4xl sm:text-5xl font-display font-bold">
-        SprinkleSquad
-      </span>
     </div>
   );
 };
