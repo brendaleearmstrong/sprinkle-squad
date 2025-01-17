@@ -50,54 +50,42 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
         const fileExt = newKid.avatar.name.split('.').pop();
         const fileName = `${crypto.randomUUID()}.${fileExt}`;
         
-        const { error: uploadError } = await supabase.storage
+        const { error: uploadError, data: uploadData } = await supabase.storage
           .from('avatars')
           .upload(fileName, newKid.avatar);
 
         if (uploadError) throw uploadError;
 
-        const { data: { publicUrl } } = supabase.storage
-          .from('avatars')
-          .getPublicUrl(fileName);
-          
-        avatarUrl = publicUrl;
+        avatarUrl = `${process.env.VITE_SUPABASE_URL}/storage/v1/object/public/avatars/${fileName}`;
       }
 
-      // First, insert the profile and get the ID in a single operation
-      const { data: profileData, error: profileError } = await supabase
-        .from("profiles")
-        .insert([
-          {
-            username: newKid.username,
-            is_parent: false,
-            birthdate: newKid.birthdate,
-            avatar_url: avatarUrl,
-            total_points: 0,
-            level_number: 1,
-            level_name: 'Sprinkle Starter',
-            level_points_required: 100,
-          },
-        ])
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          username: newKid.username,
+          is_parent: false,
+          birthdate: newKid.birthdate,
+          avatar_url: avatarUrl,
+          total_points: 0,
+          level_number: 1,
+          level_name: 'Sprinkle Starter',
+          level_points_required: 100,
+        })
         .select('id')
         .single();
 
-      if (profileError || !profileData) {
-        console.error('Profile creation error:', profileError);
+      if (profileError || !profile) {
         throw profileError || new Error('Failed to create profile');
       }
 
-      // Create the parent-child relationship using the returned ID
       const { error: relationError } = await supabase
-        .from("parent_kid_relationships")
-        .insert([
-          {
-            parent_id: user.id,
-            kid_id: profileData.id,
-          },
-        ]);
+        .from('parent_kid_relationships')
+        .insert({
+          parent_id: user.id,
+          kid_id: profile.id,
+        });
 
       if (relationError) {
-        console.error('Relationship creation error:', relationError);
         throw relationError;
       }
 
