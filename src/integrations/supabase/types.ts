@@ -48,24 +48,30 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          birthdate: string | null
           created_at: string
           id: string
+          is_parent: boolean | null
           level: number | null
           total_points: number | null
           username: string | null
         }
         Insert: {
           avatar_url?: string | null
+          birthdate?: string | null
           created_at?: string
           id: string
+          is_parent?: boolean | null
           level?: number | null
           total_points?: number | null
           username?: string | null
         }
         Update: {
           avatar_url?: string | null
+          birthdate?: string | null
           created_at?: string
           id?: string
+          is_parent?: boolean | null
           level?: number | null
           total_points?: number | null
           username?: string | null

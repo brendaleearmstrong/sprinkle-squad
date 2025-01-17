@@ -3,22 +3,47 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { Star, Sparkles, Heart, User, LockKeyhole, ArrowLeft, Crown, IceCream } from "lucide-react";
+import { Star, Sparkles, Heart, User, LockKeyhole, Crown, IceCream, Plus, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+
+interface ChildInfo {
+  username: string;
+  birthdate: string;
+}
 
 const ParentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
+  const [subscriptionPlan, setSubscriptionPlan] = useState("single");
+  const [children, setChildren] = useState<ChildInfo[]>([{ username: "", birthdate: "" }]);
   const { signIn, signUp } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSignUp) {
-      await signUp(email, password);
+      await signUp(email, password, true, {
+        subscription_plan: subscriptionPlan,
+        children: children,
+      });
     } else {
       await signIn(email, password);
     }
+  };
+
+  const addChild = () => {
+    if (subscriptionPlan === "family") {
+      setChildren([...children, { username: "", birthdate: "" }]);
+    }
+  };
+
+  const updateChild = (index: number, field: keyof ChildInfo, value: string) => {
+    const updatedChildren = [...children];
+    updatedChildren[index] = { ...updatedChildren[index], [field]: value };
+    setChildren(updatedChildren);
   };
 
   return (
@@ -61,7 +86,7 @@ const ParentLogin = () => {
           <p className="text-xl text-gray-600 font-body flex items-center justify-center gap-2">
             <Crown className="w-5 h-5 text-neon-orange animate-spin-slow" />
             {isSignUp 
-              ? "Join the adventure of managing tasks and rewards!" 
+              ? "Join the adventure of parenting success!" 
               : "Continue your journey of parenting success!"}
             <Heart className="w-5 h-5 text-hot-pink animate-float" />
           </p>
@@ -98,6 +123,92 @@ const ParentLogin = () => {
                 minLength={6}
               />
             </div>
+
+            {isSignUp && (
+              <>
+                <div className="space-y-4">
+                  <Label className="text-lg font-medium text-gray-700">Choose your plan</Label>
+                  <RadioGroup
+                    value={subscriptionPlan}
+                    onValueChange={setSubscriptionPlan}
+                    className="grid grid-cols-2 gap-4"
+                  >
+                    <div className="relative">
+                      <RadioGroupItem
+                        value="single"
+                        id="single"
+                        className="peer sr-only"
+                      />
+                      <Label
+                        htmlFor="single"
+                        className="flex flex-col p-4 border-2 rounded-lg cursor-pointer peer-checked:border-primary hover:bg-gray-50"
+                      >
+                        <span className="font-bold">Single Child</span>
+                        <span className="text-sm text-gray-500">$9.99/month</span>
+                      </Label>
+                    </div>
+                    <div className="relative">
+                      <RadioGroupItem
+                        value="family"
+                        id="family"
+                        className="peer sr-only"
+                      />
+                      <Label
+                        htmlFor="family"
+                        className="flex flex-col p-4 border-2 rounded-lg cursor-pointer peer-checked:border-primary hover:bg-gray-50"
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="font-bold">Family Plan</span>
+                          <Badge variant="secondary" className="bg-primary/10 text-primary">
+                            Best Value
+                          </Badge>
+                        </div>
+                        <span className="text-sm text-gray-500">$14.99/month</span>
+                      </Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <Label className="text-lg font-medium text-gray-700">Children</Label>
+                    {subscriptionPlan === "family" && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={addChild}
+                        className="flex items-center gap-2"
+                      >
+                        <Plus className="w-4 h-4" /> Add Child
+                      </Button>
+                    )}
+                  </div>
+                  {children.map((child, index) => (
+                    <div key={index} className="space-y-4 p-4 border-2 rounded-lg">
+                      <div className="space-y-2">
+                        <Label>Child's Name</Label>
+                        <Input
+                          value={child.username}
+                          onChange={(e) => updateChild(index, "username", e.target.value)}
+                          placeholder="Enter child's name"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label>Birthdate</Label>
+                        <Input
+                          type="date"
+                          value={child.birthdate}
+                          onChange={(e) => updateChild(index, "birthdate", e.target.value)}
+                          required
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
 
             <Button 
               type="submit"
