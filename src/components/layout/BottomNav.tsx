@@ -6,11 +6,11 @@ export const BottomNav = () => {
   const location = useLocation();
 
   const navItems = [
-    { icon: Home, label: "Home", path: "/" },
-    { icon: Trophy, label: "Tasks", path: "/kid-dashboard" },
-    { icon: Gift, label: "Rewards", path: "/rewards" },
-    { icon: User, label: "Profile", path: "/profile" },
-    { icon: Settings, label: "Settings", path: "/settings" },
+    { icon: Home, label: "Home", path: "/", hoverColor: "hover:text-neon-green" },
+    { icon: Trophy, label: "Tasks", path: "/kid-dashboard", hoverColor: "hover:text-neon-orange" },
+    { icon: Gift, label: "Rewards", path: "/rewards", hoverColor: "hover:text-hot-pink" },
+    { icon: User, label: "Profile", path: "/profile", hoverColor: "hover:text-bright-blue" },
+    { icon: Settings, label: "Settings", path: "/settings", hoverColor: "hover:text-electric-blue" },
   ];
 
   return (
@@ -34,13 +34,13 @@ export const BottomNav = () => {
                       "w-6 h-6 transition-colors duration-300",
                       isActive 
                         ? "text-white" 
-                        : "text-white/80 hover:text-white"
+                        : `text-white/80 ${item.hoverColor}`
                     )} 
                   />
                 </div>
                 <span className={cn(
                   "text-xs font-medium mt-1 transition-colors duration-300",
-                  isActive ? "text-white" : "text-white/80"
+                  isActive ? "text-white" : `text-white/80 ${item.hoverColor}`
                 )}>
                   {item.label}
                 </span>
