@@ -6,18 +6,18 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 bg-deep-purple backdrop-blur-sm border-b border-soft-purple/20 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo Section */}
+          {/* Logo Section - Updated with white text and hot pink hover */}
           <Link to="/" className="flex items-center space-x-2 group">
             <IceCream 
-              className="w-8 h-8 text-space-white group-hover:text-soft-pink transform group-hover:rotate-12 transition-all duration-300" 
+              className="w-8 h-8 text-space-white group-hover:text-neon-pink transition-colors duration-300" 
               strokeWidth={2.5}
             />
-            <span className="font-display text-xl sm:text-2xl font-bold bg-gradient-to-r from-space-white via-soft-pink to-space-white bg-clip-text text-transparent group-hover:via-neon-pink">
+            <span className="font-display text-xl sm:text-2xl font-bold text-space-white group-hover:text-neon-pink transition-colors duration-300">
               SPRINKLESQUAD
             </span>
           </Link>
 
-          {/* Icons Section - Updated for better mobile display */}
+          {/* Icons Section */}
           <div className="flex items-center space-x-2 sm:space-x-4">
             <button className="p-1.5 sm:p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
               <Star className="w-5 h-5 sm:w-6 sm:h-6" />
