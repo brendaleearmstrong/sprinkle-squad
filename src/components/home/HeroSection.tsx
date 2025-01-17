@@ -1,21 +1,8 @@
-import { Logo } from "@/components/ui/Logo";
 import { Sparkles } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-4">
-      <div className="flex justify-center mb-2">
-        <div className="relative transform hover:scale-110 transition-transform duration-300 animate-float">
-          <Logo className="w-32 h-32" />
-          <div className="absolute -top-4 -right-4">
-            <Sparkles className="w-6 h-6 text-neon-pink animate-spin-slow" />
-          </div>
-          <div className="absolute -bottom-2 -left-4">
-            <Sparkles className="w-5 h-5 text-hot-pink animate-spin-slow" style={{ animationDelay: '0.5s' }} />
-          </div>
-        </div>
-      </div>
-      
+    <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-8 pt-8">
       <div className="relative inline-block w-full max-w-3xl">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight">
           <span className="bg-gradient-to-r from-neon-pink via-hot-pink to-neon-orange bg-clip-text text-transparent">
