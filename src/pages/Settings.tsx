@@ -1,75 +1,167 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "@/hooks/useAuth";
-import { Card } from "@/components/ui/card";
-import { Switch } from "@/components/ui/switch";
+import { useState } from "react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Bell, Volume2, Moon, Shield } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Bell, Moon, Volume2, Lock } from "lucide-react";
+import { useSettings } from "@/hooks/useSettings";
+import { useToast } from "@/hooks/use-toast";
 
-const Settings = () => {
-  const { user, loading } = useAuth();
-  const navigate = useNavigate();
+export default function Settings() {
+  const { settings, updateSettings, playSound } = useSettings();
+  const { toast } = useToast();
+  const [pin, setPin] = useState("");
+  const [showPinInput, setShowPinInput] = useState(false);
 
-  useEffect(() => {
-    if (!loading && !user) {
-      navigate("/parent-login");
+  const handlePinToggle = (enabled: boolean) => {
+    if (enabled) {
+      setShowPinInput(true);
+    } else {
+      updateSettings({
+        parentalControls: {
+          ...settings?.parentalControls!,
+          pinRequired: false,
+          pin: null,
+        },
+      });
+      setShowPinInput(false);
     }
-  }, [user, loading, navigate]);
+  };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handlePinSubmit = () => {
+    if (pin.length !== 4) {
+      toast({
+        title: "Invalid PIN",
+        description: "PIN must be 4 digits",
+        variant: "destructive",
+      });
+      return;
+    }
 
-  if (!user) {
-    return null;
-  }
-
-  const settings = [
-    {
-      icon: Bell,
-      label: "Push Notifications",
-      description: "Get notified about new tasks and rewards",
-    },
-    {
-      icon: Volume2,
-      label: "Sound Effects",
-      description: "Play sounds when completing tasks",
-    },
-    {
-      icon: Moon,
-      label: "Dark Mode",
-      description: "Switch to dark theme",
-    },
-    {
-      icon: Shield,
-      label: "Parental Controls",
-      description: "Manage access and restrictions",
-    },
-  ];
+    updateSettings({
+      parentalControls: {
+        ...settings?.parentalControls!,
+        pinRequired: true,
+        pin,
+      },
+    });
+    setShowPinInput(false);
+    setPin("");
+  };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <Card className="p-6 bg-white/90 backdrop-blur shadow-xl">
-        <h1 className="text-2xl font-bold mb-6">Settings</h1>
-        <div className="space-y-6">
-          {settings.map((setting) => (
-            <div key={setting.label} className="flex items-start space-x-4">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <setting.icon className="w-6 h-6 text-primary" />
-              </div>
-              <div className="flex-1">
-                <Label htmlFor={setting.label} className="text-lg font-medium">
-                  {setting.label}
-                </Label>
-                <p className="text-sm text-gray-500">{setting.description}</p>
-              </div>
-              <Switch id={setting.label} />
+    <div className="container max-w-2xl mx-auto py-8 space-y-6">
+      <h1 className="text-3xl font-bold text-primary">Settings</h1>
+      
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Bell className="w-5 h-5" />
+            Notifications
+          </CardTitle>
+          <CardDescription>Choose how you want to be notified</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <RadioGroup
+            value={settings?.notifications}
+            onValueChange={(value: "all" | "important" | "none") => 
+              updateSettings({ notifications: value })
+            }
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="all" id="all" />
+              <Label htmlFor="all">All notifications</Label>
             </div>
-          ))}
-        </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="important" id="important" />
+              <Label htmlFor="important">Important only</Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="none" id="none" />
+              <Label htmlFor="none">None</Label>
+            </div>
+          </RadioGroup>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Volume2 className="w-5 h-5" />
+            Sound Effects
+          </CardTitle>
+          <CardDescription>Toggle sound effects in the app</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <Switch
+              checked={settings?.soundEffects}
+              onCheckedChange={(checked) => {
+                updateSettings({ soundEffects: checked });
+                if (checked) playSound('click');
+              }}
+            />
+            <Label>Enable sound effects</Label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Moon className="w-5 h-5" />
+            Appearance
+          </CardTitle>
+          <CardDescription>Customize your app experience</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center space-x-2">
+            <Switch
+              checked={settings?.darkMode}
+              onCheckedChange={(checked) => updateSettings({ darkMode: checked })}
+            />
+            <Label>Dark mode</Label>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Lock className="w-5 h-5" />
+            Parental Controls
+          </CardTitle>
+          <CardDescription>Set up PIN protection for sensitive features</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="flex items-center space-x-2">
+            <Switch
+              checked={settings?.parentalControls.pinRequired}
+              onCheckedChange={handlePinToggle}
+            />
+            <Label>Enable PIN protection</Label>
+          </div>
+
+          {showPinInput && (
+            <div className="space-y-2">
+              <Label>Enter 4-digit PIN</Label>
+              <div className="flex gap-2">
+                <Input
+                  type="password"
+                  maxLength={4}
+                  pattern="[0-9]*"
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value.replace(/\D/g, ''))}
+                  className="w-32"
+                />
+                <Button onClick={handlePinSubmit}>Set PIN</Button>
+              </div>
+            </div>
+          )}
+        </CardContent>
       </Card>
     </div>
   );
-};
-
-export default Settings;
+}

@@ -427,6 +427,42 @@ export type Database = {
           },
         ]
       }
+      user_settings: {
+        Row: {
+          created_at: string
+          dark_mode: boolean | null
+          id: string
+          notifications:
+            | Database["public"]["Enums"]["notification_preference"]
+            | null
+          parental_controls: Json | null
+          sound_effects: boolean | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          dark_mode?: boolean | null
+          id: string
+          notifications?:
+            | Database["public"]["Enums"]["notification_preference"]
+            | null
+          parental_controls?: Json | null
+          sound_effects?: boolean | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          dark_mode?: boolean | null
+          id?: string
+          notifications?:
+            | Database["public"]["Enums"]["notification_preference"]
+            | null
+          parental_controls?: Json | null
+          sound_effects?: boolean | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -461,6 +497,7 @@ export type Database = {
         | "ice_cream_making"
         | "doll_dressing"
         | "daily_bonus"
+      notification_preference: "all" | "important" | "none"
       sprinkle_transaction_type: "gift" | "trade"
       task_frequency: "daily" | "weekly" | "monthly"
       validation_type:

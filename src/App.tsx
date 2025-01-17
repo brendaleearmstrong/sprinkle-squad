@@ -1,5 +1,6 @@
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { SettingsProvider } from "@/hooks/useSettings";
 import { Toaster } from "@/components/ui/toaster";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes } from "./Routes";
@@ -11,8 +12,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <AuthProvider>
-          <Routes />
-          <Toaster />
+          <SettingsProvider>
+            <Routes />
+            <Toaster />
+          </SettingsProvider>
         </AuthProvider>
       </Router>
     </QueryClientProvider>
