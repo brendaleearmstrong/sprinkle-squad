@@ -107,6 +107,51 @@ export type Database = {
           },
         ]
       }
+      sprinkle_transactions: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          message: string | null
+          receiver_id: string
+          sender_id: string
+          transaction_type: Database["public"]["Enums"]["sprinkle_transaction_type"]
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          message?: string | null
+          receiver_id: string
+          sender_id: string
+          transaction_type: Database["public"]["Enums"]["sprinkle_transaction_type"]
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          message?: string | null
+          receiver_id?: string
+          sender_id?: string
+          transaction_type?: Database["public"]["Enums"]["sprinkle_transaction_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sprinkle_transactions_receiver_id_fkey"
+            columns: ["receiver_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "sprinkle_transactions_sender_id_fkey"
+            columns: ["sender_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           completed: boolean | null
@@ -172,6 +217,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      sprinkle_transaction_type: "gift" | "trade"
       task_frequency: "daily" | "weekly" | "monthly"
     }
     CompositeTypes: {
