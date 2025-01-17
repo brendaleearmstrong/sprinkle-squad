@@ -1,7 +1,7 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureCards } from "@/components/home/FeatureCards";
 import { LoginButtons } from "@/components/home/LoginButtons";
-import { Heart, Star, Sparkles } from "lucide-react";
+import { Heart, Star, Sparkles, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -123,29 +123,43 @@ const Index = () => {
         <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8 pb-12">
           <HeroSection />
           
-          {/* Quick Access Buttons */}
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-            <Link to="/kid-login" className="group">
-              <Button
-                variant="default"
-                size="lg"
-                className="w-full bg-neon-orange hover:bg-bright-orange text-space-white font-display text-xl sm:text-2xl py-6 rounded-2xl shadow-xl transition-all duration-300 group-hover:scale-105"
-              >
-                <Star className="mr-3 h-6 w-6 animate-spin-slow" />
-                Start Your Adventure!
-              </Button>
-            </Link>
-            
-            <Link to="/parent-login" className="group">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full border-4 border-electric-purple bg-space-white text-electric-purple font-display text-xl sm:text-2xl py-6 rounded-2xl shadow-xl transition-all duration-300 group-hover:scale-105"
-              >
-                <Sparkles className="mr-3 h-6 w-6 animate-float" />
-                Parent Dashboard
-              </Button>
-            </Link>
+          {/* Quick Access Buttons - Updated for clearer user flow */}
+          <div className="mt-8 flex flex-col gap-6 max-w-2xl mx-auto">
+            {/* Kid Section */}
+            <div className="bg-gradient-to-r from-neon-orange to-hot-pink p-6 rounded-2xl shadow-xl">
+              <h3 className="text-2xl font-display text-space-white mb-4 flex items-center gap-2">
+                <Star className="h-6 w-6 animate-spin-slow" />
+                For Kids
+              </h3>
+              <Link to="/kid-login" className="group block">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="w-full bg-space-white text-neon-orange hover:bg-soft-white font-display text-xl sm:text-2xl py-6 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
+                >
+                  <Star className="mr-3 h-6 w-6 text-neon-orange group-hover:text-bright-orange" />
+                  Start Your Adventure!
+                </Button>
+              </Link>
+            </div>
+
+            {/* Parent Section */}
+            <div className="bg-gradient-to-r from-electric-purple to-neon-pink p-6 rounded-2xl shadow-xl">
+              <h3 className="text-2xl font-display text-space-white mb-4 flex items-center gap-2">
+                <Crown className="h-6 w-6 animate-float" />
+                For Parents
+              </h3>
+              <Link to="/parent-login" className="group block">
+                <Button
+                  variant="default"
+                  size="lg"
+                  className="w-full bg-space-white text-electric-purple hover:bg-soft-white font-display text-xl sm:text-2xl py-6 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
+                >
+                  <Sparkles className="mr-3 h-6 w-6 text-electric-purple group-hover:text-bright-purple" />
+                  Parent Dashboard
+                </Button>
+              </Link>
+            </div>
           </div>
 
           {/* Quick Benefits */}
