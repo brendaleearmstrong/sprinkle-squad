@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Star, Trophy, Plus, Minus, UserX, Pencil } from "lucide-react";
+import { Star, Trophy, Plus, Minus, UserX, Pencil, Smile, SmilePlus, Laugh, Happy } from "lucide-react";
 import { Kid, Task } from "@/types";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -38,6 +38,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
   const [isEditing, setIsEditing] = useState(false);
   const [editedKid, setEditedKid] = useState({ ...kid });
   const [newAvatar, setNewAvatar] = useState<File | null>(null);
+  const [selectedEmoticon, setSelectedEmoticon] = useState<string | null>(null);
   const { toast } = useToast();
 
   const calculateLevelProgress = () => {
@@ -105,14 +106,23 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setNewAvatar(e.target.files[0]);
+      setSelectedEmoticon(null); // Reset emoticon when file is selected
     }
+  };
+
+  const handleEmoticonSelect = (emoticon: string) => {
+    setSelectedEmoticon(emoticon);
+    setNewAvatar(null); // Reset file when emoticon is selected
+    setEditedKid({ ...editedKid, avatar_url: `emoticon:${emoticon}` });
   };
 
   const handleUpdateProfile = async () => {
     try {
       let avatarUrl = kid.avatar_url;
 
-      if (newAvatar) {
+      if (selectedEmoticon) {
+        avatarUrl = `emoticon:${selectedEmoticon}`;
+      } else if (newAvatar) {
         const fileExt = newAvatar.name.split('.').pop();
         const fileName = `${crypto.randomUUID()}.${fileExt}`;
         
@@ -180,22 +190,44 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
     }
   };
 
+  const renderAvatar = () => {
+    if (kid.avatar_url?.startsWith('emoticon:')) {
+      const emoticon = kid.avatar_url.split(':')[1];
+      switch (emoticon) {
+        case 'smile':
+          return <Smile className="w-8 h-8 text-hot-pink" />;
+        case 'smile-plus':
+          return <SmilePlus className="w-8 h-8 text-hot-pink" />;
+        case 'laugh':
+          return <Laugh className="w-8 h-8 text-hot-pink" />;
+        case 'happy':
+          return <Happy className="w-8 h-8 text-hot-pink" />;
+        default:
+          return null;
+      }
+    } else if (kid.avatar_url) {
+      return (
+        <img 
+          src={kid.avatar_url} 
+          alt={kid.username} 
+          className="w-8 h-8 rounded-full object-cover"
+        />
+      );
+    } else {
+      return (
+        <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+          {kid.username[0].toUpperCase()}
+        </div>
+      );
+    }
+  };
+
   return (
     <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
       <CardHeader className="bg-gradient-to-r from-neon-pink to-hot-pink">
         <CardTitle className="text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {kid.avatar_url ? (
-              <img 
-                src={kid.avatar_url} 
-                alt={kid.username} 
-                className="w-8 h-8 rounded-full object-cover"
-              />
-            ) : (
-              <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                {kid.username[0].toUpperCase()}
-              </div>
-            )}
+            {renderAvatar()}
             <span>{kid.username}</span>
           </div>
           <div className="flex items-center gap-2">
@@ -294,18 +326,53 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
             </div>
             <div>
               <label className="font-body text-gray-700">Profile Picture</label>
-              <div className="mt-1 flex items-center gap-4">
+              <div className="mt-1 space-y-4">
                 <Input
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
                   className="flex-1"
                 />
-                {(newAvatar || kid.avatar_url) && (
+                <div className="text-sm text-gray-600">Or choose an emoticon:</div>
+                <div className="flex gap-4 justify-center">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className={`hover:bg-pink-50 ${selectedEmoticon === 'smile' ? 'border-hot-pink' : ''}`}
+                    onClick={() => handleEmoticonSelect('smile')}
+                  >
+                    <Smile className="w-6 h-6 text-hot-pink" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className={`hover:bg-pink-50 ${selectedEmoticon === 'smile-plus' ? 'border-hot-pink' : ''}`}
+                    onClick={() => handleEmoticonSelect('smile-plus')}
+                  >
+                    <SmilePlus className="w-6 h-6 text-hot-pink" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className={`hover:bg-pink-50 ${selectedEmoticon === 'laugh' ? 'border-hot-pink' : ''}`}
+                    onClick={() => handleEmoticonSelect('laugh')}
+                  >
+                    <Laugh className="w-6 h-6 text-hot-pink" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className={`hover:bg-pink-50 ${selectedEmoticon === 'happy' ? 'border-hot-pink' : ''}`}
+                    onClick={() => handleEmoticonSelect('happy')}
+                  >
+                    <Happy className="w-6 h-6 text-hot-pink" />
+                  </Button>
+                </div>
+                {(newAvatar || kid.avatar_url) && !selectedEmoticon && (
                   <img 
                     src={newAvatar ? URL.createObjectURL(newAvatar) : kid.avatar_url}
                     alt="Preview" 
-                    className="w-12 h-12 rounded-full object-cover"
+                    className="w-12 h-12 rounded-full object-cover mx-auto"
                   />
                 )}
               </div>
