@@ -144,16 +144,16 @@ const Index = () => {
       </div>
 
       {/* Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-lg border-t border-primary/20 p-4 z-50">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-primary/90 to-secondary/90 backdrop-blur-lg border-t border-white/20 p-4 z-50 shadow-lg">
         <div className="max-w-md mx-auto flex justify-around items-center">
           <Link to="/tasks" className="group">
             <Button
               variant="ghost"
               size="icon"
-              className="flex flex-col items-center gap-1 hover:bg-primary/10"
+              className="flex flex-col items-center gap-2 hover:bg-white/20 transition-colors"
             >
-              <ListTodo className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-bold text-gray-700">Tasks</span>
+              <ListTodo className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-bold text-white">Tasks</span>
             </Button>
           </Link>
 
@@ -161,10 +161,10 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="flex flex-col items-center gap-1 hover:bg-primary/10"
+              className="flex flex-col items-center gap-2 hover:bg-white/20 transition-colors"
             >
-              <Gift className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-bold text-gray-700">Rewards</span>
+              <Gift className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-bold text-white">Rewards</span>
             </Button>
           </Link>
 
@@ -172,10 +172,10 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="flex flex-col items-center gap-1 hover:bg-primary/10"
+              className="flex flex-col items-center gap-2 hover:bg-white/20 transition-colors"
             >
-              <User className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-bold text-gray-700">Profile</span>
+              <User className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
+              <span className="text-sm font-bold text-white">Profile</span>
             </Button>
           </Link>
         </div>
