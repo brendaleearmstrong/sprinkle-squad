@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { UserPlus, Upload } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -112,16 +112,6 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
               value={newKid.username}
               onChange={(e) => setNewKid({ ...newKid, username: e.target.value })}
               placeholder="Enter child's name"
-            />
-          </div>
-          <div>
-            <label className="font-body text-gray-700">PIN (4 digits)</label>
-            <Input
-              type="password"
-              maxLength={4}
-              value={newKid.pin}
-              onChange={(e) => setNewKid({ ...newKid, pin: e.target.value })}
-              placeholder="****"
             />
           </div>
           <div>

@@ -40,6 +40,23 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
   const [newAvatar, setNewAvatar] = useState<File | null>(null);
   const { toast } = useToast();
 
+  const calculateLevelProgress = () => {
+    if (!kid.level_points_required || !kid.total_points) return 0;
+    const previousLevelPoints = kid.level_number === 1 ? 0 : 
+      kid.level_number === 2 ? 101 :
+      kid.level_number === 3 ? 301 :
+      kid.level_number === 4 ? 601 :
+      kid.level_number === 5 ? 1001 :
+      kid.level_number === 6 ? 1501 :
+      kid.level_number === 7 ? 2001 :
+      kid.level_number === 8 ? 3001 :
+      kid.level_number === 9 ? 4001 : 5001;
+    
+    const progress = ((kid.total_points - previousLevelPoints) / 
+      (kid.level_points_required - previousLevelPoints)) * 100;
+    return Math.min(Math.max(progress, 0), 100);
+  };
+
   const handleSprinkleTransaction = async (type: 'add' | 'remove') => {
     try {
       const { data: userData } = await supabase.auth.getUser();
@@ -165,7 +182,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
 
   return (
     <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
-      <CardHeader className="bg-gradient-to-r from-electric-blue to-bright-blue">
+      <CardHeader className="bg-gradient-to-r from-electric-purple to-soft-purple">
         <CardTitle className="text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
             {kid.avatar_url ? (
@@ -207,17 +224,17 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
 
       <CardContent className="p-6">
         <div className="space-y-4">
-          <div className="bg-soft-cream rounded-lg p-4">
+          <div className="bg-soft-white rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <Trophy className="text-candy-yellow h-6 w-6" />
-                <span className="font-fredoka text-xl">{kid.level_name}</span>
+                <Trophy className="text-electric-purple h-6 w-6" />
+                <span className="font-display text-xl">{kid.level_name}</span>
               </div>
               <span className="text-sm text-gray-500">Level {kid.level_number}</span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
               <div 
-                className="bg-gradient-to-r from-candy-yellow to-mint-green h-2.5 rounded-full transition-all duration-500"
+                className="bg-gradient-to-r from-electric-purple to-soft-purple h-2.5 rounded-full transition-all duration-500"
                 style={{ width: `${calculateLevelProgress()}%` }}
               />
             </div>
@@ -227,7 +244,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
             </div>
           </div>
 
-          <div className="bg-soft-cream rounded-lg p-4">
+          <div className="bg-soft-white rounded-lg p-4">
             <div className="flex gap-2">
               <Input
                 type="number"
