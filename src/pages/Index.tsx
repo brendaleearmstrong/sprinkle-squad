@@ -284,8 +284,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="bg-deep-purple text-space-white py-8">
+        {/* Static Footer with hot pink background */}
+        <footer className="w-full bg-gradient-to-r from-neon-pink to-hot-pink text-space-white py-8">
           <div className="container mx-auto px-4">
             <div className="text-center">
               <p className="text-space-white/90 text-sm">
