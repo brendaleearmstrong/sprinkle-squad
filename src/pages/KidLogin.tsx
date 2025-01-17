@@ -18,35 +18,52 @@ const KidLogin = () => {
     e.preventDefault();
     
     try {
-      const { data, error } = await supabase
-        .from("kids")
-        .select("*")
+      // First, find the profile with matching username
+      const { data: profileData, error: profileError } = await supabase
+        .from("profiles")
+        .select("id, username")
         .eq("username", username)
-        .eq("pin", pin)
         .single();
 
-      if (error) throw error;
-
-      if (data) {
-        localStorage.setItem("kidSession", JSON.stringify(data));
-        
-        toast({
-          title: "Welcome back! 🌟",
-          description: `Ready for some fun activities, ${data.username}?`,
-        });
-        
-        navigate("/kid-dashboard");
-      } else {
-        toast({
-          title: "Oops!",
-          description: "Username or PIN is incorrect",
-          variant: "destructive",
-        });
+      if (profileError) {
+        throw new Error("Username not found");
       }
-    } catch (error) {
+
+      // Check if this profile belongs to a kid (sprinkler) by checking parent_kid_relationships
+      const { data: relationshipData, error: relationshipError } = await supabase
+        .from("parent_kid_relationships")
+        .select("kid_id")
+        .eq("kid_id", profileData.id)
+        .single();
+
+      if (relationshipError) {
+        throw new Error("This account is not a Sprinkler account");
+      }
+
+      // Sign in with magic link (since kids don't have passwords)
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: `${username}@sprinkler.local`,
+        password: pin,
+      });
+
+      if (signInError) {
+        throw signInError;
+      }
+
+      // Store the profile data in local storage
+      localStorage.setItem("sprinklerProfile", JSON.stringify(profileData));
+      
       toast({
-        title: "Error",
-        description: "Something went wrong. Please try again!",
+        title: "Welcome back! 🌟",
+        description: `Ready for some fun activities, ${profileData.username}?`,
+      });
+      
+      navigate("/kid-dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      toast({
+        title: "Oops!",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again!",
         variant: "destructive",
       });
     }
