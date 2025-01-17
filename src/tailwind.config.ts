@@ -19,24 +19,34 @@ export default {
     },
     extend: {
       colors: {
-        // Primary Colors
+        // Ice Cream & Dessert Theme Colors
         primary: {
-          DEFAULT: "#ff8dc7",
+          DEFAULT: "#FF6B8B", // Strawberry ice cream
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "#d5a6ff",
+          DEFAULT: "#64C4FF", // Bubblegum ice cream
           foreground: "hsl(var(--secondary-foreground))",
         },
-        // Pastel Colors
-        "soft-cream": "#FFF5E6",
-        "cotton-candy": "#FFE5F1",
-        "pastel-sky": "#E5F0FF",
-        "sprinkle-pink": "#FFB5D8",
-        "cupcake-blue": "#B5E5FF",
-        "mint-green": "#B5FFD8",
-        "candy-yellow": "#FFE5B5",
-        "lavender-purple": "#E5B5FF",
+        // Dessert-inspired Colors
+        "vanilla-cream": "#FFF8E7",
+        "chocolate-swirl": "#8B4513",
+        "mint-chip": "#98FF98",
+        "berry-blast": "#FF69B4",
+        "caramel-drizzle": "#FFB347",
+        "sprinkle-rainbow": {
+          red: "#FF5252",
+          orange: "#FFB74D",
+          yellow: "#FFE082",
+          green: "#81C784",
+          blue: "#64B5F6",
+          purple: "#BA68C8",
+        },
+        // Ice Cream Shop Colors
+        "waffle-cone": "#DEB887",
+        "whipped-cream": "#FFFAFA",
+        "cherry-top": "#FF1744",
+        "cookie-crumble": "#8D6E63",
         // Semantic Colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -96,6 +106,15 @@ export default {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        "drip": {
+          "0%": { transform: "scaleY(0)", opacity: "1" },
+          "100%": { transform: "scaleY(1)", opacity: "0" },
+        },
+        "swirl": {
+          "0%": { transform: "rotate(0deg) scale(1)" },
+          "50%": { transform: "rotate(180deg) scale(1.2)" },
+          "100%": { transform: "rotate(360deg) scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -103,6 +122,8 @@ export default {
         "sprinkle-pop": "sprinkle-pop 0.5s ease-out forwards",
         "float": "float 3s ease-in-out infinite",
         "spin-slow": "spin-slow 3s linear infinite",
+        "drip": "drip 2s ease-in-out infinite",
+        "swirl": "swirl 3s ease-in-out infinite",
       },
     },
   },
