@@ -141,7 +141,7 @@ const ParentSignup = () => {
                     </div>
                     <p className="text-sm text-gray-600 mt-2">Perfect for one child's sprinkle journey</p>
                     <div className="mt-2 flex items-center gap-2">
-                      <span className="text-xl font-bold text-primary">$9.99</span>
+                      <span className="text-xl font-bold text-primary">$4.99</span>
                       <span className="text-gray-500">/month</span>
                     </div>
                   </Label>
@@ -170,7 +170,7 @@ const ParentSignup = () => {
                       Perfect for families who want to share sprinkles and rewards
                     </p>
                     <div className="mt-2 flex items-center gap-2">
-                      <span className="text-xl font-bold text-primary">$14.99</span>
+                      <span className="text-xl font-bold text-primary">$9.99</span>
                       <span className="text-gray-500">/month</span>
                     </div>
                     <ul className="mt-3 space-y-2 text-sm text-gray-600">
