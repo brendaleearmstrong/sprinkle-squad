@@ -20,16 +20,22 @@ export const KidCard = ({ kid, tasks }: KidCardProps) => {
         <div className="flex items-center gap-2 mb-4">
           <Star className="text-candy-yellow h-6 w-6" />
           <span className="font-fredoka text-2xl">{kid.total_points} points</span>
+          <span className="text-sm text-gray-500">Level {kid.level}</span>
         </div>
         <div className="space-y-2">
           {tasks
-            .filter((task) => task.user_id === kid.id && !task.completed)
+            .filter((task) => task.kid_id === kid.id && !task.completed)
             .map((task) => (
               <div
                 key={task.id}
                 className="flex justify-between items-center p-2 bg-soft-cream rounded-lg"
               >
-                <span className="font-comic">{task.title}</span>
+                <div className="flex flex-col">
+                  <span className="font-comic">{task.title}</span>
+                  {task.description && (
+                    <span className="text-sm text-gray-500">{task.description}</span>
+                  )}
+                </div>
                 <span className="font-fredoka text-sprinkle-pink">
                   {task.points} <Star className="w-4 h-4 inline" />
                 </span>

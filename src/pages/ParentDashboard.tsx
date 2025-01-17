@@ -88,8 +88,8 @@ const ParentDashboard = () => {
       const transformedKids: Kid[] = data.map((item: any) => ({
         id: item.kid.id,
         username: item.kid.username,
-        total_points: item.kid.total_points,
-        level: item.kid.level
+        total_points: item.kid.total_points || 0,
+        level: item.kid.level || 1
       }));
       setKids(transformedKids);
     }
