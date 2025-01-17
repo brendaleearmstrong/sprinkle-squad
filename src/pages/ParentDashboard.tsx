@@ -84,14 +84,15 @@ const ParentDashboard = () => {
       return;
     }
 
-    const transformedKids: Kid[] = data?.map((item: { kid: Kid }) => ({
-      id: item.kid.id,
-      username: item.kid.username,
-      total_points: item.kid.total_points,
-      level: item.kid.level
-    })) || [];
-
-    setKids(transformedKids);
+    if (data) {
+      const transformedKids: Kid[] = data.map((item: { kid: Kid }) => ({
+        id: item.kid.id,
+        username: item.kid.username,
+        total_points: item.kid.total_points,
+        level: item.kid.level
+      }));
+      setKids(transformedKids);
+    }
   };
 
   const fetchTasks = async () => {
