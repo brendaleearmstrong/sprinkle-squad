@@ -49,13 +49,13 @@ export const AddTaskDialog = ({ onTaskAdded }: AddTaskDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md">
+        <Button className="bg-soft-purple hover:bg-soft-purple/90 text-white font-semibold shadow-md">
           <Plus className="mr-2 h-4 w-4" /> Add Task
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-display text-2xl text-electric-purple">
+          <DialogTitle className="font-display text-2xl text-soft-purple">
             Add New Task
           </DialogTitle>
         </DialogHeader>
@@ -87,7 +87,7 @@ export const AddTaskDialog = ({ onTaskAdded }: AddTaskDialogProps) => {
           </div>
           <Button 
             onClick={addTask} 
-            className="w-full bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
+            className="w-full bg-soft-purple hover:bg-soft-purple/90 text-white font-semibold shadow-md"
           >
             Add Task
           </Button>

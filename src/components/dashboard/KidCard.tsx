@@ -182,7 +182,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
 
   return (
     <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
-      <CardHeader className="bg-gradient-to-r from-electric-purple to-soft-purple">
+      <CardHeader className="bg-gradient-to-r from-neon-pink to-hot-pink">
         <CardTitle className="text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
             {kid.avatar_url ? (
@@ -223,7 +223,6 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
       </CardHeader>
 
       <CardContent className="p-6">
-        <div className="space-y-4">
           <div className="bg-soft-white rounded-lg p-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
@@ -244,31 +243,30 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
             </div>
           </div>
 
-          <div className="bg-soft-white rounded-lg p-4">
-            <div className="flex gap-2">
-              <Input
-                type="number"
-                min="0"
-                value={sprinkleAmount}
-                onChange={(e) => setSprinkleAmount(e.target.value)}
-                placeholder="Amount"
-                className="w-24"
-              />
-              <Button
-                size="sm"
-                onClick={() => handleSprinkleTransaction('add')}
-                className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
-              >
-                <Plus className="w-4 h-4 mr-1" /> Add
-              </Button>
-              <Button
-                size="sm"
-                onClick={() => handleSprinkleTransaction('remove')}
-                className="bg-deep-purple hover:bg-deep-purple/90 text-white font-semibold shadow-md"
-              >
-                <Minus className="w-4 h-4 mr-1" /> Remove
-              </Button>
-            </div>
+        <div className="bg-soft-white rounded-lg p-4">
+          <div className="flex gap-2">
+            <Input
+              type="number"
+              min="0"
+              value={sprinkleAmount}
+              onChange={(e) => setSprinkleAmount(e.target.value)}
+              placeholder="Amount"
+              className="w-24"
+            />
+            <Button
+              size="sm"
+              onClick={() => handleSprinkleTransaction('add')}
+              className="bg-hot-pink hover:bg-hot-pink/90 text-white font-semibold shadow-md"
+            >
+              <Plus className="w-4 h-4 mr-1" /> Add
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => handleSprinkleTransaction('remove')}
+              className="bg-neon-pink hover:bg-neon-pink/90 text-white font-semibold shadow-md"
+            >
+              <Minus className="w-4 h-4 mr-1" /> Remove
+            </Button>
           </div>
         </div>
       </CardContent>
