@@ -37,6 +37,23 @@ const ParentDashboard = () => {
         navigate("/parent-login");
         return;
       }
+
+      // Verify user is a parent
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_parent')
+        .eq('id', session.user.id)
+        .maybeSingle();
+
+      if (!profile?.is_parent) {
+        toast({
+          title: "Unauthorized",
+          description: "This dashboard is only for parents",
+          variant: "destructive",
+        });
+        navigate("/kid-dashboard");
+        return;
+      }
     } catch (error) {
       toast({
         title: "Authentication Error",
@@ -62,8 +79,6 @@ const ParentDashboard = () => {
   };
 
   const fetchChildren = async () => {
-    if (!supabase) return;
-    
     const { data: userData } = await supabase.auth.getUser();
     if (!userData.user) return;
 
@@ -77,7 +92,8 @@ const ParentDashboard = () => {
           level_number,
           level_name,
           level_points_required,
-          avatar_url
+          avatar_url,
+          birthdate
         )
       `)
       .eq("parent_id", userData.user.id);
@@ -99,22 +115,22 @@ const ParentDashboard = () => {
         level_number: item.kid.level_number || 1,
         level_name: item.kid.level_name || 'Sprinkle Starter',
         level_points_required: item.kid.level_points_required || 100,
-        avatar_url: item.kid.avatar_url
+        avatar_url: item.kid.avatar_url,
+        birthdate: item.kid.birthdate
       }));
       setChildren(transformedChildren);
     }
   };
 
   const fetchTasks = async () => {
-    if (!supabase) return;
-    
     const { data: userData } = await supabase.auth.getUser();
     if (!userData.user) return;
 
     const { data, error } = await supabase
       .from("tasks")
       .select("*")
-      .eq("parent_id", userData.user.id);
+      .eq("parent_id", userData.user.id)
+      .order('created_at', { ascending: false });
 
     if (error) {
       toast({
