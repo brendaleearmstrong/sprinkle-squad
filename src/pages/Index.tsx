@@ -8,11 +8,12 @@ import { Link } from "react-router-dom";
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden">
-      {/* Animated Background Sprinkles */}
+      {/* Enhanced Animated Background Sprinkles */}
       <div className="fixed inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {/* Static Sprinkles */}
+        {[...Array(30)].map((_, i) => (
           <div
-            key={i}
+            key={`static-${i}`}
             className="absolute animate-sprinkle-pop"
             style={{
               left: `${Math.random() * 100}%`,
@@ -21,39 +22,39 @@ const Index = () => {
               animationDuration: `${2 + Math.random() * 3}s`,
             }}
           >
-            {Math.random() > 0.7 ? (
+            {Math.random() > 0.6 ? (
               <Star 
                 className={`w-2 h-2 sm:w-3 sm:h-3 ${[
-                  'text-berry-blast',
-                  'text-mint-chip',
-                  'text-cherry-top',
-                  'text-caramel-drizzle',
-                  'text-sprinkle-rainbow-blue',
-                  'text-sprinkle-rainbow-purple'
+                  'text-neon-pink',
+                  'text-hot-pink',
+                  'text-neon-orange',
+                  'text-bright-orange',
+                  'text-electric-purple',
+                  'text-neon-green'
                 ][Math.floor(Math.random() * 6)]}`}
               />
-            ) : Math.random() > 0.4 ? (
+            ) : Math.random() > 0.3 ? (
               <Heart 
                 className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${[
-                  'text-berry-blast',
-                  'text-mint-chip',
-                  'text-cherry-top',
-                  'text-caramel-drizzle',
-                  'text-sprinkle-rainbow-blue',
-                  'text-sprinkle-rainbow-purple'
+                  'text-neon-pink',
+                  'text-hot-pink',
+                  'text-neon-orange',
+                  'text-bright-orange',
+                  'text-electric-purple',
+                  'text-soft-purple'
                 ][Math.floor(Math.random() * 6)]}`}
               />
             ) : (
               <div 
                 className={`
-                  w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shadow-lg
+                  w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shadow-lg animate-pulse
                   ${[
-                    'bg-berry-blast',
-                    'bg-mint-chip',
-                    'bg-cherry-top',
-                    'bg-caramel-drizzle',
-                    'bg-sprinkle-rainbow-blue',
-                    'bg-sprinkle-rainbow-purple'
+                    'bg-neon-pink',
+                    'bg-hot-pink',
+                    'bg-neon-orange',
+                    'bg-bright-orange',
+                    'bg-electric-purple',
+                    'bg-neon-green'
                   ][Math.floor(Math.random() * 6)]}
                 `}
                 style={{
@@ -61,6 +62,58 @@ const Index = () => {
                 }}
               />
             )}
+          </div>
+        ))}
+
+        {/* Shooting Sprinkles */}
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={`shooting-${i}`}
+            className="absolute animate-[shooting_3s_linear_infinite]"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 10}s`,
+            }}
+          >
+            <Sparkles 
+              className={`w-3 h-3 sm:w-4 sm:h-4 transform -rotate-45 ${[
+                'text-neon-pink',
+                'text-hot-pink',
+                'text-neon-orange',
+                'text-bright-orange',
+                'text-electric-purple',
+                'text-neon-green'
+              ][Math.floor(Math.random() * 6)]}`}
+            />
+          </div>
+        ))}
+
+        {/* Floating Sprinkles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={`floating-${i}`}
+            className="absolute animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${4 + Math.random() * 4}s`,
+            }}
+          >
+            <div 
+              className={`
+                w-2 h-2 sm:w-3 sm:h-3 rounded-full shadow-lg animate-pulse
+                ${[
+                  'bg-neon-pink/50',
+                  'bg-hot-pink/50',
+                  'bg-neon-orange/50',
+                  'bg-bright-orange/50',
+                  'bg-electric-purple/50',
+                  'bg-neon-green/50'
+                ][Math.floor(Math.random() * 6)]}
+              `}
+            />
           </div>
         ))}
       </div>

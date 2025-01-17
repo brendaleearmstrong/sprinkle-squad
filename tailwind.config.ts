@@ -101,6 +101,17 @@ export default {
           "0%": { transform: "rotate(0deg)" },
           "100%": { transform: "rotate(360deg)" },
         },
+        "shooting": {
+          "0%": { 
+            transform: "translateX(0) translateY(0)",
+            opacity: "1"
+          },
+          "70%": { opacity: "1" },
+          "100%": { 
+            transform: "translateX(100vw) translateY(-100vh)",
+            opacity: "0"
+          }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -108,6 +119,7 @@ export default {
         "sprinkle-pop": "sprinkle-pop 0.5s ease-out forwards",
         "float": "float 3s ease-in-out infinite",
         "spin-slow": "spin-slow 3s linear infinite",
+        "shooting": "shooting 3s linear infinite",
       },
     },
   },
