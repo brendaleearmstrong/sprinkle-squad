@@ -23,7 +23,7 @@ export const LoginButtons = () => {
           className="w-full border-4 border-electric-blue bg-gradient-to-r from-space-white to-soft-white backdrop-blur-sm text-electric-blue hover:text-space-white hover:bg-gradient-to-r hover:from-electric-blue hover:to-bright-blue font-display text-2xl py-8 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
         >
           <Star className="mr-3 h-7 w-7 group-hover:rotate-12 transition-transform duration-300" />
-          Kid Login
+          Sprinkle Login
         </Button>
       </Link>
     </div>
