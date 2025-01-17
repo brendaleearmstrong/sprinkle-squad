@@ -7,21 +7,21 @@ export const FeatureCards = () => {
       bgIcon: <Cake className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8 transform rotate-12" />,
       title: "Fun Challenges",
       description: "Complete tasks styled as delicious dessert flavors!",
-      gradient: "from-berry-blast to-mint-chip"
+      gradient: "from-primary to-soft-pink"
     },
     {
       icon: <PartyPopper className="w-8 h-8" />,
       bgIcon: <Cookie className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8 transform -rotate-12" />,
       title: "Earn Rewards",
       description: "Collect sprinkle points and unlock sweet prizes!",
-      gradient: "from-cherry-top to-caramel-drizzle"
+      gradient: "from-secondary to-soft-blue"
     },
     {
       icon: <Crown className="w-8 h-8" />,
       bgIcon: <IceCream className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8" />,
       title: "Level Up",
       description: "Watch your dessert tower grow as you progress!",
-      gradient: "from-mint-chip to-berry-blast"
+      gradient: "from-soft-purple to-soft-yellow"
     }
   ];
 
