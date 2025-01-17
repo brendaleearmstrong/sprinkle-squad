@@ -87,7 +87,10 @@ export const useAuthActions = () => {
     }
 
     try {
-      const { data, error } = await supabase.auth.signUp({
+      console.log('Starting signup process with metadata:', metadata);
+
+      // First, create the auth user
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -98,21 +101,31 @@ export const useAuthActions = () => {
         },
       });
 
-      if (error) throw error;
+      if (signUpError) throw signUpError;
 
-      if (data?.user) {
-        // Create or update profile
-        const { error: profileError } = await supabase
-          .from('profiles')
-          .upsert({
-            id: data.user.id,
-            email: email,
-            is_parent: isParent,
-            username: metadata?.username,
-          });
-
-        if (profileError) throw profileError;
+      if (!authData.user) {
+        throw new Error('User creation failed');
       }
+
+      console.log('Auth user created successfully:', authData.user.id);
+
+      // Now create the profile using the RLS policy
+      const { error: profileError } = await supabase
+        .from('profiles')
+        .insert({
+          id: authData.user.id,
+          email: email,
+          is_parent: isParent,
+          username: metadata?.username,
+        })
+        .single();
+
+      if (profileError) {
+        console.error('Profile creation error:', profileError);
+        throw profileError;
+      }
+
+      console.log('Profile created successfully');
 
       toast({
         title: "Welcome to SprinkleSquad! ✨",
@@ -122,6 +135,7 @@ export const useAuthActions = () => {
       // Redirect to dashboard based on user type
       navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
+      console.error('Signup error:', error);
       toast({
         title: "Signup failed",
         description: getErrorMessage(error as AuthError),
