@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Star, Users, Sparkles, Heart, ListTodo, Gift, User } from "lucide-react";
+import { Star, Users, Sparkles, Heart, ListTodo, Gift, User, PiggyBank, Trophy, Award } from "lucide-react";
 
 const Index = () => {
   return (
@@ -36,29 +36,46 @@ const Index = () => {
               🍨 SprinkleSquad
             </h1>
           </div>
-          <p className="text-xl md:text-2xl font-body text-gray-700 max-w-2xl mx-auto leading-relaxed font-medium">
+          <p className="text-xl md:text-2xl font-body text-gray-700 max-w-2xl mx-auto leading-relaxed font-semibold">
             Turn everyday tasks into a sweet adventure! Collect magical ✨sprinkles✨ and watch your rewards stack up like a perfect ice cream sundae! 
           </p>
         </div>
 
-        {/* Sprinkle jar animation */}
-        <div className="relative w-32 h-32 mx-auto">
-          <div className="absolute inset-0 bg-white/30 backdrop-blur-sm rounded-full border-2 border-white/50 overflow-hidden">
-            <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-primary/40 to-secondary/40 animate-float" />
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="absolute animate-float"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 2}s`,
-                }}
-              >
-                <Star className="w-3 h-3 text-primary animate-spin-slow" />
+        {/* Level System Preview */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {[
+            {
+              icon: <Trophy className="w-8 h-8" />,
+              title: "Level Up",
+              description: "Complete tasks to gain XP and unlock new levels!"
+            },
+            {
+              icon: <PiggyBank className="w-8 h-8" />,
+              title: "Bank Sprinkles",
+              description: "Save your sprinkles for bigger rewards!"
+            },
+            {
+              icon: <Award className="w-8 h-8" />,
+              title: "Earn Rewards",
+              description: "Trade sprinkles for awesome prizes!"
+            }
+          ].map((feature, index) => (
+            <div
+              key={index}
+              className="group bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20 hover:border-primary/20 relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/0" />
+              <div className="relative">
+                <div className="bg-gradient-to-br from-primary to-secondary p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                  {feature.icon}
+                </div>
+                <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                  {feature.title}
+                </h3>
+                <p className="font-body text-lg text-gray-700 font-medium">{feature.description}</p>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
 
         {/* Login buttons with sprinkle theme */}
@@ -67,7 +84,7 @@ const Index = () => {
             <Button
               variant="default"
               size="lg"
-              className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-semibold"
+              className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-bold"
             >
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==')] opacity-10" />
               <Users className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
@@ -79,7 +96,7 @@ const Index = () => {
             <Button
               variant="outline"
               size="lg"
-              className="w-full border-2 border-secondary/30 bg-white/80 backdrop-blur-sm text-secondary hover:bg-secondary hover:text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-semibold"
+              className="w-full border-2 border-secondary/30 bg-white/90 backdrop-blur-sm text-secondary hover:bg-secondary hover:text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-bold"
             >
               <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==')] opacity-5" />
               <Star className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
@@ -93,18 +110,18 @@ const Index = () => {
           {[
             {
               icon: <Star className="w-8 h-8" />,
-              title: "Collect Sprinkles",
-              description: "Complete tasks to fill your sprinkle jar!"
+              title: "Daily Tasks",
+              description: "Complete fun challenges every day!"
             },
             {
               icon: <Sparkles className="w-8 h-8" />,
-              title: "Sweet Rewards",
-              description: "Trade sprinkles for awesome treats!"
+              title: "Special Events",
+              description: "Join special events for bonus sprinkles!"
             },
             {
               icon: <Heart className="w-8 h-8" />,
-              title: "Level Up",
-              description: "Watch your sundae grow bigger!"
+              title: "Share Joy",
+              description: "Send sprinkles to friends and family!"
             }
           ].map((feature, index) => (
             <div
@@ -116,10 +133,10 @@ const Index = () => {
                 <div className="bg-gradient-to-br from-primary to-secondary p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="font-display text-xl font-semibold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="font-body text-gray-700 font-medium">{feature.description}</p>
+                <p className="font-body text-lg text-gray-700 font-medium">{feature.description}</p>
               </div>
             </div>
           ))}
@@ -136,7 +153,7 @@ const Index = () => {
               className="flex flex-col items-center gap-1 hover:bg-primary/10"
             >
               <ListTodo className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium text-gray-700">Tasks</span>
+              <span className="text-xs font-bold text-gray-700">Tasks</span>
             </Button>
           </Link>
 
@@ -147,7 +164,7 @@ const Index = () => {
               className="flex flex-col items-center gap-1 hover:bg-primary/10"
             >
               <Gift className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium text-gray-700">Rewards</span>
+              <span className="text-xs font-bold text-gray-700">Rewards</span>
             </Button>
           </Link>
 
@@ -158,7 +175,7 @@ const Index = () => {
               className="flex flex-col items-center gap-1 hover:bg-primary/10"
             >
               <User className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-xs font-medium text-gray-700">Profile</span>
+              <span className="text-xs font-bold text-gray-700">Profile</span>
             </Button>
           </Link>
         </div>
