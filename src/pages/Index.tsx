@@ -32,14 +32,14 @@ const Index = () => {
               animationDuration: `${2 + Math.random() * 3}s`,
             }}
           >
-            {/* Randomly choose between sprinkle, star, and heart shapes */}
+            {/* Randomly choose between sprinkle shapes */}
             {Math.random() > 0.7 ? (
               <Star 
                 className={`w-3 h-3 ${[
-                  'text-sprinkle-rainbow-red',
-                  'text-sprinkle-rainbow-orange',
-                  'text-sprinkle-rainbow-yellow',
-                  'text-sprinkle-rainbow-green',
+                  'text-berry-blast',
+                  'text-mint-chip',
+                  'text-cherry-top',
+                  'text-caramel-drizzle',
                   'text-sprinkle-rainbow-blue',
                   'text-sprinkle-rainbow-purple'
                 ][Math.floor(Math.random() * 6)]}`}
@@ -47,10 +47,10 @@ const Index = () => {
             ) : Math.random() > 0.4 ? (
               <Heart 
                 className={`w-2 h-2 ${[
-                  'text-sprinkle-rainbow-red',
-                  'text-sprinkle-rainbow-orange',
-                  'text-sprinkle-rainbow-yellow',
-                  'text-sprinkle-rainbow-green',
+                  'text-berry-blast',
+                  'text-mint-chip',
+                  'text-cherry-top',
+                  'text-caramel-drizzle',
                   'text-sprinkle-rainbow-blue',
                   'text-sprinkle-rainbow-purple'
                 ][Math.floor(Math.random() * 6)]}`}
@@ -60,10 +60,10 @@ const Index = () => {
                 className={`
                   w-2 h-2 rounded-full shadow-lg
                   ${[
-                    'bg-sprinkle-rainbow-red',
-                    'bg-sprinkle-rainbow-orange',
-                    'bg-sprinkle-rainbow-yellow',
-                    'bg-sprinkle-rainbow-green',
+                    'bg-berry-blast',
+                    'bg-mint-chip',
+                    'bg-cherry-top',
+                    'bg-caramel-drizzle',
                     'bg-sprinkle-rainbow-blue',
                     'bg-sprinkle-rainbow-purple'
                   ][Math.floor(Math.random() * 6)]}
@@ -79,7 +79,7 @@ const Index = () => {
 
       {/* Hero Section */}
       <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 mt-12">
-        <Logo />
+        <Logo className="w-48 h-48 mx-auto" />
         <div className="relative inline-block">
           <div className="absolute -inset-4 bg-gradient-to-r from-berry-blast via-mint-chip to-cherry-top rounded-full blur-xl opacity-70 animate-pulse" />
           <h1 className="relative text-4xl md:text-6xl font-display font-bold text-chocolate-swirl">
@@ -87,7 +87,7 @@ const Index = () => {
           </h1>
         </div>
         <p className="text-xl md:text-2xl font-body text-chocolate-swirl/80 max-w-2xl mx-auto leading-relaxed">
-          Collect magical ✨sprinkles✨ and watch your rewards stack up like the most delicious ice cream tower!
+          Collect magical ✨sprinkles✨ and watch your rewards stack up like the most delicious dessert tower!
         </p>
       </div>
 
@@ -98,7 +98,7 @@ const Index = () => {
             icon: <IceCream className="w-8 h-8" />,
             bgIcon: <Cake className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8 transform rotate-12" />,
             title: "Fun Challenges",
-            description: "Complete tasks styled as delicious ice cream flavors!",
+            description: "Complete tasks styled as delicious dessert flavors!",
             gradient: "from-berry-blast/20 to-mint-chip/20"
           },
           {
@@ -112,7 +112,7 @@ const Index = () => {
             icon: <Crown className="w-8 h-8" />,
             bgIcon: <IceCream className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8" />,
             title: "Level Up",
-            description: "Watch your ice cream tower grow as you progress!",
+            description: "Watch your dessert tower grow as you progress!",
             gradient: "from-mint-chip/20 to-berry-blast/20"
           }
         ].map((feature, index) => (
@@ -133,7 +133,7 @@ const Index = () => {
       </div>
 
       {/* Login Buttons */}
-      <div className="grid gap-6 md:grid-cols-2 max-w-2xl mx-auto mt-12">
+      <div className="grid gap-6 md:grid-cols-2 max-w-2xl mx-auto mt-12 mb-24">
         <Link to="/parent-login" className="group">
           <Button
             variant="default"
@@ -155,51 +155,6 @@ const Index = () => {
             Kid Login
           </Button>
         </Link>
-      </div>
-
-      {/* Features Sections */}
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16 mb-24">
-        <div className="bg-whipped-cream/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-caramel-drizzle/20">
-          <h3 className="font-display text-2xl font-bold mb-4 flex items-center gap-2 text-chocolate-swirl">
-            <Crown className="w-6 h-6 text-berry-blast" />
-            For Parents
-          </h3>
-          <ul className="space-y-4">
-            <li className="flex items-center gap-3 text-chocolate-swirl">
-              <CheckCircle2 className="w-5 h-5 text-berry-blast" />
-              Create custom rewards and tasks
-            </li>
-            <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Star className="w-5 h-5 text-berry-blast" />
-              Track your kids' progress
-            </li>
-            <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Gift className="w-5 h-5 text-berry-blast" />
-              Approve and manage rewards
-            </li>
-          </ul>
-        </div>
-
-        <div className="bg-whipped-cream/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-caramel-drizzle/20">
-          <h3 className="font-display text-2xl font-bold mb-4 flex items-center gap-2 text-chocolate-swirl">
-            <IceCream className="w-6 h-6 text-mint-chip" />
-            For Kids
-          </h3>
-          <ul className="space-y-4">
-            <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Rocket className="w-5 h-5 text-mint-chip" />
-              Complete fun daily challenges
-            </li>
-            <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Trophy className="w-5 h-5 text-mint-chip" />
-              Level up and earn badges
-            </li>
-            <li className="flex items-center gap-3 text-chocolate-swirl">
-              <PartyPopper className="w-5 h-5 text-mint-chip" />
-              Redeem sprinkles for rewards
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
   );
