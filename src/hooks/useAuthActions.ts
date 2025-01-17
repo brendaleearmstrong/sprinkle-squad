@@ -29,12 +29,7 @@ export const useAuthActions = () => {
 
       if (signInError) {
         console.error('Sign in error:', signInError);
-        toast({
-          title: "Login failed",
-          description: getErrorMessage(signInError),
-          variant: "destructive",
-        });
-        return;
+        throw signInError;
       }
 
       if (!user) {
@@ -53,7 +48,7 @@ export const useAuthActions = () => {
         .from('profiles')
         .select('is_parent')
         .eq('id', user.id)
-        .maybeSingle();
+        .single();
 
       if (profileError) {
         console.error('Profile fetch error:', profileError);
@@ -65,40 +60,12 @@ export const useAuthActions = () => {
         return;
       }
 
-      if (!profile) {
-        console.log('Creating new profile for user:', user.id);
-        // Create a profile if it doesn't exist
-        const { error: createProfileError } = await supabase
-          .from('profiles')
-          .insert([
-            { 
-              id: user.id,
-              is_parent: true,
-              email: email
-            }
-          ]);
-
-        if (createProfileError) {
-          console.error('Profile creation error:', createProfileError);
-          toast({
-            title: "Profile creation failed",
-            description: "Could not create user profile",
-            variant: "destructive",
-          });
-          return;
-        }
-
-        navigate('/parent-dashboard');
-        return;
-      }
-
-      console.log('User profile found:', profile);
       toast({
         title: "Welcome back! 🌟",
         description: "Successfully logged in",
       });
       
-      navigate(profile.is_parent ? '/parent-dashboard' : '/kid-dashboard');
+      navigate(profile?.is_parent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
       console.error('Unexpected error during sign in:', error);
       toast({
@@ -134,16 +101,29 @@ export const useAuthActions = () => {
       if (error) throw error;
 
       if (data?.user) {
-        await handleProfileSetup(data.user.id, isParent, metadata);
+        // Create or update profile
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .upsert({
+            id: data.user.id,
+            email: email,
+            is_parent: isParent,
+            username: metadata?.username,
+          });
+
+        if (profileError) throw profileError;
       }
 
       toast({
         title: "Welcome to SprinkleSquad! ✨",
-        description: "Please check your email to verify your account",
+        description: "Account created successfully",
       });
+
+      // Redirect to dashboard based on user type
+      navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
       toast({
-        title: "Oops!",
+        title: "Signup failed",
         description: getErrorMessage(error as AuthError),
         variant: "destructive",
       });
@@ -171,7 +151,7 @@ export const useAuthActions = () => {
       });
     } catch (error) {
       toast({
-        title: "Oops!",
+        title: "Logout failed",
         description: getErrorMessage(error as AuthError),
         variant: "destructive",
       });
@@ -179,45 +159,4 @@ export const useAuthActions = () => {
   };
 
   return { signIn, signUp, signOut };
-};
-
-const handleProfileSetup = async (userId: string, isParent: boolean, metadata?: SignUpMetadata) => {
-  // Update parent profile
-  const { error: profileError } = await supabase
-    .from('profiles')
-    .update({
-      is_parent: isParent,
-      email: metadata?.email,
-    })
-    .eq('id', userId);
-
-  if (profileError) throw profileError;
-
-  // Create child profiles and relationships if signing up as a parent
-  if (isParent && metadata?.children) {
-    for (const child of metadata.children) {
-      // Create child profile
-      const { data: childData, error: childError } = await supabase
-        .from('profiles')
-        .insert({
-          username: child.username,
-          birthdate: child.birthdate,
-          is_parent: false,
-        })
-        .select()
-        .single();
-
-      if (childError) throw childError;
-
-      // Create parent-child relationship
-      const { error: relationError } = await supabase
-        .from('parent_kid_relationships')
-        .insert({
-          parent_id: userId,
-          kid_id: childData.id,
-        });
-
-      if (relationError) throw relationError;
-    }
-  }
 };
