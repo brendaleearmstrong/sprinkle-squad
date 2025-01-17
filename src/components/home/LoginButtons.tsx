@@ -9,7 +9,7 @@ export const LoginButtons = () => {
         <Button
           variant="default"
           size="lg"
-          className="w-full bg-chocolate-swirl hover:bg-chocolate-swirl/90 text-vanilla-cream font-display text-xl sm:text-2xl py-8 sm:py-10 rounded-xl sm:rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
+          className="w-full bg-neon-pink hover:bg-hot-pink text-space-white font-display text-xl sm:text-2xl py-8 sm:py-10 rounded-xl sm:rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
         >
           <Crown className="mr-3 h-6 w-6 sm:h-7 sm:w-7 group-hover:rotate-12 transition-transform" />
           Parent Dashboard
@@ -20,7 +20,7 @@ export const LoginButtons = () => {
         <Button
           variant="outline"
           size="lg"
-          className="w-full border-4 border-berry-blast bg-vanilla-cream/90 backdrop-blur-sm text-berry-blast hover:bg-berry-blast hover:text-vanilla-cream font-display text-xl sm:text-2xl py-8 sm:py-10 rounded-xl sm:rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
+          className="w-full border-4 border-electric-blue bg-soft-white/90 backdrop-blur-sm text-electric-blue hover:bg-electric-blue hover:text-space-white font-display text-xl sm:text-2xl py-8 sm:py-10 rounded-xl sm:rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
         >
           <Star className="mr-3 h-6 w-6 sm:h-7 sm:w-7 group-hover:rotate-12 transition-transform" />
           Kid Login

@@ -19,32 +19,32 @@ export default {
     },
     extend: {
       colors: {
-        // Ice Cream & Dessert Theme Colors
-        "vanilla-cream": "#FFF8E7",  // Light, warm cream color
-        "chocolate-swirl": "#8B4513", // Rich brown for text
-        "mint-chip": "#98FF98",
-        "berry-blast": "#FF69B4",
-        "caramel-drizzle": "#FFB347",
-        "sprinkle-rainbow": {
-          red: "#FF5252",
-          orange: "#FFB74D",
-          yellow: "#FFE082",
-          green: "#81C784",
-          blue: "#64B5F6",
-          purple: "#BA68C8",
-        },
-        // Semantic Colors
+        // New Vibrant Color Palette
+        "space-white": "#FFFFFF",
+        "soft-white": "#F8F9FA",
+        "neon-pink": "#FF1493",
+        "hot-pink": "#FF69B4",
+        "soft-pink": "#FFB6C1",
+        "electric-purple": "#9B30FF",
+        "soft-purple": "#E6E6FA",
+        "neon-orange": "#FF6B35",
+        "bright-orange": "#FF8C42",
+        "neon-green": "#39FF14",
+        "bright-blue": "#00BFFF",
+        "electric-blue": "#0066FF",
+        
+        // Semantic Colors (keep these for functionality)
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))",
+          DEFAULT: "#FF1493", // Hot pink as primary
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))",
+          DEFAULT: "#00BFFF", // Bright blue as secondary
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {

@@ -59,18 +59,18 @@
   }
 
   body {
-    @apply bg-vanilla-cream text-chocolate-swirl antialiased font-body;
+    @apply bg-soft-white text-electric-purple antialiased font-body;
     font-size: 16px;
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-wide;
+    @apply font-display font-bold tracking-wide text-neon-pink;
     line-height: 1.2;
   }
 
   p {
-    @apply font-body;
+    @apply font-body text-electric-purple;
     line-height: 1.6;
   }
 }
