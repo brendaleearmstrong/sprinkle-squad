@@ -5,14 +5,14 @@ import { Header } from "./Header";
 
 export const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-soft-white">
+    <div className="min-h-screen flex flex-col bg-soft-white">
       <Header />
-      <main className="pb-24">
-        <div className="container mx-auto px-4 py-6">
+      <main className="flex-1 overflow-y-auto">
+        <div className="container mx-auto px-4 py-6 pb-24">
           <Outlet />
         </div>
       </main>
-      <footer className="w-full bg-deep-purple text-space-white py-8 mt-auto">
+      <footer className="w-full bg-deep-purple text-space-white py-8">
         <div className="container mx-auto px-4">
           <div className="text-center">
             <p className="text-space-white/90 text-sm">
