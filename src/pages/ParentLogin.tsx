@@ -3,74 +3,96 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { Star, Sparkles } from "lucide-react";
+import { Star, Sparkles, Heart, User, LockKeyhole, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 const ParentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
   const { signIn, signUp } = useAuth();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSignUp) {
-      await signUp(email, password);
-    } else {
-      await signIn(email, password);
+    try {
+      if (isSignUp) {
+        await signUp(email, password);
+      } else {
+        await signIn(email, password);
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Oops!",
+        description: "Something went wrong. Please try again.",
+      });
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-purple via-soft-pink to-soft-blue">
+    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-purple via-soft-pink to-soft-blue overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-6 h-6 text-primary/50 animate-float">
-          <Star />
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-20 left-[10%] w-8 h-8 text-primary animate-float">
+          <Star className="w-full h-full" />
         </div>
-        <div className="absolute bottom-20 right-10 w-6 h-6 text-secondary/50 animate-float" style={{ animationDelay: "0.5s" }}>
-          <Sparkles />
+        <div className="absolute bottom-32 right-[15%] w-6 h-6 text-secondary animate-float" style={{ animationDelay: "0.5s" }}>
+          <Heart className="w-full h-full" />
+        </div>
+        <div className="absolute top-40 right-[20%] w-10 h-10 text-primary/50 animate-float" style={{ animationDelay: "1s" }}>
+          <Sparkles className="w-full h-full" />
         </div>
       </div>
 
-      <div className="w-full max-w-md space-y-8">
+      <div className="w-full max-w-md space-y-6 relative z-10">
+        <Link 
+          to="/" 
+          className="inline-flex items-center text-primary hover:text-primary/90 transition-colors mb-8"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          Back to Home
+        </Link>
+
         <div className="text-center space-y-4">
-          <Link to="/" className="inline-block">
-            <h1 className="text-4xl font-display font-bold text-primary hover:text-primary/90 transition-colors">
-              SprinkleSquad
-            </h1>
-          </Link>
-          <h2 className="text-2xl font-display font-semibold text-gray-800">
-            {isSignUp ? "Create Parent Account" : "Welcome Back!"}
-          </h2>
-          <p className="text-gray-600 font-body">
+          <h1 className="text-4xl font-display font-bold text-primary animate-float">
+            Welcome, Parent!
+          </h1>
+          <p className="text-xl font-body text-gray-600">
             {isSignUp 
-              ? "Join to create and manage tasks for your kids" 
-              : "Sign in to continue the adventure"}
+              ? "Join the adventure of managing tasks and rewards!" 
+              : "Continue your journey of parenting success!"}
           </p>
         </div>
         
-        <Card className="p-6 bg-white/90 backdrop-blur shadow-xl border-2 border-primary/10">
+        <Card className="p-8 bg-white/95 backdrop-blur shadow-xl border-2 border-primary/10 rounded-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Email</label>
+              <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <User className="h-4 w-4 text-primary" />
+                Email
+              </label>
               <Input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-2 text-lg border-2 focus:ring-primary"
+                className="w-full p-3 text-lg border-2 rounded-xl focus:ring-primary focus:border-primary transition-all duration-200"
                 placeholder="parent@example.com"
                 required
               />
             </div>
             
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-700">Password</label>
+              <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <LockKeyhole className="h-4 w-4 text-primary" />
+                Password
+              </label>
               <Input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-2 text-lg border-2 focus:ring-primary"
+                className="w-full p-3 text-lg border-2 rounded-xl focus:ring-primary focus:border-primary transition-all duration-200"
                 required
                 minLength={6}
               />
@@ -78,30 +100,30 @@ const ParentLogin = () => {
 
             <Button 
               type="submit"
-              className="w-full py-6 text-lg bg-primary hover:bg-primary/90 text-white font-display"
+              className="w-full py-6 text-lg bg-primary hover:bg-primary/90 text-white font-display rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98]"
             >
               {isSignUp ? (
                 <>
-                  <Star className="mr-2 h-5 w-5" />
-                  Create Account
+                  <Star className="mr-2 h-5 w-5 animate-spin-slow" />
+                  Create Magical Account
                 </>
               ) : (
                 <>
-                  <Sparkles className="mr-2 h-5 w-5" />
-                  Sign In
+                  <Sparkles className="mr-2 h-5 w-5 animate-pulse" />
+                  Start the Adventure
                 </>
               )}
             </Button>
 
-            <div className="text-center">
+            <div className="text-center pt-4">
               <button
                 type="button"
                 onClick={() => setIsSignUp(!isSignUp)}
-                className="text-sm text-gray-600 hover:text-primary transition-colors"
+                className="text-sm text-gray-600 hover:text-primary transition-colors underline-offset-4 hover:underline"
               >
                 {isSignUp 
                   ? "Already have an account? Sign in" 
-                  : "Need an account? Sign up"}
+                  : "New to SprinkleSquad? Create an account"}
               </button>
             </div>
           </form>
