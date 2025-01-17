@@ -2,7 +2,7 @@ import { Logo } from "@/components/ui/Logo";
 
 export const HeroSection = () => {
   return (
-    <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-12 px-4 pt-8">
+    <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-12 px-4 pt-4">
       <Logo />
       <div className="relative inline-block w-full max-w-3xl animate-float">
         <h1 className="relative text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold bg-gradient-to-r from-neon-pink via-hot-pink to-electric-purple bg-clip-text text-transparent leading-tight">
