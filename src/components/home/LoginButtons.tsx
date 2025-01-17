@@ -28,10 +28,15 @@ export const LoginButtons = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full bg-space-white/10 text-space-white border-2 border-space-white hover:bg-space-white hover:text-electric-purple font-display transition-all duration-300"
+                  className="w-full bg-space-white/10 text-space-white border-2 border-space-white hover:bg-space-white hover:text-electric-purple font-display transition-all duration-300 group"
                 >
-                  <CreditCard className="mr-2 h-5 w-5" />
-                  Join Monthly
+                  <div className="flex flex-col items-center w-full">
+                    <span className="flex items-center mb-1">
+                      <CreditCard className="mr-2 h-5 w-5" />
+                      Single Child
+                    </span>
+                    <span className="text-sm opacity-90">$9.99/month</span>
+                  </div>
                 </Button>
               </Link>
               
@@ -39,10 +44,18 @@ export const LoginButtons = () => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="w-full bg-space-white/10 text-space-white border-2 border-space-white hover:bg-space-white hover:text-electric-purple font-display transition-all duration-300"
+                  className="w-full bg-space-white/10 text-space-white border-2 border-space-white hover:bg-space-white hover:text-electric-purple font-display transition-all duration-300 group relative overflow-hidden"
                 >
-                  <Crown className="mr-2 h-5 w-5" />
-                  Join Annually
+                  <div className="flex flex-col items-center w-full">
+                    <span className="flex items-center mb-1">
+                      <Crown className="mr-2 h-5 w-5" />
+                      Family Plan
+                    </span>
+                    <span className="text-sm opacity-90">$14.99/month</span>
+                  </div>
+                  <div className="absolute top-0 right-0 bg-neon-pink text-white text-xs px-2 py-1 rotate-45 translate-x-2 translate-y-1">
+                    Best Value
+                  </div>
                 </Button>
               </Link>
             </div>
