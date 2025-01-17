@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
-import { Card } from "@/components/ui/card";
-import { Gift, Loader2, Users, Plus, Star, Trophy } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
-import { KidCard } from "@/components/dashboard/KidCard";
 import { AddKidDialog } from "@/components/dashboard/AddKidDialog";
 import { AddTaskDialog } from "@/components/dashboard/AddTaskDialog";
+import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import { QuickStats } from "@/components/dashboard/QuickStats";
+import { SquadOverview } from "@/components/dashboard/SquadOverview";
 import type { Kid, Task } from "@/types";
+import { Loader2 } from "lucide-react";
 
 const ParentDashboard = () => {
   const [kids, setKids] = useState<Kid[]>([]);
@@ -131,91 +132,26 @@ const ParentDashboard = () => {
   }
 
   return (
-    <div className="container mx-auto p-4 space-y-8 min-h-screen bg-gradient-to-b from-deep-purple to-electric-purple">
-      {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 bg-space-white/10 p-6 rounded-lg backdrop-blur-sm">
-        <div>
-          <h1 className="text-4xl font-bubblegum bg-gradient-to-r from-neon-pink to-electric-blue bg-clip-text text-transparent">
-            Parent Dashboard
-          </h1>
-          <p className="text-soft-white mt-2">Manage your squad's tasks and rewards</p>
-        </div>
-        <div className="flex flex-wrap gap-4">
-          <AddKidDialog onKidAdded={fetchKids} />
-          <AddTaskDialog onTaskAdded={fetchTasks} />
-        </div>
+    <div className="container mx-auto p-4 space-y-6 min-h-screen">
+      <DashboardHeader />
+      
+      <div className="flex flex-wrap gap-4 justify-end mb-8">
+        <AddKidDialog onKidAdded={fetchKids} />
+        <AddTaskDialog onTaskAdded={fetchTasks} />
       </div>
 
-      {/* Squad Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {kids.length > 0 ? (
-          kids.map((kid) => (
-            <KidCard 
-              key={kid.id} 
-              kid={kid} 
-              tasks={tasks} 
-              onSprinkleUpdate={fetchKids}
-            />
-          ))
-        ) : (
-          <Card className="col-span-full p-8 text-center bg-space-white/5 backdrop-blur-sm border-2 border-neon-pink/20">
-            <Gift className="mx-auto h-12 w-12 text-neon-pink mb-4 animate-bounce" />
-            <h3 className="font-bubblegum text-2xl text-neon-pink mb-2">
-              Welcome to SprinkleSquad!
-            </h3>
-            <p className="font-comic text-soft-white mb-4">
-              Start by adding your kids to manage their tasks and rewards! 🌟
-            </p>
-            <AddKidDialog onKidAdded={fetchKids} />
-          </Card>
-        )}
-      </div>
+      <QuickStats
+        kidCount={kids.length}
+        taskCount={tasks.length}
+        completedTasks={tasks.filter(task => task.completed).length}
+        pendingTasks={tasks.filter(task => !task.completed).length}
+      />
 
-      {/* Quick Stats */}
-      {kids.length > 0 && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <Card className="p-4 bg-space-white/5 backdrop-blur-sm border-neon-pink/20">
-            <div className="flex items-center gap-3">
-              <Users className="h-8 w-8 text-neon-pink" />
-              <div>
-                <p className="text-soft-white">Total Squad Members</p>
-                <p className="text-2xl font-bold text-neon-pink">{kids.length}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-space-white/5 backdrop-blur-sm border-electric-blue/20">
-            <div className="flex items-center gap-3">
-              <Star className="h-8 w-8 text-electric-blue" />
-              <div>
-                <p className="text-soft-white">Total Tasks</p>
-                <p className="text-2xl font-bold text-electric-blue">{tasks.length}</p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-space-white/5 backdrop-blur-sm border-neon-green/20">
-            <div className="flex items-center gap-3">
-              <Trophy className="h-8 w-8 text-neon-green" />
-              <div>
-                <p className="text-soft-white">Completed Tasks</p>
-                <p className="text-2xl font-bold text-neon-green">
-                  {tasks.filter(task => task.completed).length}
-                </p>
-              </div>
-            </div>
-          </Card>
-          <Card className="p-4 bg-space-white/5 backdrop-blur-sm border-neon-orange/20">
-            <div className="flex items-center gap-3">
-              <Plus className="h-8 w-8 text-neon-orange" />
-              <div>
-                <p className="text-soft-white">Pending Tasks</p>
-                <p className="text-2xl font-bold text-neon-orange">
-                  {tasks.filter(task => !task.completed).length}
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
-      )}
+      <SquadOverview 
+        kids={kids}
+        tasks={tasks}
+        onSprinkleUpdate={fetchKids}
+      />
     </div>
   );
 };
