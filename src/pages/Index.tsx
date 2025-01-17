@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden">
+      {/* Background animations */}
       <div className="fixed inset-0 pointer-events-none">
         {[...Array(30)].map((_, i) => (
           <div
@@ -63,11 +64,11 @@ const Index = () => {
           </div>
         ))}
 
-        {/* Shooting Sprinkles */}
-        {[...Array(15)].map((_, i) => (
+        {/* Shooting stars effect */}
+        {[...Array(8)].map((_, i) => (
           <div
             key={`shooting-${i}`}
-            className="absolute animate-[shooting_3s_linear_infinite]"
+            className="absolute animate-shooting"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -86,102 +87,76 @@ const Index = () => {
             />
           </div>
         ))}
-
-        {/* Floating Sprinkles */}
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={`floating-${i}`}
-            className="absolute animate-float"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${4 + Math.random() * 4}s`,
-            }}
-          >
-            <div 
-              className={`
-                w-2 h-2 sm:w-3 sm:h-3 rounded-full shadow-lg animate-pulse
-                ${[
-                  'bg-neon-pink/50',
-                  'bg-hot-pink/50',
-                  'bg-neon-orange/50',
-                  'bg-bright-orange/50',
-                  'bg-electric-purple/50',
-                  'bg-neon-green/50'
-                ][Math.floor(Math.random() * 6)]}
-              `}
-            />
-          </div>
-        ))}
       </div>
 
-      <div className="w-full space-y-12 sm:space-y-16">
-        {/* Hero Section with immediate CTAs */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8">
+      <div className="w-full">
+        {/* Hero Section */}
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8 pb-12">
           <HeroSection />
           
-          {/* Quick Access Buttons - Updated for clearer user flow */}
-          <div className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {/* Kid Section */}
-            <div className="bg-gradient-to-r from-neon-orange to-hot-pink p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-[1.02]">
-              <h3 className="text-2xl font-display text-space-white mb-4 flex items-center gap-2">
-                <Star className="h-6 w-6 animate-spin-slow" />
-                For Kids
+          {/* Main CTAs - Side by side on desktop */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {/* Kid Login - More prominent */}
+            <div className="bg-gradient-to-br from-neon-orange via-bright-orange to-hot-pink p-8 rounded-3xl shadow-xl transform transition-all duration-300 hover:scale-[1.02] order-1 md:order-none">
+              <h3 className="text-3xl font-display text-space-white mb-4 flex items-center gap-3">
+                <Star className="h-8 w-8 animate-spin-slow" />
+                Kids Zone!
               </h3>
+              <p className="text-space-white/90 mb-6 text-lg">Ready for an amazing adventure? Jump right in!</p>
               <Link to="/kid-login" className="group block">
                 <Button
                   variant="default"
                   size="lg"
-                  className="w-full bg-space-white text-neon-orange hover:bg-soft-white font-display text-xl sm:text-2xl py-6 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
+                  className="w-full bg-space-white text-neon-orange hover:bg-soft-white font-display text-2xl py-8 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
                 >
-                  <Star className="mr-3 h-6 w-6 text-neon-orange group-hover:text-bright-orange" />
-                  Start Your Adventure!
+                  <Star className="mr-3 h-7 w-7 text-neon-orange group-hover:text-bright-orange animate-pulse" />
+                  Start Playing!
                 </Button>
               </Link>
             </div>
 
             {/* Parent Section */}
-            <div className="bg-gradient-to-r from-electric-purple to-neon-pink p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-[1.02]">
-              <h3 className="text-2xl font-display text-space-white mb-4 flex items-center gap-2">
-                <Crown className="h-6 w-6 animate-float" />
-                For Parents
+            <div className="bg-gradient-to-br from-electric-purple via-soft-purple to-neon-pink p-8 rounded-3xl shadow-xl transform transition-all duration-300 hover:scale-[1.02]">
+              <h3 className="text-3xl font-display text-space-white mb-4 flex items-center gap-3">
+                <Crown className="h-8 w-8 animate-float" />
+                Parents Corner
               </h3>
+              <p className="text-space-white/90 mb-6 text-lg">Create amazing challenges and rewards for your kids!</p>
               <Link to="/parent-login" className="group block">
                 <Button
                   variant="default"
                   size="lg"
-                  className="w-full bg-space-white text-electric-purple hover:bg-soft-white font-display text-xl sm:text-2xl py-6 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
+                  className="w-full bg-space-white text-electric-purple hover:bg-soft-white font-display text-2xl py-8 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
                 >
-                  <Sparkles className="mr-3 h-6 w-6 text-electric-purple group-hover:text-bright-purple" />
+                  <Sparkles className="mr-3 h-7 w-7 text-electric-purple group-hover:text-soft-purple" />
                   Parent Dashboard
                 </Button>
               </Link>
             </div>
           </div>
 
-          {/* Quick Benefits */}
-          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
+          {/* Quick Benefits - More visual */}
+          <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {[
               {
-                icon: <Star className="w-8 h-8 text-neon-orange" />,
+                icon: <Star className="w-10 h-10 text-neon-orange animate-pulse" />,
                 text: "Earn Fun Rewards"
               },
               {
-                icon: <Heart className="w-8 h-8 text-hot-pink" />,
+                icon: <Heart className="w-10 h-10 text-hot-pink animate-bounce" />,
                 text: "Complete Tasks Together"
               },
               {
-                icon: <Sparkles className="w-8 h-8 text-electric-purple" />,
+                icon: <Sparkles className="w-10 h-10 text-electric-purple animate-spin-slow" />,
                 text: "Watch Progress Grow"
               }
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-space-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg flex flex-col items-center gap-2 transform transition-all duration-300 hover:scale-105"
+                className="bg-gradient-to-br from-space-white/95 to-space-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg flex flex-col items-center gap-4 transform transition-all duration-300 hover:scale-105 border border-soft-purple/10"
               >
                 {item.icon}
-                <span className="font-display text-lg text-electric-purple">
+                <span className="font-display text-xl text-electric-purple font-bold">
                   {item.text}
                 </span>
               </div>
@@ -189,8 +164,8 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Feature Cards Section */}
-        <div className="bg-gradient-to-b from-transparent to-vanilla-cream pt-8 sm:pt-16">
+        {/* Feature Cards Section - More game-like */}
+        <div className="bg-gradient-to-b from-transparent to-vanilla-cream pt-16">
           <FeatureCards />
         </div>
 
