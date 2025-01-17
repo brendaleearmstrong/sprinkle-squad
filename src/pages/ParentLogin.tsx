@@ -6,20 +6,38 @@ import { useAuth } from "@/hooks/useAuth";
 import { Star, Sparkles, Heart, User, LockKeyhole } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 const ParentLogin = () => {
-  const [email, setEmail] = useState("test@sprinklesquad.com");
-  const [password, setPassword] = useState("Test123!");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { signIn } = useAuth();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    
     try {
       await signIn(email, password);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
+      
+      // Handle specific error cases
+      if (error.message?.includes('Invalid login credentials')) {
+        toast({
+          title: "Login Failed",
+          description: "Invalid email or password. Please check your credentials and try again.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Login Error",
+          description: "An unexpected error occurred. Please try again later.",
+          variant: "destructive",
+        });
+      }
     } finally {
       setIsLoading(false);
     }
