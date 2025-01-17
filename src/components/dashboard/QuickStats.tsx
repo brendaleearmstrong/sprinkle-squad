@@ -15,48 +15,48 @@ export const QuickStats = ({
   pendingTasks,
 }: QuickStatsProps) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <Card className="p-4 bg-gradient-to-br from-space-white/10 to-electric-purple/5 backdrop-blur-sm border-neon-pink/20 hover:shadow-lg transition-shadow">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <Card className="p-4 bg-gradient-to-br from-primary/10 to-primary/5 hover:shadow-lg transition-shadow">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-neon-pink/10 rounded-lg">
-            <Users className="h-6 w-6 text-neon-pink" />
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <Users className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <p className="text-soft-white text-sm">Squad Members</p>
-            <p className="text-2xl font-bold text-neon-pink">{kidCount}</p>
+            <p className="text-sm text-muted-foreground">Children</p>
+            <p className="text-2xl font-bold text-primary">{kidCount}</p>
           </div>
         </div>
       </Card>
-      <Card className="p-4 bg-gradient-to-br from-space-white/10 to-electric-purple/5 backdrop-blur-sm border-electric-blue/20 hover:shadow-lg transition-shadow">
+      <Card className="p-4 bg-gradient-to-br from-secondary/10 to-secondary/5 hover:shadow-lg transition-shadow">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-electric-blue/10 rounded-lg">
-            <Star className="h-6 w-6 text-electric-blue" />
+          <div className="p-3 bg-secondary/10 rounded-lg">
+            <Star className="h-6 w-6 text-secondary" />
           </div>
           <div>
-            <p className="text-soft-white text-sm">Total Tasks</p>
-            <p className="text-2xl font-bold text-electric-blue">{taskCount}</p>
+            <p className="text-sm text-muted-foreground">Total Tasks</p>
+            <p className="text-2xl font-bold text-secondary">{taskCount}</p>
           </div>
         </div>
       </Card>
-      <Card className="p-4 bg-gradient-to-br from-space-white/10 to-electric-purple/5 backdrop-blur-sm border-neon-green/20 hover:shadow-lg transition-shadow">
+      <Card className="p-4 bg-gradient-to-br from-primary/10 to-primary/5 hover:shadow-lg transition-shadow">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-neon-green/10 rounded-lg">
-            <Trophy className="h-6 w-6 text-neon-green" />
+          <div className="p-3 bg-primary/10 rounded-lg">
+            <Trophy className="h-6 w-6 text-primary" />
           </div>
           <div>
-            <p className="text-soft-white text-sm">Completed</p>
-            <p className="text-2xl font-bold text-neon-green">{completedTasks}</p>
+            <p className="text-sm text-muted-foreground">Completed</p>
+            <p className="text-2xl font-bold text-primary">{completedTasks}</p>
           </div>
         </div>
       </Card>
-      <Card className="p-4 bg-gradient-to-br from-space-white/10 to-electric-purple/5 backdrop-blur-sm border-neon-orange/20 hover:shadow-lg transition-shadow">
+      <Card className="p-4 bg-gradient-to-br from-secondary/10 to-secondary/5 hover:shadow-lg transition-shadow">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-neon-orange/10 rounded-lg">
-            <Plus className="h-6 w-6 text-neon-orange" />
+          <div className="p-3 bg-secondary/10 rounded-lg">
+            <Plus className="h-6 w-6 text-secondary" />
           </div>
           <div>
-            <p className="text-soft-white text-sm">Pending</p>
-            <p className="text-2xl font-bold text-neon-orange">{pendingTasks}</p>
+            <p className="text-sm text-muted-foreground">Pending</p>
+            <p className="text-2xl font-bold text-secondary">{pendingTasks}</p>
           </div>
         </div>
       </Card>

@@ -14,9 +14,9 @@
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 340 85% 65%;
+    --primary: 280 65% 50%;
     --primary-foreground: 210 40% 98%;
-    --secondary: 200 85% 65%;
+    --secondary: 200 85% 45%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -37,9 +37,9 @@
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
+    --primary: 280 65% 60%;
     --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
+    --secondary: 200 85% 55%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -59,18 +59,18 @@
   }
 
   body {
-    @apply bg-soft-white text-electric-purple antialiased font-body;
+    @apply bg-background text-foreground antialiased font-body;
     font-size: 16px;
     line-height: 1.6;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display font-bold tracking-wide text-neon-pink;
+    @apply font-display font-bold tracking-wide text-foreground;
     line-height: 1.2;
   }
 
   p {
-    @apply font-body text-electric-purple;
+    @apply font-body text-foreground;
     line-height: 1.6;
   }
 }
