@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Gift, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { KidCard } from "@/components/dashboard/KidCard";
 import { AddKidDialog } from "@/components/dashboard/AddKidDialog";
@@ -17,32 +17,58 @@ const ParentDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Not configured",
+        description: "Please connect to Supabase first",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
     checkAuth();
     fetchData();
   }, []);
 
   const checkAuth = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    if (!session) {
+    try {
+      const { data: { session } } = await supabase!.auth.getSession();
+      if (!session) {
+        toast({
+          title: "Not authenticated",
+          description: "Please login first",
+          variant: "destructive",
+        });
+        navigate("/parent-login");
+        return;
+      }
+    } catch (error) {
       toast({
-        title: "Not authenticated",
-        description: "Please login first",
+        title: "Authentication Error",
+        description: "Failed to check authentication status",
         variant: "destructive",
       });
       navigate("/parent-login");
-      return;
     }
   };
 
   const fetchData = async () => {
     try {
       await Promise.all([fetchKids(), fetchTasks()]);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to fetch dashboard data",
+        variant: "destructive",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const fetchKids = async () => {
+    if (!supabase) return;
+    
     const { data: userData } = await supabase.auth.getUser();
     if (!userData.user) return;
 
@@ -71,6 +97,8 @@ const ParentDashboard = () => {
   };
 
   const fetchTasks = async () => {
+    if (!supabase) return;
+    
     const { data: userData } = await supabase.auth.getUser();
     if (!userData.user) return;
 
