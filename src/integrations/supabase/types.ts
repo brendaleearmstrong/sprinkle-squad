@@ -72,11 +72,51 @@ export type Database = {
         }
         Relationships: []
       }
+      reward_redemptions: {
+        Row: {
+          created_at: string
+          id: string
+          kid_id: string
+          points_spent: number
+          reward_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kid_id: string
+          points_spent: number
+          reward_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kid_id?: string
+          points_spent?: number
+          reward_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reward_redemptions_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "reward_redemptions_reward_id_fkey"
+            columns: ["reward_id"]
+            isOneToOne: false
+            referencedRelation: "rewards"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       rewards: {
         Row: {
           created_at: string
           description: string | null
           id: string
+          level_required: number | null
           parent_id: string | null
           points_required: number
           title: string
@@ -85,6 +125,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          level_required?: number | null
           parent_id?: string | null
           points_required?: number
           title: string
@@ -93,6 +134,7 @@ export type Database = {
           created_at?: string
           description?: string | null
           id?: string
+          level_required?: number | null
           parent_id?: string | null
           points_required?: number
           title?: string
