@@ -126,6 +126,7 @@ export type Database = {
           avatar_url: string | null
           birthdate: string | null
           created_at: string
+          email: string | null
           id: string
           is_parent: boolean | null
           level_name: string | null
@@ -139,6 +140,7 @@ export type Database = {
           avatar_url?: string | null
           birthdate?: string | null
           created_at?: string
+          email?: string | null
           id: string
           is_parent?: boolean | null
           level_name?: string | null
@@ -152,6 +154,7 @@ export type Database = {
           avatar_url?: string | null
           birthdate?: string | null
           created_at?: string
+          email?: string | null
           id?: string
           is_parent?: boolean | null
           level_name?: string | null

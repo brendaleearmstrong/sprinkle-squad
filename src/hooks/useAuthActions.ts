@@ -20,11 +20,17 @@ export const useAuthActions = () => {
     }
 
     try {
-      const { data: existingUser } = await supabase
+      // First check if the user exists in profiles
+      const { data: existingUser, error: profileError } = await supabase
         .from('profiles')
         .select('id')
         .eq('email', email)
-        .single();
+        .maybeSingle();
+
+      if (profileError) {
+        console.error('Profile lookup error:', profileError);
+        throw profileError;
+      }
 
       if (!existingUser) {
         toast({
