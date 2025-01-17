@@ -124,7 +124,7 @@ const Index = () => {
       </div>
 
       {/* Features Sections */}
-      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16">
+      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16 mb-24">
         <div className="bg-whipped-cream/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-caramel-drizzle/20">
           <h3 className="font-display text-2xl font-bold mb-4 flex items-center gap-2 text-chocolate-swirl">
             <Crown className="w-6 h-6 text-berry-blast" />
