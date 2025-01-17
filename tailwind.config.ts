@@ -19,27 +19,34 @@ export default {
     },
     extend: {
       colors: {
-        // Primary Colors
-        primary: {
-          DEFAULT: "#9b87f5",
-          foreground: "hsl(var(--primary-foreground))",
+        // Ice Cream & Dessert Theme Colors
+        "vanilla-cream": "#FFF8E7",  // Light, warm cream color
+        "chocolate-swirl": "#8B4513", // Rich brown for text
+        "mint-chip": "#98FF98",
+        "berry-blast": "#FF69B4",
+        "caramel-drizzle": "#FFB347",
+        "sprinkle-rainbow": {
+          red: "#FF5252",
+          orange: "#FFB74D",
+          yellow: "#FFE082",
+          green: "#81C784",
+          blue: "#64B5F6",
+          purple: "#BA68C8",
         },
-        secondary: {
-          DEFAULT: "#7E69AB",
-          foreground: "hsl(var(--secondary-foreground))",
-        },
-        // Pastel Colors
-        "soft-green": "#F2FCE2",
-        "soft-yellow": "#FEF7CD",
-        "soft-purple": "#E5DEFF",
-        "soft-pink": "#FFDEE2",
-        "soft-blue": "#D3E4FD",
         // Semantic Colors
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
