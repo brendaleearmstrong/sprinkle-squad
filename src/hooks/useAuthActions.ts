@@ -20,48 +20,36 @@ export const useAuthActions = () => {
     }
 
     try {
-      // First check if the user exists in profiles
-      const { data: existingUser, error: profileError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('email', email)
-        .maybeSingle();
-
-      if (profileError) {
-        console.error('Profile lookup error:', profileError);
-        throw profileError;
-      }
-
-      if (!existingUser) {
-        toast({
-          title: "Account not found",
-          description: "Please check your email or sign up for a new account",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      const { data, error } = await supabase.auth.signInWithPassword({
+      // First attempt to sign in
+      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (error) throw error;
+      if (authError) throw authError;
 
-      const { data: profileData } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', data.user.id)
-        .single();
+      if (authData.user) {
+        // After successful auth, get the user's profile
+        const { data: profileData, error: profileError } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', authData.user.id)
+          .maybeSingle();
 
-      const isParent = profileData?.is_parent;
-      
-      toast({
-        title: "Welcome back! 🌟",
-        description: "Successfully logged in",
-      });
-      
-      navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
+        if (profileError) {
+          console.error('Profile lookup error:', profileError);
+          throw profileError;
+        }
+
+        const isParent = profileData?.is_parent;
+        
+        toast({
+          title: "Welcome back! 🌟",
+          description: "Successfully logged in",
+        });
+        
+        navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
+      }
     } catch (error) {
       console.error('Sign in error:', error);
       toast({
