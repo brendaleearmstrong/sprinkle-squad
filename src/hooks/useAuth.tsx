@@ -82,7 +82,7 @@ export const useAuth = () => {
     } catch (error) {
       toast({
         title: "Oops!",
-        description: getErrorMessage(error),
+        description: getErrorMessage(error as AuthError),
         variant: "destructive",
       });
     }
@@ -159,7 +159,7 @@ export const useAuth = () => {
     } catch (error) {
       toast({
         title: "Oops!",
-        description: getErrorMessage(error),
+        description: getErrorMessage(error as AuthError),
         variant: "destructive",
       });
     }
@@ -187,7 +187,7 @@ export const useAuth = () => {
     } catch (error) {
       toast({
         title: "Oops!",
-        description: getErrorMessage(error),
+        description: getErrorMessage(error as AuthError),
         variant: "destructive",
       });
     }
