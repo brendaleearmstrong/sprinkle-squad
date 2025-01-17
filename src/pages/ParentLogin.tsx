@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { Star, Sparkles, Heart, User, LockKeyhole, Crown, IceCream, Plus, Check } from "lucide-react";
+import { Star, Sparkles, Heart, User, LockKeyhole, Crown, IceCream, Plus, Users, Sprout } from "lucide-react";
 import { Link } from "react-router-dom";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -48,8 +48,6 @@ const ParentLogin = () => {
     setChildren(updatedChildren);
   };
 
-  // ... keep existing code (JSX for the form and UI elements)
-
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-yellow via-soft-green to-soft-blue">
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
@@ -89,8 +87,8 @@ const ParentLogin = () => {
           <p className="text-xl text-gray-600 font-body flex items-center justify-center gap-2">
             <Crown className="w-5 h-5 text-neon-orange animate-spin-slow" />
             {isSignUp 
-              ? "Join the adventure of parenting success!" 
-              : "Continue your journey of parenting success!"}
+              ? "Create your family's sprinkle adventure!" 
+              : "Continue managing your sprinkle squad!"}
             <Heart className="w-5 h-5 text-hot-pink animate-float" />
           </p>
         </div>
@@ -130,11 +128,11 @@ const ParentLogin = () => {
             {isSignUp && (
               <>
                 <div className="space-y-4">
-                  <Label className="text-lg font-medium text-gray-700">Choose your plan</Label>
+                  <Label className="text-lg font-medium text-gray-700">Choose your Sprinkle Plan</Label>
                   <RadioGroup
                     value={subscriptionPlan}
                     onValueChange={(value: SubscriptionPlan) => setSubscriptionPlan(value)}
-                    className="grid grid-cols-2 gap-4"
+                    className="grid grid-cols-1 gap-4"
                   >
                     <div className="relative">
                       <RadioGroupItem
@@ -144,12 +142,20 @@ const ParentLogin = () => {
                       />
                       <Label
                         htmlFor="single"
-                        className="flex flex-col p-4 border-2 rounded-lg cursor-pointer peer-checked:border-primary hover:bg-gray-50"
+                        className="flex flex-col p-6 border-2 rounded-lg cursor-pointer peer-checked:border-primary hover:bg-gray-50"
                       >
-                        <span className="font-bold">Single Child</span>
-                        <span className="text-sm text-gray-500">$9.99/month</span>
+                        <div className="flex items-center gap-2">
+                          <Sprout className="h-5 w-5 text-mint-green" />
+                          <span className="font-bold text-lg">Single Sprinkler</span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-2">Perfect for one child's sprinkle journey</p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <span className="text-xl font-bold text-primary">$9.99</span>
+                          <span className="text-gray-500">/month</span>
+                        </div>
                       </Label>
                     </div>
+                    
                     <div className="relative">
                       <RadioGroupItem
                         value="family"
@@ -158,15 +164,34 @@ const ParentLogin = () => {
                       />
                       <Label
                         htmlFor="family"
-                        className="flex flex-col p-4 border-2 rounded-lg cursor-pointer peer-checked:border-primary hover:bg-gray-50"
+                        className="flex flex-col p-6 border-2 rounded-lg cursor-pointer peer-checked:border-primary hover:bg-gray-50"
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="font-bold">Family Plan</span>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Users className="h-5 w-5 text-hot-pink" />
+                            <span className="font-bold text-lg">Family Squad</span>
+                          </div>
                           <Badge variant="secondary" className="bg-primary/10 text-primary">
                             Best Value
                           </Badge>
                         </div>
-                        <span className="text-sm text-gray-500">$14.99/month</span>
+                        <p className="text-sm text-gray-600 mt-2">
+                          Perfect for 2+ children who can share sprinkles and rewards
+                        </p>
+                        <div className="mt-2 flex items-center gap-2">
+                          <span className="text-xl font-bold text-primary">$14.99</span>
+                          <span className="text-gray-500">/month</span>
+                        </div>
+                        <ul className="mt-3 space-y-2 text-sm text-gray-600">
+                          <li className="flex items-center gap-2">
+                            <Star className="h-4 w-4 text-candy-yellow" />
+                            Children can send sprinkles to siblings
+                          </li>
+                          <li className="flex items-center gap-2">
+                            <Heart className="h-4 w-4 text-hot-pink" />
+                            Share rewards within the family
+                          </li>
+                        </ul>
                       </Label>
                     </div>
                   </RadioGroup>
@@ -183,7 +208,7 @@ const ParentLogin = () => {
                         onClick={addChild}
                         className="flex items-center gap-2"
                       >
-                        <Plus className="w-4 h-4" /> Add Child
+                        <Plus className="w-4 h-4" /> Add Sibling
                       </Button>
                     )}
                   </div>
@@ -220,12 +245,12 @@ const ParentLogin = () => {
               {isSignUp ? (
                 <>
                   <Crown className="mr-2 h-6 w-6" />
-                  Create Magical Account
+                  Start Your Family's Adventure
                 </>
               ) : (
                 <>
                   <Sparkles className="mr-2 h-6 w-6 animate-pulse" />
-                  Start Your Adventure
+                  Continue the Journey
                 </>
               )}
             </Button>
