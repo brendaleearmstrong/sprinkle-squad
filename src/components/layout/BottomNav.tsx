@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { Home, Trophy, Gift, User, Settings } from "lucide-react";
+import { IceCream, Trophy, Gift, User, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const BottomNav = () => {
   const location = useLocation();
 
   const navItems = [
-    { icon: Home, label: "Home", path: "/" },
+    { icon: IceCream, label: "Home", path: "/" },
     { icon: Trophy, label: "Tasks", path: "/kid-dashboard" },
     { icon: Gift, label: "Rewards", path: "/rewards" },
     { icon: User, label: "Profile", path: "/profile" },
