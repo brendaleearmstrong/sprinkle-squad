@@ -85,7 +85,7 @@ const ParentDashboard = () => {
     }
 
     if (data) {
-      const transformedKids: Kid[] = data.map((item: { kid: Kid }) => ({
+      const transformedKids: Kid[] = data.map((item: any) => ({
         id: item.kid.id,
         username: item.kid.username,
         total_points: item.kid.total_points,
