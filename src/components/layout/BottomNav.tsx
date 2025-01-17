@@ -14,7 +14,7 @@ export const BottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 px-4 py-2 bg-[#FF1493] shadow-lg z-50">
+    <nav className="fixed bottom-0 left-0 right-0 px-4 py-2 bg-white border-t border-gray-200 shadow-lg z-50">
       <div className="max-w-screen-xl mx-auto">
         <div className="flex justify-between items-center">
           {navItems.map((item) => {
@@ -25,31 +25,31 @@ export const BottomNav = () => {
                 to={item.path}
                 className={cn(
                   "flex flex-col items-center p-2 rounded-lg transition-all duration-300",
-                  "hover:bg-white/10",
-                  isActive && "bg-white/5"
+                  "hover:bg-gray-50",
+                  isActive && "bg-gray-50"
                 )}
               >
-                {/* Icon */}
+                {/* Icon with neon hover effect */}
                 <item.icon 
                   className={cn(
                     "w-6 h-6 mb-1 transition-colors duration-300",
                     isActive 
-                      ? "text-white" 
-                      : "text-white/70 hover:text-white"
+                      ? "text-electric-blue" 
+                      : "text-gray-500 hover:text-neon-orange"
                   )} 
                 />
                 
                 {/* Label */}
                 <span className={cn(
                   "text-xs font-medium transition-colors duration-300",
-                  isActive ? "text-white" : "text-white/70"
+                  isActive ? "text-electric-blue" : "text-gray-500"
                 )}>
                   {item.label}
                 </span>
                 
                 {/* Active indicator dot */}
                 {isActive && (
-                  <span className="absolute bottom-1 w-1 h-1 rounded-full bg-white" />
+                  <span className="absolute bottom-1 w-1 h-1 rounded-full bg-electric-blue" />
                 )}
               </Link>
             );
