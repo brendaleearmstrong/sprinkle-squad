@@ -411,7 +411,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      insert_default_tasks: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       achievement_type: "kindness_streak" | "joy_multiplier" | "growth_champion"

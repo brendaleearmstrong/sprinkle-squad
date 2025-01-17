@@ -56,13 +56,13 @@ const KidDashboard = () => {
 
       setLeaderboard(leaderboardData || []);
 
-      // Check daily bonus
+      // Check daily bonus - using 'name' instead of 'type'
       const today = new Date().toISOString().split('T')[0];
       const { data: bonusCheck } = await supabase
         .from("activities")
         .select("*")
         .eq("kid_id", user.id)
-        .eq("type", "daily_bonus")
+        .eq("name", "daily_bonus")
         .gte("created_at", today);
 
       setDailyBonus(!bonusCheck?.length);
@@ -79,8 +79,8 @@ const KidDashboard = () => {
       .from("activities")
       .insert({
         kid_id: kidData.id,
-        type: "daily_bonus",
-        name: "Daily Bonus Claimed",
+        name: "daily_bonus", // Changed from 'type' to 'name'
+        description: "Daily Bonus Claimed",
         points_earned: bonusPoints
       });
 
