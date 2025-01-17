@@ -24,13 +24,13 @@ export const BottomNav = () => {
                 key={item.path}
                 to={item.path}
                 className={cn(
-                  "flex flex-col items-center p-2 rounded-xl transition-all duration-300",
+                  "flex flex-col items-center p-2 rounded-xl transition-all duration-300 group",
                   isActive
                     ? "text-berry-blast scale-110 font-semibold"
                     : "text-chocolate-swirl/60 hover:text-berry-blast hover:scale-105"
                 )}
               >
-                <item.icon className="w-6 h-6 mb-1" />
+                <item.icon className="w-6 h-6 mb-1 group-hover:animate-bounce" />
                 <span className="text-xs font-medium">{item.label}</span>
                 {isActive && (
                   <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-berry-blast animate-pulse" />

@@ -6,7 +6,7 @@ import { Heart, Star } from "lucide-react";
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden">
-      {/* Animated Background Sprinkles with responsive sizing */}
+      {/* Animated Background Sprinkles */}
       <div className="fixed inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
           <div
