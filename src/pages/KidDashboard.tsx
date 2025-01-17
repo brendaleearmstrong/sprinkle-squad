@@ -2,58 +2,117 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Star, Trophy, Gift, Sparkles } from "lucide-react";
+import { Star, Trophy, Gift, Sparkles, Coins, ListCheck, ChartBar } from "lucide-react";
 import { supabase } from "@/lib/supabase";
-import type { Task } from "@/types";
 import { useNavigate } from "react-router-dom";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-
-const REWARD_IMAGES = [
-  "/rewards/star-badge.png",
-  "/rewards/treasure-chest.png",
-  "/rewards/magic-wand.png",
-  "/rewards/crown.png",
-  "/rewards/diamond.png",
-  "/rewards/golden-key.png"
-];
+import { Progress } from "@/components/ui/progress";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const KidDashboard = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<any[]>([]);
   const [points, setPoints] = useState(0);
   const [kidData, setKidData] = useState<any>(null);
+  const [leaderboard, setLeaderboard] = useState<any[]>([]);
+  const [dailyBonus, setDailyBonus] = useState<boolean>(false);
   const { toast } = useToast();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const kidSession = localStorage.getItem("kidSession");
-    if (!kidSession) {
-      navigate("/kid-login");
-      return;
-    }
+    const fetchData = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        navigate("/kid-login");
+        return;
+      }
 
-    const kid = JSON.parse(kidSession);
-    setKidData(kid);
-    setPoints(kid.points);
-    fetchTasks(kid.id);
+      // Fetch kid's profile
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+      if (profile) {
+        setKidData(profile);
+        setPoints(profile.total_points || 0);
+      }
+
+      // Fetch tasks
+      const { data: tasksData } = await supabase
+        .from("tasks")
+        .select("*")
+        .eq("kid_id", user.id)
+        .eq("completed", false);
+
+      setTasks(tasksData || []);
+
+      // Fetch leaderboard
+      const { data: leaderboardData } = await supabase
+        .from("profiles")
+        .select("username, total_points, level_name")
+        .order("total_points", { ascending: false })
+        .limit(5);
+
+      setLeaderboard(leaderboardData || []);
+
+      // Check daily bonus
+      const today = new Date().toISOString().split('T')[0];
+      const { data: bonusCheck } = await supabase
+        .from("activities")
+        .select("*")
+        .eq("kid_id", user.id)
+        .eq("type", "daily_bonus")
+        .gte("created_at", today);
+
+      setDailyBonus(!bonusCheck?.length);
+    };
+
+    fetchData();
   }, [navigate]);
 
-  const fetchTasks = async (kidId: string) => {
-    const { data, error } = await supabase
-      .from("tasks")
-      .select("*")
-      .eq("user_id", kidId)
-      .eq("completed", false);
+  const claimDailyBonus = async () => {
+    if (!kidData) return;
 
-    if (error) {
+    const bonusPoints = 50;
+    const { error: activityError } = await supabase
+      .from("activities")
+      .insert({
+        kid_id: kidData.id,
+        type: "daily_bonus",
+        name: "Daily Bonus Claimed",
+        points_earned: bonusPoints
+      });
+
+    if (activityError) {
       toast({
         title: "Oops!",
-        description: "Couldn't load your tasks. Try again!",
+        description: "Couldn't claim your bonus. Try again!",
         variant: "destructive",
       });
       return;
     }
 
-    setTasks(data || []);
+    const newPoints = points + bonusPoints;
+    const { error: pointsError } = await supabase
+      .from("profiles")
+      .update({ total_points: newPoints })
+      .eq("id", kidData.id);
+
+    if (pointsError) {
+      toast({
+        description: "Points not updated. Please try again!",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setPoints(newPoints);
+    setDailyBonus(false);
+    toast({
+      title: "Woohoo! 🎉",
+      description: `You earned ${bonusPoints} sprinkles!`,
+    });
   };
 
   const completeTask = async (taskId: string, taskPoints: number) => {
@@ -61,7 +120,10 @@ const KidDashboard = () => {
 
     const { error: updateError } = await supabase
       .from("tasks")
-      .update({ completed: true })
+      .update({ 
+        completed: true,
+        completed_at: new Date().toISOString()
+      })
       .eq("id", taskId);
 
     if (updateError) {
@@ -75,8 +137,8 @@ const KidDashboard = () => {
 
     const newPoints = points + taskPoints;
     const { error: pointsError } = await supabase
-      .from("kids")
-      .update({ points: newPoints })
+      .from("profiles")
+      .update({ total_points: newPoints })
       .eq("id", kidData.id);
 
     if (pointsError) {
@@ -89,132 +151,207 @@ const KidDashboard = () => {
 
     setPoints(newPoints);
     setTasks(tasks.filter((task) => task.id !== taskId));
-
-    // Show celebration toast
     toast({
-      title: "Woohoo! 🎉",
+      title: "Task Complete! 🌟",
       description: `You earned ${taskPoints} sprinkles!`,
-      className: "bg-gradient-to-r from-sprinkle-pink to-cupcake-blue text-white",
     });
-
-    // Show special celebration for milestone achievements
-    if (newPoints >= 100 && points < 100) {
-      toast({
-        title: "Achievement Unlocked! 🏆",
-        description: "You've reached 100 sprinkles! Amazing job!",
-        className: "bg-gradient-to-r from-candy-yellow to-mint-green text-white",
-      });
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("kidSession");
-    navigate("/kid-login");
-  };
-
-  const getRewardImage = () => {
-    const randomIndex = Math.floor(Math.random() * REWARD_IMAGES.length);
-    return REWARD_IMAGES[randomIndex];
   };
 
   return (
     <div className="container mx-auto p-4 space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-4xl font-bubblegum text-sprinkle-pink">
-          {kidData?.username}'s Dashboard
-        </h1>
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2 bg-gradient-to-r from-candy-yellow to-mint-green p-3 rounded-xl">
-            <Star className="text-white h-6 w-6" />
-            <span className="font-fredoka text-2xl text-white">{points}</span>
+      {/* Header with Points and Level */}
+      <div className="bg-gradient-to-r from-neon-pink to-electric-purple p-6 rounded-xl shadow-lg">
+        <div className="flex justify-between items-center">
+          <div>
+            <h1 className="text-3xl font-display text-white mb-2">
+              Hi, {kidData?.username}! 👋
+            </h1>
+            <p className="text-white/80">
+              Level {kidData?.level_number}: {kidData?.level_name}
+            </p>
           </div>
-          <Button 
-            onClick={handleLogout}
-            variant="outline"
-            className="border-2 border-sprinkle-pink text-sprinkle-pink hover:bg-sprinkle-pink hover:text-white"
-          >
-            Logout
-          </Button>
+          <div className="flex items-center gap-2 bg-white/20 p-3 rounded-xl">
+            <Coins className="text-yellow-300 h-6 w-6" />
+            <span className="font-display text-2xl text-white">{points}</span>
+          </div>
         </div>
+        {kidData?.level_points_required && (
+          <Progress 
+            value={(points / kidData.level_points_required) * 100} 
+            className="mt-4 bg-white/20"
+          />
+        )}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tasks.map((task) => (
-          <Card key={task.id} className="group hover:scale-105 transition-transform duration-200">
-            <CardHeader className="bg-gradient-to-r from-lavender-purple to-cotton-candy rounded-t-lg">
-              <CardTitle className="text-white">{task.title}</CardTitle>
+      <Tabs defaultValue="tasks" className="space-y-4">
+        <TabsList className="grid grid-cols-4 gap-4">
+          <TabsTrigger value="tasks" className="flex gap-2">
+            <ListCheck className="h-4 w-4" /> Tasks
+          </TabsTrigger>
+          <TabsTrigger value="bank" className="flex gap-2">
+            <Coins className="h-4 w-4" /> Bank
+          </TabsTrigger>
+          <TabsTrigger value="bonus" className="flex gap-2">
+            <Gift className="h-4 w-4" /> Bonus
+          </TabsTrigger>
+          <TabsTrigger value="stats" className="flex gap-2">
+            <ChartBar className="h-4 w-4" /> Stats
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="tasks" className="space-y-4">
+          {tasks.map((task) => (
+            <Card key={task.id} className="group hover:scale-105 transition-transform duration-200">
+              <CardHeader className="bg-gradient-to-r from-neon-orange to-hot-pink rounded-t-lg">
+                <CardTitle className="text-white">{task.title}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 space-y-4">
+                <p className="text-gray-600">{task.description}</p>
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center gap-2">
+                    <Star className="text-yellow-400 h-5 w-5" />
+                    <span className="font-display text-xl">{task.points}</span>
+                  </div>
+                  <Button
+                    onClick={() => completeTask(task.id, task.points)}
+                    className="bg-gradient-to-r from-neon-green to-electric-blue hover:opacity-90"
+                  >
+                    Complete!
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+          {tasks.length === 0 && (
+            <Card className="p-8 text-center bg-gray-50">
+              <Trophy className="mx-auto h-12 w-12 text-yellow-400 mb-4" />
+              <h3 className="font-display text-2xl text-gray-800 mb-2">
+                All Done!
+              </h3>
+              <p className="text-gray-600">
+                Great job! You've completed all your tasks! 🎉
+              </p>
+            </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="bank" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Sprinkle Bank</CardTitle>
             </CardHeader>
-            <CardContent className="p-6 space-y-4">
-              <AspectRatio ratio={1}>
-                <div className="w-full h-full bg-gradient-to-br from-soft-cream to-mint-green/10 rounded-lg flex items-center justify-center p-6">
-                  <img 
-                    src={getRewardImage()} 
-                    alt="Task reward"
-                    className="w-3/4 h-3/4 object-contain animate-float"
-                  />
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div>
+                    <p className="font-semibold">Current Balance</p>
+                    <p className="text-3xl font-display text-electric-purple">
+                      {points} sprinkles
+                    </p>
+                  </div>
+                  <Coins className="h-12 w-12 text-yellow-400" />
                 </div>
-              </AspectRatio>
-              <p className="font-comic text-gray-600">{task.description}</p>
-              <div className="flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <Star className="text-candy-yellow h-5 w-5" />
-                  <span className="font-fredoka text-xl">{task.points}</span>
-                </div>
-                <Button
-                  onClick={() => completeTask(task.id, task.points)}
-                  className="bg-gradient-to-r from-mint-green to-cupcake-blue hover:opacity-90 transition-opacity"
+                <Button 
+                  onClick={() => navigate("/special-rewards")}
+                  className="w-full bg-gradient-to-r from-neon-pink to-hot-pink"
                 >
-                  Complete!
+                  View Available Rewards
                 </Button>
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
+        </TabsContent>
 
-      {tasks.length === 0 && (
-        <Card className="p-8 text-center bg-soft-cream">
-          <Trophy className="mx-auto h-12 w-12 text-candy-yellow mb-4" />
-          <h3 className="font-bubblegum text-2xl text-sprinkle-pink mb-2">
-            All Done!
-          </h3>
-          <p className="font-comic text-gray-600">
-            Great job! You've completed all your tasks! 🎉
-          </p>
-        </Card>
-      )}
+        <TabsContent value="bonus" className="space-y-4">
+          <Card>
+            <CardHeader>
+              <CardTitle>Daily Bonus</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {dailyBonus ? (
+                <div className="text-center space-y-4">
+                  <Gift className="mx-auto h-16 w-16 text-hot-pink" />
+                  <h3 className="text-2xl font-display">Daily Bonus Available!</h3>
+                  <p className="text-gray-600">Claim your 50 sprinkles now!</p>
+                  <Button 
+                    onClick={claimDailyBonus}
+                    className="w-full bg-gradient-to-r from-neon-orange to-hot-pink"
+                  >
+                    Claim Bonus
+                  </Button>
+                </div>
+              ) : (
+                <div className="text-center space-y-4">
+                  <Sparkles className="mx-auto h-16 w-16 text-gray-400" />
+                  <h3 className="text-2xl font-display">Come Back Tomorrow!</h3>
+                  <p className="text-gray-600">
+                    You've already claimed your daily bonus. Check back tomorrow for more sprinkles!
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
 
-      {points >= 100 && (
-        <Card className="p-6 bg-gradient-to-r from-sprinkle-pink to-cupcake-blue text-white animate-float">
-          <div className="flex items-center gap-4">
-            <Gift className="h-8 w-8" />
-            <div>
-              <h3 className="font-bubblegum text-2xl">Reward Available!</h3>
-              <p className="font-comic">You have enough sprinkles to claim a reward!</p>
-            </div>
-            <Button
-              className="ml-auto bg-white text-sprinkle-pink hover:bg-opacity-90"
-              onClick={() => toast({
-                title: "Coming Soon!",
-                description: "Rewards feature will be available soon!",
-              })}
-            >
-              Claim Reward
-            </Button>
+        <TabsContent value="stats" className="space-y-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Leaderboard</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {leaderboard.map((player, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    >
+                      <div className="flex items-center gap-3">
+                        {index === 0 ? (
+                          <Trophy className="h-6 w-6 text-yellow-400" />
+                        ) : (
+                          <div className="w-6 h-6 flex items-center justify-center font-bold text-gray-500">
+                            {index + 1}
+                          </div>
+                        )}
+                        <div>
+                          <p className="font-semibold">{player.username}</p>
+                          <p className="text-sm text-gray-500">{player.level_name}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Star className="h-4 w-4 text-yellow-400" />
+                        <span>{player.total_points}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Your Progress</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="p-4 bg-gray-50 rounded-lg">
+                    <p className="text-sm text-gray-500">Current Level</p>
+                    <p className="text-2xl font-display">{kidData?.level_name}</p>
+                    <Progress 
+                      value={(points / (kidData?.level_points_required || 100)) * 100} 
+                      className="mt-2"
+                    />
+                    <p className="text-sm text-gray-500 mt-2">
+                      {points} / {kidData?.level_points_required} points to next level
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
-        </Card>
-      )}
-
-      {/* Floating background elements */}
-      <div className="fixed top-20 left-20 animate-float delay-100">
-        <Star className="w-12 h-12 text-lavender-purple opacity-20" />
-      </div>
-      <div className="fixed bottom-20 right-20 animate-float delay-200">
-        <Sparkles className="w-12 h-12 text-cotton-candy opacity-20" />
-      </div>
-      <div className="fixed top-1/2 left-1/3 animate-float delay-300">
-        <Gift className="w-10 h-10 text-mint-green opacity-20" />
-      </div>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
