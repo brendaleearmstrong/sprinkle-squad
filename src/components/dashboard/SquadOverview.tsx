@@ -20,6 +20,7 @@ export const SquadOverview = ({ kids, tasks, onSprinkleUpdate }: SquadOverviewPr
             kid={kid} 
             tasks={tasks} 
             onSprinkleUpdate={onSprinkleUpdate}
+            onKidDeleted={onSprinkleUpdate}
           />
         ))
       ) : (
