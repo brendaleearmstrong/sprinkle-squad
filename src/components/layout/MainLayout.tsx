@@ -5,7 +5,7 @@ import { Header } from "./Header";
 
 export const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-vanilla-cream">
+    <div className="min-h-screen bg-soft-white">
       <Header />
       <main className="pb-24">
         <div className="container mx-auto px-4 py-6">
