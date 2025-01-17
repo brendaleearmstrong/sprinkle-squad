@@ -10,6 +10,8 @@ import { SquadOverview } from "@/components/dashboard/SquadOverview";
 import { TasksPanel } from "@/components/dashboard/TasksPanel";
 import { NotificationsPanel } from "@/components/dashboard/NotificationsPanel";
 import { RewardsPanel } from "@/components/dashboard/RewardsPanel";
+import { AIRecommendations } from "@/components/ai/AIRecommendations";
+import { EmotionDetector } from "@/components/ai/EmotionDetector";
 import type { Kid, Task } from "@/types";
 import { Loader2, Gift } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -212,10 +214,16 @@ const ParentDashboard = () => {
                 tasks={tasks}
                 onSprinkleUpdate={fetchChildren}
               />
+              {children.map((kid) => (
+                <div key={kid.id} className="mt-6">
+                  <AIRecommendations kid={kid} />
+                </div>
+              ))}
             </div>
             <div className="space-y-6">
               <TasksPanel tasks={tasks} />
               <RewardsPanel rewards={rewards} onRewardDeleted={fetchRewards} />
+              <EmotionDetector />
               <NotificationsPanel />
             </div>
           </div>
