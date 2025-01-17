@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { ClipboardList, Star, Calendar } from "lucide-react";
+import { ClipboardList, Star, Calendar, CheckCircle, Clock } from "lucide-react";
 import type { Task } from "@/types";
 
 interface TasksPanelProps {
@@ -24,14 +24,19 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
               <Card key={task.id} className="p-4 hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
-                    <h4 className="font-display text-lg text-electric-purple">
+                    <h4 className="font-display text-lg text-electric-purple flex items-center gap-2">
                       {task.title}
+                      {task.completed ? (
+                        <CheckCircle className="h-4 w-4 text-neon-green" />
+                      ) : (
+                        <Clock className="h-4 w-4 text-neon-orange" />
+                      )}
                     </h4>
                     <p className="text-sm text-gray-600">{task.description}</p>
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-neon-pink" />
                       <span className="text-gray-500">
-                        {task.frequency?.charAt(0).toUpperCase() + task.frequency?.slice(1)}
+                        {task.category || 'Daily Task'}
                       </span>
                     </div>
                   </div>

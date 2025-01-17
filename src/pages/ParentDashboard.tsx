@@ -137,14 +137,12 @@ const ParentDashboard = () => {
     <div className="container mx-auto p-4 space-y-8 min-h-screen bg-gradient-to-b from-background to-background/80">
       <DashboardHeader />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        <QuickStats
-          childCount={children.length}
-          taskCount={tasks.length}
-          completedTasks={tasks.filter(task => task.completed).length}
-          pendingTasks={tasks.filter(task => !task.completed).length}
-        />
-      </div>
+      <QuickStats
+        kidCount={children.length}
+        taskCount={tasks.length}
+        completedTasks={tasks.filter(task => task.completed).length}
+        pendingTasks={tasks.filter(task => !task.completed).length}
+      />
 
       <div className="flex flex-wrap gap-4 mb-8">
         <AddKidDialog onKidAdded={fetchChildren} />
