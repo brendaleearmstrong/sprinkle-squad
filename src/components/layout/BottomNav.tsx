@@ -16,34 +16,36 @@ export const BottomNav = () => {
   return (
     <nav className="px-4 py-3">
       <div className="max-w-screen-xl mx-auto">
-        <div className="flex justify-around items-center">
+        <div className="flex justify-around items-center bg-vanilla-cream border-t border-chocolate-swirl/10">
           {navItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
               <Link
                 key={item.path}
                 to={item.path}
-                className="flex flex-col items-center p-2 transition-colors duration-300"
+                className="flex flex-col items-center p-2"
               >
-                {/* Icon with color transition only */}
+                {/* Icon with hover effect */}
                 <item.icon 
                   className={cn(
                     "w-6 h-6 mb-1 transition-colors duration-300",
-                    isActive ? "text-berry-blast" : "text-chocolate-swirl/60 hover:text-berry-blast"
+                    isActive 
+                      ? "text-neon-orange" 
+                      : "text-chocolate-swirl hover:text-neon-orange"
                   )} 
                 />
                 
                 {/* Label */}
                 <span className={cn(
-                  "text-xs font-medium",
-                  isActive ? "text-berry-blast" : "text-chocolate-swirl/60"
+                  "text-xs font-medium transition-colors duration-300",
+                  isActive ? "text-neon-orange" : "text-chocolate-swirl"
                 )}>
                   {item.label}
                 </span>
                 
                 {/* Active indicator dot */}
                 {isActive && (
-                  <span className="w-1.5 h-1.5 mt-1 rounded-full bg-berry-blast" />
+                  <span className="w-1.5 h-1.5 mt-1 rounded-full bg-neon-orange" />
                 )}
               </Link>
             );
