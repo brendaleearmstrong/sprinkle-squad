@@ -5,10 +5,10 @@ import { Heart, Star } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-start p-4 relative overflow-hidden">
-      {/* Animated Background Sprinkles */}
+    <div className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden">
+      {/* Animated Background Sprinkles with responsive sizing */}
       <div className="fixed inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <div
             key={i}
             className="absolute animate-sprinkle-pop"
@@ -21,7 +21,7 @@ const Index = () => {
           >
             {Math.random() > 0.7 ? (
               <Star 
-                className={`w-3 h-3 ${[
+                className={`w-2 h-2 sm:w-3 sm:h-3 ${[
                   'text-berry-blast',
                   'text-mint-chip',
                   'text-cherry-top',
@@ -32,7 +32,7 @@ const Index = () => {
               />
             ) : Math.random() > 0.4 ? (
               <Heart 
-                className={`w-2 h-2 ${[
+                className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${[
                   'text-berry-blast',
                   'text-mint-chip',
                   'text-cherry-top',
@@ -44,7 +44,7 @@ const Index = () => {
             ) : (
               <div 
                 className={`
-                  w-2 h-2 rounded-full shadow-lg
+                  w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full shadow-lg
                   ${[
                     'bg-berry-blast',
                     'bg-mint-chip',
@@ -63,9 +63,11 @@ const Index = () => {
         ))}
       </div>
 
-      <HeroSection />
-      <FeatureCards />
-      <LoginButtons />
+      <div className="w-full space-y-8 sm:space-y-12 lg:space-y-16">
+        <HeroSection />
+        <FeatureCards />
+        <LoginButtons />
+      </div>
     </div>
   );
 };
