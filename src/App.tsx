@@ -9,6 +9,7 @@ import ParentLogin from "./pages/ParentLogin";
 import KidLogin from "./pages/KidLogin";
 import ParentDashboard from "./pages/ParentDashboard";
 import KidDashboard from "./pages/KidDashboard";
+import ParentSignup from "./pages/ParentSignup";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
             <Route path="/kid-login" element={<KidLogin />} />
             <Route path="/parent-dashboard" element={<ParentDashboard />} />
             <Route path="/kid-dashboard" element={<KidDashboard />} />
+            <Route path="/parent-signup" element={<ParentSignup />} />
           </Route>
         </Routes>
       </BrowserRouter>
