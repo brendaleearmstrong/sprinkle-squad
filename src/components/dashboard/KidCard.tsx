@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Star, Trophy, Plus, Minus, UserX, Pencil, Smile, SmilePlus, Laugh, Happy } from "lucide-react";
+import { Star, Trophy, Plus, Minus, UserX, Pencil, Smile, SmilePlus, Laugh } from "lucide-react";
 import { Kid, Task } from "@/types";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
@@ -201,7 +201,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
         case 'laugh':
           return <Laugh className="w-8 h-8 text-hot-pink" />;
         case 'happy':
-          return <Happy className="w-8 h-8 text-hot-pink" />;
+          return <Smile className="w-8 h-8 text-hot-pink" />; // Using Smile instead of Happy
         default:
           return null;
       }
@@ -255,27 +255,27 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
       </CardHeader>
 
       <CardContent className="p-6">
-          <div className="bg-soft-white rounded-lg p-4">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <Trophy className="text-electric-purple h-6 w-6" />
-                <span className="font-display text-xl">{kid.level_name}</span>
-              </div>
-              <span className="text-sm text-gray-500">Level {kid.level_number}</span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-              <div 
-                className="bg-gradient-to-r from-electric-purple to-soft-purple h-2.5 rounded-full transition-all duration-500"
-                style={{ width: `${calculateLevelProgress()}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-sm text-gray-600">
-              <span>{kid.total_points || 0} sprinkles</span>
-              <span>{kid.level_points_required ? `Next level: ${kid.level_points_required}` : 'Max level reached!'}</span>
-            </div>
-          </div>
-
         <div className="bg-soft-white rounded-lg p-4">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <Trophy className="text-electric-purple h-6 w-6" />
+              <span className="font-display text-xl">{kid.level_name}</span>
+            </div>
+            <span className="text-sm text-gray-500">Level {kid.level_number}</span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+            <div 
+              className="bg-gradient-to-r from-electric-purple to-soft-purple h-2.5 rounded-full transition-all duration-500"
+              style={{ width: `${calculateLevelProgress()}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-sm text-gray-600">
+            <span>{kid.total_points || 0} sprinkles</span>
+            <span>{kid.level_points_required ? `Next level: ${kid.level_points_required}` : 'Max level reached!'}</span>
+          </div>
+        </div>
+
+        <div className="bg-soft-white rounded-lg p-4 mt-4">
           <div className="flex gap-2">
             <Input
               type="number"
@@ -301,117 +301,117 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
             </Button>
           </div>
         </div>
-      </CardContent>
 
-      <Dialog open={isEditing} onOpenChange={setIsEditing}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit Profile</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <label className="font-body text-gray-700">Name</label>
-              <Input
-                value={editedKid.username}
-                onChange={(e) => setEditedKid({ ...editedKid, username: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="font-body text-gray-700">Birthdate</label>
-              <Input
-                type="date"
-                value={editedKid.birthdate || ''}
-                onChange={(e) => setEditedKid({ ...editedKid, birthdate: e.target.value })}
-              />
-            </div>
-            <div>
-              <label className="font-body text-gray-700">Profile Picture</label>
-              <div className="mt-1 space-y-4">
+        <Dialog open={isEditing} onOpenChange={setIsEditing}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit Profile</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <label className="font-body text-gray-700">Name</label>
                 <Input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className="flex-1"
+                  value={editedKid.username}
+                  onChange={(e) => setEditedKid({ ...editedKid, username: e.target.value })}
                 />
-                <div className="text-sm text-gray-600">Or choose an emoticon:</div>
-                <div className="flex gap-4 justify-center">
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className={`hover:bg-pink-50 ${selectedEmoticon === 'smile' ? 'border-hot-pink' : ''}`}
-                    onClick={() => handleEmoticonSelect('smile')}
-                  >
-                    <Smile className="w-6 h-6 text-hot-pink" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className={`hover:bg-pink-50 ${selectedEmoticon === 'smile-plus' ? 'border-hot-pink' : ''}`}
-                    onClick={() => handleEmoticonSelect('smile-plus')}
-                  >
-                    <SmilePlus className="w-6 h-6 text-hot-pink" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className={`hover:bg-pink-50 ${selectedEmoticon === 'laugh' ? 'border-hot-pink' : ''}`}
-                    onClick={() => handleEmoticonSelect('laugh')}
-                  >
-                    <Laugh className="w-6 h-6 text-hot-pink" />
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="icon"
-                    className={`hover:bg-pink-50 ${selectedEmoticon === 'happy' ? 'border-hot-pink' : ''}`}
-                    onClick={() => handleEmoticonSelect('happy')}
-                  >
-                    <Happy className="w-6 h-6 text-hot-pink" />
-                  </Button>
-                </div>
-                {(newAvatar || kid.avatar_url) && !selectedEmoticon && (
-                  <img 
-                    src={newAvatar ? URL.createObjectURL(newAvatar) : kid.avatar_url}
-                    alt="Preview" 
-                    className="w-12 h-12 rounded-full object-cover mx-auto"
+              </div>
+              <div>
+                <label className="font-body text-gray-700">Birthdate</label>
+                <Input
+                  type="date"
+                  value={editedKid.birthdate || ''}
+                  onChange={(e) => setEditedKid({ ...editedKid, birthdate: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="font-body text-gray-700">Profile Picture</label>
+                <div className="mt-1 space-y-4">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className="flex-1"
                   />
-                )}
+                  <div className="text-sm text-gray-600">Or choose an emoticon:</div>
+                  <div className="flex gap-4 justify-center">
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className={`hover:bg-pink-50 ${selectedEmoticon === 'smile' ? 'border-hot-pink' : ''}`}
+                      onClick={() => handleEmoticonSelect('smile')}
+                    >
+                      <Smile className="w-6 h-6 text-hot-pink" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className={`hover:bg-pink-50 ${selectedEmoticon === 'smile-plus' ? 'border-hot-pink' : ''}`}
+                      onClick={() => handleEmoticonSelect('smile-plus')}
+                    >
+                      <SmilePlus className="w-6 h-6 text-hot-pink" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className={`hover:bg-pink-50 ${selectedEmoticon === 'laugh' ? 'border-hot-pink' : ''}`}
+                      onClick={() => handleEmoticonSelect('laugh')}
+                    >
+                      <Laugh className="w-6 h-6 text-hot-pink" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      className={`hover:bg-pink-50 ${selectedEmoticon === 'happy' ? 'border-hot-pink' : ''}`}
+                      onClick={() => handleEmoticonSelect('happy')}
+                    >
+                      <Smile className="w-6 h-6 text-hot-pink" />
+                    </Button>
+                  </div>
+                  {(newAvatar || kid.avatar_url) && !selectedEmoticon && (
+                    <img 
+                      src={newAvatar ? URL.createObjectURL(newAvatar) : kid.avatar_url}
+                      alt="Preview" 
+                      className="w-12 h-12 rounded-full object-cover mx-auto"
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="flex justify-end gap-2">
+                <DialogClose asChild>
+                  <Button variant="outline">Cancel</Button>
+                </DialogClose>
+                <Button 
+                  onClick={handleUpdateProfile}
+                  className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
+                >
+                  Save Changes
+                </Button>
               </div>
             </div>
-            <div className="flex justify-end gap-2">
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button 
-                onClick={handleUpdateProfile}
-                className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
-              >
-                Save Changes
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
 
-      <AlertDialog>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your child's profile
-              and remove all associated data.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleDeleteProfile}
-              className="bg-destructive hover:bg-destructive/90 text-white font-semibold shadow-md"
-            >
-              Delete Profile
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+        <AlertDialog>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete your child's profile
+                and remove all associated data.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogAction
+                onClick={handleDeleteProfile}
+                className="bg-destructive hover:bg-destructive/90 text-white font-semibold shadow-md"
+              >
+                Delete Profile
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </CardContent>
     </Card>
   );
 };
