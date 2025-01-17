@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Star, Trophy, Gift, Sparkles, Coins, ListCheck, ChartBar, Crown } from "lucide-react";
+import { Star, Trophy, Gift, Sparkles, Coins, ListCheck, ChartBar, Crown, Brain, Shield } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AIRecommendations } from "@/components/ai/AIRecommendations";
+import { EmotionDetector } from "@/components/ai/EmotionDetector";
 
 const KidDashboard = () => {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -194,7 +196,7 @@ const KidDashboard = () => {
       </div>
 
       <Tabs defaultValue="tasks" className="space-y-6">
-        <TabsList className="grid grid-cols-4 gap-4 bg-background/95 p-1 rounded-lg">
+        <TabsList className="grid grid-cols-5 gap-4 bg-background/95 p-1 rounded-lg">
           <TabsTrigger value="tasks" className="flex gap-2 data-[state=active]:bg-electric-purple data-[state=active]:text-white">
             <ListCheck className="h-4 w-4" /> Tasks
           </TabsTrigger>
@@ -203,6 +205,9 @@ const KidDashboard = () => {
           </TabsTrigger>
           <TabsTrigger value="bonus" className="flex gap-2 data-[state=active]:bg-neon-orange data-[state=active]:text-white">
             <Gift className="h-4 w-4" /> Bonus
+          </TabsTrigger>
+          <TabsTrigger value="ai" className="flex gap-2 data-[state=active]:bg-purple-500 data-[state=active]:text-white">
+            <Brain className="h-4 w-4" /> AI Buddy
           </TabsTrigger>
           <TabsTrigger value="stats" className="flex gap-2 data-[state=active]:bg-bright-blue data-[state=active]:text-white">
             <ChartBar className="h-4 w-4" /> Stats
@@ -305,6 +310,73 @@ const KidDashboard = () => {
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="ai" className="space-y-6 animate-fade-in">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {kidData && <AIRecommendations kid={kidData} />}
+            <EmotionDetector />
+            
+            {/* Natural Language Helper */}
+            <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100">
+              <CardHeader className="flex flex-row items-center gap-2">
+                <Sparkles className="w-5 h-5 text-blue-500" />
+                <CardTitle className="text-lg text-blue-700">Kind Words Helper</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <p className="text-sm text-blue-800">
+                    Here are some kind phrases you can use today:
+                  </p>
+                  <div className="space-y-2">
+                    {[
+                      "Thank you for helping me!",
+                      "I appreciate your kindness",
+                      "Would you like to play together?",
+                      "Great job on your task!"
+                    ].map((phrase, index) => (
+                      <div
+                        key={index}
+                        className="p-2 bg-white/50 rounded-lg border border-blue-100 text-sm text-blue-800"
+                      >
+                        {phrase}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Safety Tips */}
+            <Card className="bg-gradient-to-br from-green-50 to-teal-50 border-green-100">
+              <CardHeader className="flex flex-row items-center gap-2">
+                <Shield className="w-5 h-5 text-green-500" />
+                <CardTitle className="text-lg text-green-700">Safety Sprinkles</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <p className="text-sm text-green-800">
+                    Remember these safety tips:
+                  </p>
+                  <div className="space-y-2">
+                    {[
+                      "Always ask a parent before sharing photos",
+                      "Keep your personal information private",
+                      "Be kind to others online",
+                      "Tell a parent if something makes you uncomfortable"
+                    ].map((tip, index) => (
+                      <div
+                        key={index}
+                        className="p-2 bg-white/50 rounded-lg border border-green-100 text-sm text-green-800"
+                      >
+                        {tip}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </TabsContent>
 
         <TabsContent value="stats" className="animate-fade-in">
