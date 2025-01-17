@@ -1,53 +1,53 @@
-import { IceCream, PartyPopper, Crown, Star, Heart, Gift } from "lucide-react";
+import { IceCream, PartyPopper, Crown, Star, Heart, Gift, Sparkles, Trophy, Target, Users } from "lucide-react";
 
 export const FeatureCards = () => {
   const features = [
     {
-      icon: <IceCream className="w-10 h-10" />,
-      title: "Fun Challenges",
-      description: "Complete tasks styled as delicious dessert flavors!",
+      icon: <Target className="w-10 h-10" />,
+      title: "Personalized Goals",
+      description: "Set custom tasks and goals tailored to your child's interests and abilities. Watch them grow with every achievement!",
       gradient: "from-neon-pink via-hot-pink to-electric-purple",
       animation: "hover:rotate-12"
     },
     {
       icon: <PartyPopper className="w-10 h-10" />,
-      title: "Earn Rewards",
-      description: "Collect sprinkle points and unlock sweet prizes!",
+      title: "Exciting Rewards",
+      description: "Create meaningful rewards that motivate and inspire. From extra screen time to special family activities!",
       gradient: "from-neon-orange via-bright-orange to-hot-pink",
       animation: "hover:-rotate-12"
     },
     {
       icon: <Crown className="w-10 h-10" />,
-      title: "Level Up",
-      description: "Watch your dessert tower grow as you progress!",
+      title: "Level Up System",
+      description: "Kids progress through fun levels, unlocking new challenges and rewards as they grow. Watch their confidence soar!",
       gradient: "from-electric-purple via-bright-blue to-electric-blue",
       animation: "hover:rotate-6"
     },
     {
-      icon: <Star className="w-10 h-10" />,
-      title: "Daily Surprises",
-      description: "Discover new tasks and special rewards every day!",
+      icon: <Sparkles className="w-10 h-10" />,
+      title: "Sprinkle Economy",
+      description: "Teach valuable lessons about earning, saving, and spending with our fun sprinkle-based reward system!",
       gradient: "from-neon-green via-bright-blue to-electric-blue",
       animation: "hover:-rotate-6"
     },
     {
-      icon: <Heart className="w-10 h-10" />,
-      title: "Share Joy",
-      description: "Send sprinkles to friends and family!",
+      icon: <Trophy className="w-10 h-10" />,
+      title: "Achievement Tracking",
+      description: "Celebrate progress with beautiful charts and achievements. Perfect for parent-teacher meetings!",
       gradient: "from-hot-pink via-electric-purple to-bright-blue",
       animation: "hover:rotate-12"
     },
     {
-      icon: <Gift className="w-10 h-10" />,
-      title: "Special Events",
-      description: "Join exciting seasonal challenges and events!",
+      icon: <Users className="w-10 h-10" />,
+      title: "Family Connection",
+      description: "Strengthen family bonds through shared goals and celebrations. Create lasting memories together!",
       gradient: "from-electric-blue via-neon-pink to-neon-orange",
       animation: "hover:-rotate-12"
     }
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto mt-16 px-4 pb-20">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4 pb-20">
       {features.map((feature, index) => (
         <div
           key={index}

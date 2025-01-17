@@ -1,53 +1,78 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Crown, Star, CreditCard } from "lucide-react";
+import { Crown, Star, CreditCard, Heart } from "lucide-react";
 
 export const LoginButtons = () => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-2xl mx-auto mt-16 mb-24 px-4">
-      <div className="space-y-4">
-        <Link to="/parent-login" className="group block">
-          <Button
-            variant="default"
-            size="lg"
-            className="w-full bg-neon-pink text-space-white font-display text-2xl py-8 rounded-2xl shadow-xl transition-all duration-300"
-          >
-            <Crown className="mr-3 h-7 w-7 text-space-white group-hover:text-soft-pink transition-colors duration-300" />
-            Parent Login
-          </Button>
-        </Link>
-        
-        <div className="grid grid-cols-2 gap-4">
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-space-white text-neon-pink border-2 border-neon-pink hover:bg-neon-pink hover:text-space-white font-display transition-all duration-300"
-          >
-            <CreditCard className="mr-2 h-4 w-4" />
-            Monthly
-          </Button>
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Parent Section */}
+        <div className="space-y-6 bg-gradient-to-br from-electric-purple to-deep-purple p-8 rounded-3xl shadow-xl">
+          <h3 className="text-3xl font-display text-space-white mb-4">Parents Dashboard</h3>
+          <p className="text-space-white/90 mb-6 text-lg">Create tasks, set rewards, and watch your children grow through positive reinforcement!</p>
           
-          <Button
-            variant="outline"
-            size="sm"
-            className="bg-space-white text-electric-purple border-2 border-electric-purple hover:bg-electric-purple hover:text-space-white font-display transition-all duration-300"
-          >
-            <Crown className="mr-2 h-4 w-4" />
-            Annually
-          </Button>
+          <div className="space-y-4">
+            <Link to="/parent-login" className="block">
+              <Button
+                variant="default"
+                size="lg"
+                className="w-full bg-neon-pink text-space-white font-display text-xl py-6 rounded-xl shadow-lg transition-all duration-300 hover:bg-hot-pink"
+              >
+                <Crown className="mr-3 h-6 w-6" />
+                Parent Login
+              </Button>
+            </Link>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <Link to="/parent-signup" className="block">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full bg-space-white/10 text-space-white border-2 border-space-white hover:bg-space-white hover:text-electric-purple font-display transition-all duration-300"
+                >
+                  <CreditCard className="mr-2 h-5 w-5" />
+                  Join Monthly
+                </Button>
+              </Link>
+              
+              <Link to="/parent-signup" className="block">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="w-full bg-space-white/10 text-space-white border-2 border-space-white hover:bg-space-white hover:text-electric-purple font-display transition-all duration-300"
+                >
+                  <Crown className="mr-2 h-5 w-5" />
+                  Join Annually
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* Kids Section */}
+        <div className="space-y-6 bg-gradient-to-br from-neon-orange to-hot-pink p-8 rounded-3xl shadow-xl">
+          <h3 className="text-3xl font-display text-space-white mb-4">Sprinkler Zone</h3>
+          <p className="text-space-white/90 mb-6 text-lg">Start your adventure! Complete fun challenges, earn sprinkles, and unlock amazing rewards!</p>
+          
+          <Link to="/kid-login" className="block">
+            <Button
+              variant="default"
+              size="lg"
+              className="w-full bg-space-white text-neon-orange hover:bg-soft-white font-display text-xl py-6 rounded-xl shadow-lg transition-all duration-300 group border-4 border-space-white"
+            >
+              <Star className="mr-3 h-6 w-6 text-neon-orange group-hover:text-bright-orange" />
+              Sprinkler Login
+            </Button>
+          </Link>
+          
+          <div className="mt-4 text-space-white/80 text-center">
+            <p className="flex items-center justify-center gap-2">
+              <Heart className="h-5 w-5 text-soft-pink" />
+              Join the fun with your parent's invitation!
+            </p>
+          </div>
         </div>
       </div>
-
-      <Link to="/kid-login" className="group">
-        <Button
-          variant="outline"
-          size="lg"
-          className="w-full border-4 border-neon-orange bg-space-white text-neon-orange font-display text-2xl py-8 rounded-2xl shadow-xl transition-all duration-300"
-        >
-          <Star className="mr-3 h-7 w-7 text-neon-orange group-hover:text-bright-orange transition-colors duration-300" />
-          Sprinkler Login
-        </Button>
-      </Link>
     </div>
   );
 };
