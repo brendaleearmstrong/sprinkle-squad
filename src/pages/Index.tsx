@@ -1,7 +1,7 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureCards } from "@/components/home/FeatureCards";
 import { LoginButtons } from "@/components/home/LoginButtons";
-import { Heart, Star, Sparkles, Crown, CreditCard, Gift, Trophy } from "lucide-react";
+import { Heart, Star, Sparkles, Crown, CreditCard, Gift, Trophy, IceCream } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -12,9 +12,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-white">
-      {/* Reduced number of background sparkles with adjusted opacity */}
+      {/* Background decorative elements with more variety */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(40)].map((_, i) => (
           <div
             key={`sparkle-${i}`}
             className="absolute animate-sprinkle-pop"
@@ -27,27 +27,29 @@ const Index = () => {
               transform: `scale(${0.5 + Math.random() * 1.5})`,
             }}
           >
-            {Math.random() > 0.7 ? (
-              <Sparkles 
+            {Math.random() > 0.6 ? (
+              <Heart 
                 className={`w-4 h-4 sm:w-6 sm:h-6 ${[
                   'text-neon-pink/40',
                   'text-hot-pink/40',
+                  'text-soft-pink/40',
+                ][Math.floor(Math.random() * 3)]}`}
+              />
+            ) : Math.random() > 0.3 ? (
+              <IceCream 
+                className={`w-4 h-4 sm:w-6 sm:h-6 ${[
                   'text-neon-orange/40',
-                  'text-bright-blue/40',
-                  'text-neon-green/40',
+                  'text-bright-orange/40',
                   'text-electric-purple/40',
-                ][Math.floor(Math.random() * 6)]}`}
+                ][Math.floor(Math.random() * 3)]}`}
               />
             ) : (
               <Star 
                 className={`w-3 h-3 sm:w-4 sm:h-4 ${[
                   'text-neon-pink/30',
-                  'text-hot-pink/30',
-                  'text-neon-orange/30',
                   'text-bright-blue/30',
                   'text-neon-green/30',
-                  'text-electric-purple/30',
-                ][Math.floor(Math.random() * 6)]}`}
+                ][Math.floor(Math.random() * 3)]}`}
               />
             )}
           </div>
@@ -63,7 +65,7 @@ const Index = () => {
         {/* Login/Join Section */}
         <LoginButtons />
 
-        {/* Feature Cards Section with expanded descriptions */}
+        {/* Feature Cards Section */}
         <div className="py-16">
           <h2 className="text-4xl md:text-5xl font-display font-bold text-center mb-12 bg-gradient-to-r from-neon-pink via-hot-pink to-neon-orange bg-clip-text text-transparent">
             Transform Tasks into Adventures!
@@ -118,10 +120,10 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Footer with reduced sparkles */}
+        {/* Footer with more decorative elements */}
         <footer className="w-full bg-hot-pink text-space-white py-8 mt-auto relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
-            {[...Array(8)].map((_, i) => (
+            {[...Array(12)].map((_, i) => (
               <div
                 key={`footer-sparkle-${i}`}
                 className="absolute animate-float"
@@ -132,7 +134,13 @@ const Index = () => {
                   opacity: '0.2',
                 }}
               >
-                <Sparkles className="w-4 h-4 text-space-white/20" />
+                {i % 3 === 0 ? (
+                  <Heart className="w-4 h-4 text-space-white/20" />
+                ) : i % 3 === 1 ? (
+                  <IceCream className="w-4 h-4 text-space-white/20" />
+                ) : (
+                  <Sparkles className="w-4 h-4 text-space-white/20" />
+                )}
               </div>
             ))}
           </div>
