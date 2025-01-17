@@ -288,6 +288,51 @@ export type Database = {
           },
         ]
       }
+      task_history: {
+        Row: {
+          created_at: string | null
+          id: string
+          kid_id: string | null
+          parent_feedback: string | null
+          proof_url: string | null
+          status: string | null
+          task_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          kid_id?: string | null
+          parent_feedback?: string | null
+          proof_url?: string | null
+          status?: string | null
+          task_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          kid_id?: string | null
+          parent_feedback?: string | null
+          proof_url?: string | null
+          status?: string | null
+          task_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "task_history_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "task_history_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tasks: {
         Row: {
           category: Database["public"]["Enums"]["activity_category"] | null
