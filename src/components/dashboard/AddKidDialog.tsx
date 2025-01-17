@@ -63,8 +63,8 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
         avatarUrl = publicUrl;
       }
 
-      // Create the child profile
-      const { error: profileError } = await supabase
+      // First, insert the profile and get the ID in a single operation
+      const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .insert([
           {
@@ -77,32 +77,22 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
             level_name: 'Sprinkle Starter',
             level_points_required: 100,
           },
-        ]);
-
-      if (profileError) {
-        console.error('Profile creation error:', profileError);
-        throw profileError;
-      }
-
-      // Get the created profile to get its ID
-      const { data: createdProfile, error: fetchError } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("username", newKid.username)
+        ])
+        .select('id')
         .single();
 
-      if (fetchError || !createdProfile) {
-        console.error('Error fetching created profile:', fetchError);
-        throw fetchError || new Error('Could not fetch created profile');
+      if (profileError || !profileData) {
+        console.error('Profile creation error:', profileError);
+        throw profileError || new Error('Failed to create profile');
       }
 
-      // Create the parent-child relationship
+      // Create the parent-child relationship using the returned ID
       const { error: relationError } = await supabase
         .from("parent_kid_relationships")
         .insert([
           {
             parent_id: user.id,
-            kid_id: createdProfile.id,
+            kid_id: profileData.id,
           },
         ]);
 
