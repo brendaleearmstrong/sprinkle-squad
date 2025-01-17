@@ -14,28 +14,31 @@ export const BottomNav = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-whipped-cream/80 backdrop-blur-lg border-t border-caramel-drizzle/20 px-6 py-2 md:hidden">
-      <div className="flex justify-between items-center max-w-screen-xl mx-auto">
-        {navItems.map((item) => {
-          const Icon = item.icon;
-          const isActive = location.pathname === item.path;
-          
-          return (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={cn(
-                "flex flex-col items-center gap-1 p-2 rounded-lg transition-colors",
-                isActive 
-                  ? "text-berry-blast" 
-                  : "text-chocolate-swirl/60 hover:text-berry-blast"
-              )}
-            >
-              <Icon className="w-6 h-6" />
-              <span className="text-xs font-medium">{item.label}</span>
-            </Link>
-          );
-        })}
+    <nav className="px-4 py-2">
+      <div className="max-w-screen-xl mx-auto">
+        <div className="flex justify-around items-center">
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.path;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  "flex flex-col items-center p-2 rounded-xl transition-all duration-300",
+                  isActive
+                    ? "text-berry-blast scale-110 font-semibold"
+                    : "text-chocolate-swirl/60 hover:text-berry-blast hover:scale-105"
+                )}
+              >
+                <item.icon className="w-6 h-6 mb-1" />
+                <span className="text-xs">{item.label}</span>
+                {isActive && (
+                  <span className="absolute bottom-1 w-1 h-1 rounded-full bg-berry-blast animate-pulse" />
+                )}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );
