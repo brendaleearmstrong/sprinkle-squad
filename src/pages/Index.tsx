@@ -9,7 +9,6 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start relative overflow-hidden">
       <div className="fixed inset-0 pointer-events-none">
-        {/* Static Sprinkles */}
         {[...Array(30)].map((_, i) => (
           <div
             key={`static-${i}`}
@@ -117,16 +116,16 @@ const Index = () => {
         ))}
       </div>
 
-      <div className="w-full space-y-16 sm:space-y-24 lg:space-y-32">
+      <div className="w-full space-y-12 sm:space-y-16">
         {/* Hero Section with immediate CTAs */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-12 pb-8">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8">
           <HeroSection />
           
           {/* Quick Access Buttons - Updated for clearer user flow */}
-          <div className="mt-12 sm:mt-16 flex flex-col gap-8 max-w-2xl mx-auto">
+          <div className="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             {/* Kid Section */}
-            <div className="bg-gradient-to-r from-neon-orange to-hot-pink p-8 rounded-2xl shadow-xl">
-              <h3 className="text-2xl font-display text-space-white mb-6 flex items-center gap-2">
+            <div className="bg-gradient-to-r from-neon-orange to-hot-pink p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-[1.02]">
+              <h3 className="text-2xl font-display text-space-white mb-4 flex items-center gap-2">
                 <Star className="h-6 w-6 animate-spin-slow" />
                 For Kids
               </h3>
@@ -143,8 +142,8 @@ const Index = () => {
             </div>
 
             {/* Parent Section */}
-            <div className="bg-gradient-to-r from-electric-purple to-neon-pink p-8 rounded-2xl shadow-xl">
-              <h3 className="text-2xl font-display text-space-white mb-6 flex items-center gap-2">
+            <div className="bg-gradient-to-r from-electric-purple to-neon-pink p-6 rounded-2xl shadow-xl transform transition-all duration-300 hover:scale-[1.02]">
+              <h3 className="text-2xl font-display text-space-white mb-4 flex items-center gap-2">
                 <Crown className="h-6 w-6 animate-float" />
                 For Parents
               </h3>
@@ -162,7 +161,7 @@ const Index = () => {
           </div>
 
           {/* Quick Benefits */}
-          <div className="mt-16 sm:mt-20 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-4xl mx-auto text-center">
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto text-center">
             {[
               {
                 icon: <Star className="w-8 h-8 text-neon-orange" />,
@@ -179,7 +178,7 @@ const Index = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="bg-space-white/90 backdrop-blur-sm p-6 rounded-xl shadow-lg flex flex-col items-center gap-3"
+                className="bg-space-white/90 backdrop-blur-sm p-4 rounded-xl shadow-lg flex flex-col items-center gap-2 transform transition-all duration-300 hover:scale-105"
               >
                 {item.icon}
                 <span className="font-display text-lg text-electric-purple">
@@ -191,12 +190,12 @@ const Index = () => {
         </div>
 
         {/* Feature Cards Section */}
-        <div className="bg-gradient-to-b from-transparent to-vanilla-cream pt-16 sm:pt-24">
+        <div className="bg-gradient-to-b from-transparent to-vanilla-cream pt-8 sm:pt-16">
           <FeatureCards />
         </div>
 
         {/* Additional Login Options */}
-        <div className="bg-vanilla-cream pb-24">
+        <div className="bg-vanilla-cream pb-16">
           <LoginButtons />
         </div>
       </div>
