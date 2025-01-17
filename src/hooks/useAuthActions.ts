@@ -20,23 +20,24 @@ export const useAuthActions = () => {
     }
 
     try {
-      // First attempt to sign in with auth
-      const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      console.log('Attempting to sign in with:', email);
+      
+      const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (authError) {
-        console.error('Auth error:', authError);
+      if (signInError) {
+        console.error('Sign in error:', signInError);
         toast({
           title: "Login failed",
-          description: getErrorMessage(authError),
+          description: getErrorMessage(signInError),
           variant: "destructive",
         });
         return;
       }
 
-      if (!authData.user) {
+      if (!user) {
         toast({
           title: "Login failed",
           description: "User not found",
@@ -45,15 +46,17 @@ export const useAuthActions = () => {
         return;
       }
 
-      // After successful auth, get the user's profile
-      const { data: profileData, error: profileError } = await supabase
+      console.log('Successfully signed in user:', user.id);
+
+      // Get user profile to check if they're a parent
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('is_parent')
-        .eq('id', authData.user.id)
+        .eq('id', user.id)
         .maybeSingle();
 
       if (profileError) {
-        console.error('Profile lookup error:', profileError);
+        console.error('Profile fetch error:', profileError);
         toast({
           title: "Profile error",
           description: "Could not fetch user profile",
@@ -62,23 +65,42 @@ export const useAuthActions = () => {
         return;
       }
 
-      if (!profileData) {
-        toast({
-          title: "Profile not found",
-          description: "Please contact support",
-          variant: "destructive",
-        });
+      if (!profile) {
+        console.log('Creating new profile for user:', user.id);
+        // Create a profile if it doesn't exist
+        const { error: createProfileError } = await supabase
+          .from('profiles')
+          .insert([
+            { 
+              id: user.id,
+              is_parent: true,
+              email: email
+            }
+          ]);
+
+        if (createProfileError) {
+          console.error('Profile creation error:', createProfileError);
+          toast({
+            title: "Profile creation failed",
+            description: "Could not create user profile",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        navigate('/parent-dashboard');
         return;
       }
 
+      console.log('User profile found:', profile);
       toast({
         title: "Welcome back! 🌟",
         description: "Successfully logged in",
       });
       
-      navigate(profileData.is_parent ? '/parent-dashboard' : '/kid-dashboard');
+      navigate(profile.is_parent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
-      console.error('Sign in error:', error);
+      console.error('Unexpected error during sign in:', error);
       toast({
         title: "Login failed",
         description: getErrorMessage(error as AuthError),
