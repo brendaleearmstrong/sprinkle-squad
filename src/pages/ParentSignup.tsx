@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 interface ChildInfo {
   username: string;
@@ -19,15 +20,38 @@ type SubscriptionPlan = "single" | "family";
 const ParentSignup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [subscriptionPlan, setSubscriptionPlan] = useState<SubscriptionPlan>("single");
   const [children, setChildren] = useState<ChildInfo[]>([{ username: "", birthdate: "" }]);
   const { signUp } = useAuth();
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (password !== confirmPassword) {
+      toast({
+        title: "Passwords don't match",
+        description: "Please make sure your passwords match",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: "Password too short",
+        description: "Password must be at least 6 characters long",
+        variant: "destructive",
+      });
+      return;
+    }
+
     await signUp(email, password, true, {
       subscription_plan: subscriptionPlan,
       children: children,
+      username: username,
     });
   };
 
@@ -88,36 +112,77 @@ const ParentSignup = () => {
         
         <Card className="p-6 bg-white/90 backdrop-blur shadow-xl border-2 border-secondary/10">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-lg font-medium text-gray-700 flex items-center gap-2">
-                <User className="h-4 w-4 text-neon-pink" />
-                Email
-              </label>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-3 text-lg border-2 focus:ring-secondary"
-                placeholder="parent@example.com"
-                required
-              />
-            </div>
-            
-            <div className="space-y-2">
-              <label className="text-lg font-medium text-gray-700 flex items-center gap-2">
-                <LockKeyhole className="h-4 w-4 text-neon-pink" />
-                Password
-              </label>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-3 text-lg border-2 focus:ring-secondary"
-                required
-                minLength={6}
-              />
+            {/* Parent Information Section */}
+            <div className="space-y-6 p-4 border-2 rounded-lg bg-white/50">
+              <h3 className="text-xl font-display font-bold text-gray-700 flex items-center gap-2">
+                <Crown className="h-5 w-5 text-neon-orange" />
+                Parent Information
+              </h3>
+              
+              <div className="space-y-2">
+                <Label className="text-lg font-medium text-gray-700 flex items-center gap-2">
+                  <User className="h-4 w-4 text-neon-pink" />
+                  Username
+                </Label>
+                <Input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="w-full p-3 text-lg border-2 focus:ring-secondary"
+                  placeholder="Your display name"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-lg font-medium text-gray-700 flex items-center gap-2">
+                  <User className="h-4 w-4 text-neon-pink" />
+                  Email
+                </Label>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full p-3 text-lg border-2 focus:ring-secondary"
+                  placeholder="parent@example.com"
+                  required
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label className="text-lg font-medium text-gray-700 flex items-center gap-2">
+                  <LockKeyhole className="h-4 w-4 text-neon-pink" />
+                  Password
+                </Label>
+                <Input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full p-3 text-lg border-2 focus:ring-secondary"
+                  required
+                  minLength={6}
+                  placeholder="At least 6 characters"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-lg font-medium text-gray-700 flex items-center gap-2">
+                  <LockKeyhole className="h-4 w-4 text-neon-pink" />
+                  Confirm Password
+                </Label>
+                <Input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full p-3 text-lg border-2 focus:ring-secondary"
+                  required
+                  minLength={6}
+                  placeholder="Confirm your password"
+                />
+              </div>
             </div>
 
+            {/* Subscription Plan Section */}
             <div className="space-y-4">
               <Label className="text-lg font-medium text-gray-700">Choose your Sprinkle Plan</Label>
               <RadioGroup
@@ -188,6 +253,7 @@ const ParentSignup = () => {
               </RadioGroup>
             </div>
 
+            {/* Children Section */}
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <Label className="text-lg font-medium text-gray-700">Children</Label>
