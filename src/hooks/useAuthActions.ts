@@ -98,6 +98,7 @@ export const useAuthActions = () => {
             is_parent: isParent,
             ...metadata,
           },
+          emailRedirectTo: window.location.origin,
         },
       });
 
@@ -108,16 +109,6 @@ export const useAuthActions = () => {
       }
 
       console.log('Auth user created successfully:', user.id);
-
-      // Wait for session to be established
-      if (!session) {
-        console.log('Waiting for session...');
-        const { data: { session: newSession }, error: sessionError } = await supabase.auth.getSession();
-        if (sessionError) throw sessionError;
-        if (!newSession) {
-          throw new Error('Failed to establish session');
-        }
-      }
 
       // Now create the profile using the RLS policy
       const { error: profileError } = await supabase
