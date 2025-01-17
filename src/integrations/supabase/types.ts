@@ -9,6 +9,41 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      achievements: {
+        Row: {
+          created_at: string
+          data: Json | null
+          id: string
+          kid_id: string
+          points_earned: number
+          type: Database["public"]["Enums"]["achievement_type"]
+        }
+        Insert: {
+          created_at?: string
+          data?: Json | null
+          id?: string
+          kid_id: string
+          points_earned?: number
+          type: Database["public"]["Enums"]["achievement_type"]
+        }
+        Update: {
+          created_at?: string
+          data?: Json | null
+          id?: string
+          kid_id?: string
+          points_earned?: number
+          type?: Database["public"]["Enums"]["achievement_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "achievements_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       activities: {
         Row: {
           created_at: string
@@ -93,7 +128,9 @@ export type Database = {
           created_at: string
           id: string
           is_parent: boolean | null
-          level: number | null
+          level_name: string | null
+          level_number: number | null
+          level_points_required: number | null
           pin: string | null
           total_points: number | null
           username: string | null
@@ -104,7 +141,9 @@ export type Database = {
           created_at?: string
           id: string
           is_parent?: boolean | null
-          level?: number | null
+          level_name?: string | null
+          level_number?: number | null
+          level_points_required?: number | null
           pin?: string | null
           total_points?: number | null
           username?: string | null
@@ -115,7 +154,9 @@ export type Database = {
           created_at?: string
           id?: string
           is_parent?: boolean | null
-          level?: number | null
+          level_name?: string | null
+          level_number?: number | null
+          level_points_required?: number | null
           pin?: string | null
           total_points?: number | null
           username?: string | null
@@ -246,6 +287,7 @@ export type Database = {
       }
       tasks: {
         Row: {
+          category: Database["public"]["Enums"]["activity_category"] | null
           completed: boolean | null
           completed_at: string | null
           created_at: string
@@ -254,11 +296,16 @@ export type Database = {
           id: string
           kid_id: string | null
           level_required: number | null
+          multiplier: number | null
           parent_id: string | null
           points: number
+          streak_count: number | null
           title: string
+          validation_data: Json | null
+          validation_type: Database["public"]["Enums"]["validation_type"] | null
         }
         Insert: {
+          category?: Database["public"]["Enums"]["activity_category"] | null
           completed?: boolean | null
           completed_at?: string | null
           created_at?: string
@@ -267,11 +314,18 @@ export type Database = {
           id?: string
           kid_id?: string | null
           level_required?: number | null
+          multiplier?: number | null
           parent_id?: string | null
           points?: number
+          streak_count?: number | null
           title: string
+          validation_data?: Json | null
+          validation_type?:
+            | Database["public"]["Enums"]["validation_type"]
+            | null
         }
         Update: {
+          category?: Database["public"]["Enums"]["activity_category"] | null
           completed?: boolean | null
           completed_at?: string | null
           created_at?: string
@@ -280,9 +334,15 @@ export type Database = {
           id?: string
           kid_id?: string | null
           level_required?: number | null
+          multiplier?: number | null
           parent_id?: string | null
           points?: number
+          streak_count?: number | null
           title?: string
+          validation_data?: Json | null
+          validation_type?:
+            | Database["public"]["Enums"]["validation_type"]
+            | null
         }
         Relationships: [
           {
@@ -309,9 +369,27 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      achievement_type: "kindness_streak" | "joy_multiplier" | "growth_champion"
+      activity_category:
+        | "sharing_sundaes"
+        | "compassion_cones"
+        | "happy_hearts"
+        | "daily_tasks"
+        | "emotional_growth"
+        | "friendship_family"
+        | "learning_growth"
       activity_type: "cake_decorating" | "ice_cream_making" | "doll_dressing"
       sprinkle_transaction_type: "gift" | "trade"
       task_frequency: "daily" | "weekly" | "monthly"
+      validation_type:
+        | "parent_verification"
+        | "photo_evidence"
+        | "video_evidence"
+        | "teacher_note"
+        | "family_witness"
+        | "community_feedback"
+        | "self_reflection"
+        | "group_confirmation"
     }
     CompositeTypes: {
       [_ in never]: never
