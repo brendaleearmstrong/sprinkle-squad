@@ -426,7 +426,11 @@ export type Database = {
         | "emotional_growth"
         | "friendship_family"
         | "learning_growth"
-      activity_type: "cake_decorating" | "ice_cream_making" | "doll_dressing"
+      activity_type:
+        | "cake_decorating"
+        | "ice_cream_making"
+        | "doll_dressing"
+        | "daily_bonus"
       sprinkle_transaction_type: "gift" | "trade"
       task_frequency: "daily" | "weekly" | "monthly"
       validation_type:
