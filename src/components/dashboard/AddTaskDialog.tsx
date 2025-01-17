@@ -49,19 +49,19 @@ export const AddTaskDialog = ({ onTaskAdded }: AddTaskDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-gradient-to-r from-mint-green to-cupcake-blue hover:opacity-90">
-          <Plus className="mr-2" /> Add Task
+        <Button className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md">
+          <Plus className="mr-2 h-4 w-4" /> Add Task
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="font-bubblegum text-2xl text-sprinkle-pink">
+          <DialogTitle className="font-display text-2xl text-electric-purple">
             Add New Task
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <label className="font-comic text-gray-700">Title</label>
+            <label className="font-body text-gray-700">Title</label>
             <Input
               value={newTask.title}
               onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
@@ -69,7 +69,7 @@ export const AddTaskDialog = ({ onTaskAdded }: AddTaskDialogProps) => {
             />
           </div>
           <div>
-            <label className="font-comic text-gray-700">Description</label>
+            <label className="font-body text-gray-700">Description</label>
             <Input
               value={newTask.description}
               onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
@@ -77,7 +77,7 @@ export const AddTaskDialog = ({ onTaskAdded }: AddTaskDialogProps) => {
             />
           </div>
           <div>
-            <label className="font-comic text-gray-700">Points</label>
+            <label className="font-body text-gray-700">Points</label>
             <Input
               type="number"
               value={newTask.points}
@@ -85,7 +85,10 @@ export const AddTaskDialog = ({ onTaskAdded }: AddTaskDialogProps) => {
               min={0}
             />
           </div>
-          <Button onClick={addTask} className="w-full">
+          <Button 
+            onClick={addTask} 
+            className="w-full bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
+          >
             Add Task
           </Button>
         </div>

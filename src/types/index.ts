@@ -22,6 +22,7 @@ export interface SignUpMetadata {
   is_parent: boolean;
   birthdate?: string;
   pin?: string;
+  subscription_plan?: string;
 }
 
 export interface Kid {
