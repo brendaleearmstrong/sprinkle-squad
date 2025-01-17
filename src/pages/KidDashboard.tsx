@@ -6,6 +6,16 @@ import { Star, Trophy, Gift, Sparkles } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import type { Task } from "@/types";
 import { useNavigate } from "react-router-dom";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
+
+const ANIMAL_IMAGES = [
+  "photo-1582562124811-c09040d0a901", // orange and white tabby cat
+  "photo-1535268647677-300dbf3d78d1", // grey tabby kitten
+  "photo-1466721591366-2d5fba72006d", // brown antelope and zebra
+  "photo-1493962853295-0fd70327578a", // brown ox
+  "photo-1438565434616-3ef039228b15", // mountain goats
+  "photo-1501286353178-1ec881214838", // monkey
+];
 
 const KidDashboard = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -102,6 +112,11 @@ const KidDashboard = () => {
     navigate("/kid-login");
   };
 
+  const getRandomAnimalImage = () => {
+    const randomIndex = Math.floor(Math.random() * ANIMAL_IMAGES.length);
+    return `https://images.unsplash.com/${ANIMAL_IMAGES[randomIndex]}?auto=format&fit=crop&w=300&h=300`;
+  };
+
   return (
     <div className="container mx-auto p-4 space-y-6">
       <div className="flex justify-between items-center">
@@ -130,6 +145,13 @@ const KidDashboard = () => {
               <CardTitle className="text-white">{task.title}</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
+              <AspectRatio ratio={1}>
+                <img 
+                  src={getRandomAnimalImage()} 
+                  alt="Cute animal reward"
+                  className="rounded-lg object-cover w-full h-full"
+                />
+              </AspectRatio>
               <p className="font-comic text-gray-600">{task.description}</p>
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-2">
