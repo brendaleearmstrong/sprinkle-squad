@@ -1,20 +1,66 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { IceCream, Heart, Star, Gift, Trophy, Sparkles } from "lucide-react";
+import { Logo } from "@/components/ui/Logo";
+import { 
+  IceCream, 
+  Heart, 
+  Star, 
+  Gift, 
+  Trophy, 
+  Sparkles,
+  Crown,
+  CheckCircle2,
+  Rocket,
+  PartyPopper
+} from "lucide-react";
 
 const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start p-4 relative overflow-hidden">
+      {/* Animated Background Sprinkles */}
+      <div className="fixed inset-0 pointer-events-none">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute animate-sprinkle-pop"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${2 + Math.random() * 3}s`,
+            }}
+          >
+            <div 
+              className={`
+                w-2 h-2 rounded-full shadow-lg
+                ${[
+                  'bg-sprinkle-rainbow-red',
+                  'bg-sprinkle-rainbow-orange',
+                  'bg-sprinkle-rainbow-yellow',
+                  'bg-sprinkle-rainbow-green',
+                  'bg-sprinkle-rainbow-blue',
+                  'bg-sprinkle-rainbow-purple'
+                ][Math.floor(Math.random() * 6)]}
+              `}
+              style={{
+                transform: `rotate(${Math.random() * 360}deg)`
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
       {/* Hero Section */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6 mt-8">
+      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 mt-12">
+        <Logo />
         <div className="relative inline-block">
           <div className="absolute -inset-4 bg-gradient-to-r from-berry-blast via-mint-chip to-cherry-top rounded-full blur-xl opacity-70 animate-pulse" />
-          <h1 className="relative text-6xl md:text-7xl font-display font-bold bg-gradient-to-r from-cherry-top via-mint-chip to-berry-blast bg-clip-text text-transparent animate-float">
-            🍦 SprinkleSquad
+          <h1 className="relative text-4xl md:text-6xl font-display font-bold text-chocolate-swirl">
+            Turn Tasks into Sweet Adventures!
           </h1>
         </div>
-        <p className="text-xl md:text-2xl font-body text-chocolate-swirl max-w-2xl mx-auto leading-relaxed">
-          Turn everyday tasks into sweet adventures! Collect magical ✨sprinkles✨ and watch your rewards stack up!
+        <p className="text-xl md:text-2xl font-body text-chocolate-swirl/80 max-w-2xl mx-auto leading-relaxed">
+          Collect magical ✨sprinkles✨ and watch your rewards stack up like the most delicious ice cream tower!
         </p>
       </div>
 
@@ -23,16 +69,16 @@ const Index = () => {
         {[
           {
             icon: <IceCream className="w-8 h-8" />,
-            title: "Fun Tasks",
-            description: "Complete challenges styled as delicious ice cream flavors!"
+            title: "Fun Challenges",
+            description: "Complete tasks styled as delicious ice cream flavors!"
           },
           {
-            icon: <Star className="w-8 h-8" />,
+            icon: <PartyPopper className="w-8 h-8" />,
             title: "Earn Rewards",
             description: "Collect sprinkle points and unlock sweet prizes!"
           },
           {
-            icon: <Trophy className="w-8 h-8" />,
+            icon: <Crown className="w-8 h-8" />,
             title: "Level Up",
             description: "Watch your ice cream tower grow as you progress!"
           }
@@ -60,7 +106,7 @@ const Index = () => {
             size="lg"
             className="w-full bg-gradient-to-r from-berry-blast to-mint-chip hover:opacity-90 text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300"
           >
-            <Sparkles className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
+            <Crown className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
             Parent Dashboard
           </Button>
         </Link>
@@ -77,15 +123,16 @@ const Index = () => {
         </Link>
       </div>
 
-      {/* Additional Features */}
+      {/* Features Sections */}
       <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mt-16">
         <div className="bg-whipped-cream/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-caramel-drizzle/20">
-          <h3 className="font-display text-2xl font-bold mb-4 text-chocolate-swirl">
-            For Parents 👨‍👩‍👧‍👦
+          <h3 className="font-display text-2xl font-bold mb-4 flex items-center gap-2 text-chocolate-swirl">
+            <Crown className="w-6 h-6 text-berry-blast" />
+            For Parents
           </h3>
           <ul className="space-y-4">
             <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Heart className="w-5 h-5 text-berry-blast" />
+              <CheckCircle2 className="w-5 h-5 text-berry-blast" />
               Create custom rewards and tasks
             </li>
             <li className="flex items-center gap-3 text-chocolate-swirl">
@@ -100,12 +147,13 @@ const Index = () => {
         </div>
 
         <div className="bg-whipped-cream/80 backdrop-blur-md p-8 rounded-3xl shadow-lg border border-caramel-drizzle/20">
-          <h3 className="font-display text-2xl font-bold mb-4 text-chocolate-swirl">
-            For Kids 🍦
+          <h3 className="font-display text-2xl font-bold mb-4 flex items-center gap-2 text-chocolate-swirl">
+            <IceCream className="w-6 h-6 text-mint-chip" />
+            For Kids
           </h3>
           <ul className="space-y-4">
             <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Star className="w-5 h-5 text-mint-chip" />
+              <Rocket className="w-5 h-5 text-mint-chip" />
               Complete fun daily challenges
             </li>
             <li className="flex items-center gap-3 text-chocolate-swirl">
@@ -113,39 +161,11 @@ const Index = () => {
               Level up and earn badges
             </li>
             <li className="flex items-center gap-3 text-chocolate-swirl">
-              <Gift className="w-5 h-5 text-mint-chip" />
+              <PartyPopper className="w-5 h-5 text-mint-chip" />
               Redeem sprinkles for rewards
             </li>
           </ul>
         </div>
-      </div>
-
-      {/* Animated Sprinkles Background */}
-      <div className="fixed inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-sprinkle-pop"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 2}s`,
-            }}
-          >
-            <div className={`
-              w-3 h-3 rounded-full 
-              ${[
-                'bg-sprinkle-rainbow-red',
-                'bg-sprinkle-rainbow-orange',
-                'bg-sprinkle-rainbow-yellow',
-                'bg-sprinkle-rainbow-green',
-                'bg-sprinkle-rainbow-blue',
-                'bg-sprinkle-rainbow-purple'
-              ][Math.floor(Math.random() * 6)]}
-              opacity-60 shadow-lg
-            `} />
-          </div>
-        ))}
       </div>
     </div>
   );
