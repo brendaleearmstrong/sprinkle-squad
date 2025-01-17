@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      parent_kid_relationships: {
+        Row: {
+          created_at: string
+          id: string
+          kid_id: string
+          parent_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kid_id: string
+          parent_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kid_id?: string
+          parent_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "parent_kid_relationships_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "parent_kid_relationships_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -29,6 +65,92 @@ export type Database = {
           username?: string | null
         }
         Relationships: []
+      }
+      rewards: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          parent_id: string | null
+          points_required: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          parent_id?: string | null
+          points_required?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          parent_id?: string | null
+          points_required?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rewards_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string
+          description: string | null
+          id: string
+          kid_id: string | null
+          parent_id: string | null
+          points: number
+          title: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          kid_id?: string | null
+          parent_id?: string | null
+          points?: number
+          title: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          kid_id?: string | null
+          parent_id?: string | null
+          points?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "tasks_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
