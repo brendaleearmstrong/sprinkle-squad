@@ -8,5 +8,9 @@ export const supabase = supabaseUrl && supabaseKey
   : null;
 
 export const isSupabaseConfigured = () => {
-  return !!supabase;
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('Supabase URL and Anon Key must be defined in environment variables');
+    return false;
+  }
+  return true;
 };
