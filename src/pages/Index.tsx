@@ -150,7 +150,7 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Quick Benefits - More visual */}
+          {/* Quick Benefits */}
           <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {[
               {
@@ -180,14 +180,14 @@ const Index = () => {
         </div>
 
         {/* Feature Cards Section */}
-        <div className="bg-gradient-to-b from-transparent to-vanilla-cream pt-12">
+        <div className="bg-gradient-to-b from-transparent to-electric-purple/10 pt-12">
           <FeatureCards />
         </div>
 
         {/* Premium Subscription Section */}
-        <div className="bg-vanilla-cream py-16">
+        <div className="py-16 bg-gradient-to-b from-electric-purple/10 to-electric-purple/20">
           <div className="max-w-4xl mx-auto px-4">
-            <div className="bg-gradient-to-br from-electric-purple to-soft-purple p-8 rounded-3xl shadow-xl mb-8">
+            <div className="bg-gradient-to-br from-electric-purple to-soft-purple p-8 rounded-3xl shadow-xl">
               <h3 className="text-3xl font-display text-space-white mb-4 text-center flex items-center justify-center gap-3">
                 <CreditCard className="h-8 w-8 text-neon-pink animate-pulse" />
                 Premium Features
@@ -217,7 +217,7 @@ const Index = () => {
         </div>
 
         {/* Newsletter Section */}
-        <div className="bg-vanilla-cream py-8">
+        <div className="py-16 bg-gradient-to-b from-electric-purple/20 to-electric-purple/30">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-gradient-to-br from-electric-purple to-soft-purple p-8 rounded-3xl shadow-xl">
               <h3 className="text-3xl font-display text-space-white mb-4 text-center">Stay Updated!</h3>
@@ -236,9 +236,9 @@ const Index = () => {
                 <Button 
                   type="submit"
                   size="lg"
-                  className="h-12 px-8 bg-neon-pink hover:bg-hot-pink text-space-white font-display"
+                  className="h-12 px-8 bg-neon-pink hover:bg-hot-pink text-space-white font-display flex items-center gap-2"
                 >
-                  <Send className="mr-2 h-5 w-5" />
+                  <Send className="h-5 w-5" />
                   Subscribe
                 </Button>
               </form>
@@ -246,13 +246,15 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Additional Login Options */}
-        <div className="bg-[#FF1493] py-8">
-          <LoginButtons />
+        {/* Login Section */}
+        <div className="py-16 bg-gradient-to-b from-electric-purple/30 to-deep-purple">
+          <div className="max-w-4xl mx-auto px-4">
+            <LoginButtons />
+          </div>
         </div>
 
         {/* Footer */}
-        <footer className="bg-[#FF1493] text-space-white py-8">
+        <footer className="bg-deep-purple text-space-white py-8">
           <div className="container mx-auto px-4">
             <div className="text-center">
               <p className="text-space-white/90 text-sm">
