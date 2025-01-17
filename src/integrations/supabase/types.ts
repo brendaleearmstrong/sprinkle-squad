@@ -9,6 +9,47 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      activities: {
+        Row: {
+          created_at: string
+          data: Json | null
+          description: string | null
+          id: string
+          kid_id: string
+          name: string
+          points_earned: number | null
+          type: Database["public"]["Enums"]["activity_type"]
+        }
+        Insert: {
+          created_at?: string
+          data?: Json | null
+          description?: string | null
+          id?: string
+          kid_id: string
+          name: string
+          points_earned?: number | null
+          type: Database["public"]["Enums"]["activity_type"]
+        }
+        Update: {
+          created_at?: string
+          data?: Json | null
+          description?: string | null
+          id?: string
+          kid_id?: string
+          name?: string
+          points_earned?: number | null
+          type?: Database["public"]["Enums"]["activity_type"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activities_kid_id_fkey"
+            columns: ["kid_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       parent_kid_relationships: {
         Row: {
           created_at: string
@@ -53,6 +94,7 @@ export type Database = {
           id: string
           is_parent: boolean | null
           level: number | null
+          pin: string | null
           total_points: number | null
           username: string | null
         }
@@ -63,6 +105,7 @@ export type Database = {
           id: string
           is_parent?: boolean | null
           level?: number | null
+          pin?: string | null
           total_points?: number | null
           username?: string | null
         }
@@ -73,6 +116,7 @@ export type Database = {
           id?: string
           is_parent?: boolean | null
           level?: number | null
+          pin?: string | null
           total_points?: number | null
           username?: string | null
         }
@@ -265,6 +309,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      activity_type: "cake_decorating" | "ice_cream_making" | "doll_dressing"
       sprinkle_transaction_type: "gift" | "trade"
       task_frequency: "daily" | "weekly" | "monthly"
     }
