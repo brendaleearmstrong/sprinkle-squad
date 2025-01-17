@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Gift, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase";
 import { useNavigate } from "react-router-dom";
 import { KidCard } from "@/components/dashboard/KidCard";
 import { AddKidDialog } from "@/components/dashboard/AddKidDialog";
@@ -17,15 +17,6 @@ const ParentDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isSupabaseConfigured()) {
-      toast({
-        title: "Not configured",
-        description: "Please connect to Supabase first",
-        variant: "destructive",
-      });
-      setLoading(false);
-      return;
-    }
     checkAuth();
     fetchData();
   }, []);
@@ -94,11 +85,11 @@ const ParentDashboard = () => {
     }
 
     // Transform the data to match the Kid type
-    const transformedKids: Kid[] = data?.map(d => ({
-      id: d.kid.id,
-      username: d.kid.username,
-      total_points: d.kid.total_points,
-      level: d.kid.level
+    const transformedKids: Kid[] = data?.map(({ kid }) => ({
+      id: kid.id,
+      username: kid.username,
+      total_points: kid.total_points,
+      level: kid.level
     })) || [];
 
     setKids(transformedKids);

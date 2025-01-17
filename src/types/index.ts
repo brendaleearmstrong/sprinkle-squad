@@ -40,7 +40,7 @@ export interface Reward {
 }
 
 export interface SignUpMetadata {
-  subscription_plan?: 'single' | 'family';
+  subscription_plan: 'single' | 'family';
   children?: Array<{
     username: string;
     birthdate: string;

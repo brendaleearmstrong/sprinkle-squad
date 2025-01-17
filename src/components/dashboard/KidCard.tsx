@@ -19,7 +19,7 @@ export const KidCard = ({ kid, tasks }: KidCardProps) => {
       <CardContent className="p-6">
         <div className="flex items-center gap-2 mb-4">
           <Star className="text-candy-yellow h-6 w-6" />
-          <span className="font-fredoka text-2xl">{kid.points} points</span>
+          <span className="font-fredoka text-2xl">{kid.total_points} points</span>
         </div>
         <div className="space-y-2">
           {tasks

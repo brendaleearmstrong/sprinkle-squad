@@ -16,6 +16,7 @@ const KidSignup = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const metadata: SignUpMetadata = {
+      subscription_plan: 'single',
       username,
       birthdate,
     };
