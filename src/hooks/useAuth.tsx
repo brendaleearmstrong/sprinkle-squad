@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
+import { AuthError, AuthApiError } from '@supabase/supabase-js';
 
 export const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -22,13 +23,27 @@ export const useAuth = () => {
     });
 
     // Listen for changes on auth state (sign in, sign out, etc.)
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setUser(session?.user ?? null);
       setLoading(false);
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const getErrorMessage = (error: AuthError) => {
+    if (error instanceof AuthApiError) {
+      switch (error.status) {
+        case 400:
+          return 'Invalid email or password';
+        case 422:
+          return 'Email is already registered';
+        default:
+          return error.message;
+      }
+    }
+    return error.message;
+  };
 
   const signIn = async (email: string, password: string) => {
     if (!isSupabaseConfigured()) {
@@ -41,29 +56,38 @@ export const useAuth = () => {
     }
 
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
       if (error) throw error;
 
+      // Check if user is a parent (has email) or kid (no email)
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', data.user.id)
+        .single();
+
+      const isParent = !!profileData?.email;
+      
       toast({
         title: "Welcome back! 🌟",
         description: "Successfully logged in",
       });
       
-      navigate('/parent-dashboard');
+      navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
       toast({
         title: "Oops!",
-        description: error.message,
+        description: getErrorMessage(error),
         variant: "destructive",
       });
     }
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, isParent: boolean = true) => {
     if (!isSupabaseConfigured()) {
       toast({
         title: "Not configured",
@@ -74,12 +98,29 @@ export const useAuth = () => {
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            is_parent: isParent,
+          },
+        },
       });
 
       if (error) throw error;
+
+      if (data?.user) {
+        // Update profile
+        const { error: profileError } = await supabase
+          .from('profiles')
+          .update({
+            email: isParent ? email : null,
+          })
+          .eq('id', data.user.id);
+
+        if (profileError) throw profileError;
+      }
 
       toast({
         title: "Welcome to SprinkleSquad! ✨",
@@ -88,7 +129,7 @@ export const useAuth = () => {
     } catch (error) {
       toast({
         title: "Oops!",
-        description: error.message,
+        description: getErrorMessage(error),
         variant: "destructive",
       });
     }
@@ -116,7 +157,7 @@ export const useAuth = () => {
     } catch (error) {
       toast({
         title: "Oops!",
-        description: error.message,
+        description: getErrorMessage(error),
         variant: "destructive",
       });
     }

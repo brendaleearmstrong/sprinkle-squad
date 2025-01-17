@@ -24,6 +24,14 @@ export interface Parent {
   created_at: string;
 }
 
+export interface Profile {
+  id: string;
+  username: string | null;
+  avatar_url: string | null;
+  email: string | null;
+  created_at: string;
+}
+
 export interface Reward {
   id: string;
   title: string;
