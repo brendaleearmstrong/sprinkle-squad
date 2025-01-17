@@ -9,10 +9,10 @@ export const Header = () => {
           {/* Logo Section */}
           <Link to="/" className="flex items-center space-x-2 group">
             <IceCream 
-              className="w-8 h-8 text-space-white transform group-hover:rotate-12 transition-transform duration-300" 
+              className="w-8 h-8 text-space-white group-hover:text-soft-pink transform group-hover:rotate-12 transition-all duration-300" 
               strokeWidth={2.5}
             />
-            <span className="font-display text-xl sm:text-2xl font-bold bg-gradient-to-r from-space-white via-soft-pink to-space-white bg-clip-text text-transparent">
+            <span className="font-display text-xl sm:text-2xl font-bold bg-gradient-to-r from-space-white via-soft-pink to-space-white bg-clip-text text-transparent group-hover:via-neon-pink">
               SPRINKLESQUAD
             </span>
           </Link>
