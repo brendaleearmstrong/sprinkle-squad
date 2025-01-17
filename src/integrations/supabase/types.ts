@@ -53,7 +53,6 @@ export type Database = {
           kid_id: string
           name: string
           points_earned: number | null
-          type: Database["public"]["Enums"]["activity_type"]
         }
         Insert: {
           created_at?: string
@@ -63,7 +62,6 @@ export type Database = {
           kid_id: string
           name: string
           points_earned?: number | null
-          type: Database["public"]["Enums"]["activity_type"]
         }
         Update: {
           created_at?: string
@@ -73,7 +71,6 @@ export type Database = {
           kid_id?: string
           name?: string
           points_earned?: number | null
-          type?: Database["public"]["Enums"]["activity_type"]
         }
         Relationships: [
           {
