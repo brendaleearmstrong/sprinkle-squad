@@ -20,6 +20,21 @@ export const useAuthActions = () => {
     }
 
     try {
+      const { data: existingUser } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('email', email)
+        .single();
+
+      if (!existingUser) {
+        toast({
+          title: "Account not found",
+          description: "Please check your email or sign up for a new account",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -42,8 +57,9 @@ export const useAuthActions = () => {
       
       navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
+      console.error('Sign in error:', error);
       toast({
-        title: "Oops!",
+        title: "Login failed",
         description: getErrorMessage(error as AuthError),
         variant: "destructive",
       });
@@ -128,6 +144,7 @@ const handleProfileSetup = async (userId: string, isParent: boolean, metadata?: 
     .from('profiles')
     .update({
       is_parent: isParent,
+      email: metadata?.email,
     })
     .eq('id', userId);
 

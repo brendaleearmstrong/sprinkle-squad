@@ -4,6 +4,9 @@ export const getErrorMessage = (error: AuthError) => {
   if (error instanceof AuthApiError) {
     switch (error.status) {
       case 400:
+        if (error.message.includes('Invalid login credentials')) {
+          return 'Invalid email or password. Please check your credentials and try again.';
+        }
         return 'Invalid email or password';
       case 422:
         return 'Email is already registered';
