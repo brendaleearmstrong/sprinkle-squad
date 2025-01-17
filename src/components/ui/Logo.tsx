@@ -1,8 +1,13 @@
 import { IceCream, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export const Logo = () => {
+interface LogoProps {
+  className?: string;
+}
+
+export const Logo = ({ className }: LogoProps) => {
   return (
-    <div className="flex items-center justify-center gap-4">
+    <div className={cn("flex items-center justify-center gap-4", className)}>
       <div className="relative group">
         {/* Sprinkles container that only shows on hover */}
         <div className="absolute -inset-4 opacity-0 group-hover:opacity-100">
