@@ -35,4 +35,5 @@ export interface SignUpMetadata {
     birthdate: string;
   }>;
   username?: string;
+  birthdate?: string;
 }
