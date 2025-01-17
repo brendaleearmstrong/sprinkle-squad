@@ -1,7 +1,7 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureCards } from "@/components/home/FeatureCards";
 import { LoginButtons } from "@/components/home/LoginButtons";
-import { Heart, Star, Sparkles, Crown, Send } from "lucide-react";
+import { Heart, Star, Sparkles, Crown, Send, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
@@ -14,7 +14,6 @@ const Index = () => {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    // Here you would typically handle the subscription
     toast({
       title: "Thanks for subscribing!",
       description: "We'll keep you updated about new features.",
@@ -185,8 +184,40 @@ const Index = () => {
           <FeatureCards />
         </div>
 
-        {/* Newsletter Section */}
+        {/* Premium Subscription Section */}
         <div className="bg-vanilla-cream py-16">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="bg-gradient-to-br from-electric-purple to-soft-purple p-8 rounded-3xl shadow-xl mb-8">
+              <h3 className="text-3xl font-display text-space-white mb-4 text-center flex items-center justify-center gap-3">
+                <CreditCard className="h-8 w-8 text-neon-pink animate-pulse" />
+                Premium Features
+              </h3>
+              <p className="text-space-white/90 text-center mb-6">
+                Unlock advanced features and unlimited rewards with our premium subscription!
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button 
+                  size="lg"
+                  className="h-12 px-8 bg-neon-pink hover:bg-hot-pink text-space-white font-display flex items-center gap-2"
+                >
+                  <CreditCard className="h-5 w-5" />
+                  Subscribe Monthly
+                </Button>
+                <Button 
+                  size="lg"
+                  variant="secondary"
+                  className="h-12 px-8 bg-space-white text-electric-purple hover:bg-soft-white font-display flex items-center gap-2"
+                >
+                  <Crown className="h-5 w-5" />
+                  Annual Plan
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Newsletter Section */}
+        <div className="bg-vanilla-cream py-8">
           <div className="max-w-4xl mx-auto px-4">
             <div className="bg-gradient-to-br from-electric-purple to-soft-purple p-8 rounded-3xl shadow-xl">
               <h3 className="text-3xl font-display text-space-white mb-4 text-center">Stay Updated!</h3>
@@ -216,18 +247,18 @@ const Index = () => {
         </div>
 
         {/* Additional Login Options */}
-        <div className="bg-vanilla-cream pb-8">
+        <div className="bg-[#FF1493] py-8">
           <LoginButtons />
         </div>
 
         {/* Footer */}
-        <footer className="bg-deep-purple text-space-white py-8">
+        <footer className="bg-[#FF1493] text-space-white py-8">
           <div className="container mx-auto px-4">
             <div className="text-center">
-              <p className="text-space-white/80 text-sm">
-                © 2024 Devera Tech. All rights reserved.
+              <p className="text-space-white/90 text-sm">
+                © 2025 Devera Tech. All rights reserved.
               </p>
-              <div className="mt-4 flex justify-center space-x-4 text-space-white/60 text-sm">
+              <div className="mt-4 flex justify-center space-x-4 text-space-white/80 text-sm">
                 <a href="#" className="hover:text-space-white transition-colors">Privacy Policy</a>
                 <span>•</span>
                 <a href="#" className="hover:text-space-white transition-colors">Terms of Service</a>
