@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Star, Users, Sparkles, Heart } from "lucide-react";
+import { Star, Users, Sparkles, Heart, ListTodo, Gift, User } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-pink via-soft-purple to-soft-blue relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-between p-4 bg-gradient-to-br from-soft-pink via-soft-purple to-soft-blue relative overflow-hidden">
       {/* Animated sprinkles background */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -27,7 +27,7 @@ const Index = () => {
       </div>
 
       {/* Main content */}
-      <div className="relative z-10 max-w-4xl w-full space-y-12 text-center px-4">
+      <div className="relative z-10 max-w-4xl w-full space-y-12 text-center px-4 mb-24">
         {/* Hero section with sprinkle bowl illustration */}
         <div className="space-y-6">
           <div className="relative inline-block">
@@ -123,6 +123,44 @@ const Index = () => {
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Bottom Navigation Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-lg border-t border-primary/20 p-4 z-50">
+        <div className="max-w-md mx-auto flex justify-around items-center">
+          <Link to="/tasks" className="group">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="flex flex-col items-center gap-1 hover:bg-primary/10"
+            >
+              <ListTodo className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-medium text-gray-600">Tasks</span>
+            </Button>
+          </Link>
+
+          <Link to="/rewards" className="group">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="flex flex-col items-center gap-1 hover:bg-primary/10"
+            >
+              <Gift className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-medium text-gray-600">Rewards</span>
+            </Button>
+          </Link>
+
+          <Link to="/profile" className="group">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="flex flex-col items-center gap-1 hover:bg-primary/10"
+            >
+              <User className="w-6 h-6 text-primary group-hover:scale-110 transition-transform" />
+              <span className="text-xs font-medium text-gray-600">Profile</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
