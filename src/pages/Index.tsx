@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Star, Users, Child } from "lucide-react";
+import { Star, Users } from "lucide-react";
 
 const Index = () => {
   return (
@@ -30,7 +30,7 @@ const Index = () => {
               variant="outline"
               className="w-full sm:w-auto border-2 border-candy-yellow text-candy-yellow hover:bg-candy-yellow hover:text-white transition-colors"
             >
-              <Child className="mr-2" />
+              <Users className="mr-2 scale-90" />
               I'm a Kid
             </Button>
           </Link>
