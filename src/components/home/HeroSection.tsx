@@ -6,11 +6,11 @@ export const HeroSection = () => {
       <Logo />
       <div className="relative inline-block">
         <div className="absolute -inset-4 bg-gradient-to-r from-berry-blast via-mint-chip to-cherry-top rounded-full blur-xl opacity-70 animate-pulse" />
-        <h1 className="relative text-5xl md:text-7xl font-display font-bold bg-gradient-to-r from-berry-blast via-mint-chip to-cherry-top bg-clip-text text-transparent">
+        <h1 className="relative text-6xl md:text-7xl font-display font-bold bg-gradient-to-r from-berry-blast via-mint-chip to-cherry-top bg-clip-text text-transparent">
           Turn Tasks into Sweet Adventures!
         </h1>
       </div>
-      <p className="text-xl md:text-2xl font-body text-chocolate-swirl/80 max-w-2xl mx-auto leading-relaxed">
+      <p className="text-xl md:text-2xl font-body text-chocolate-swirl max-w-2xl mx-auto leading-relaxed">
         Collect magical ✨sprinkles✨ and watch your rewards stack up like the most delicious dessert tower!
       </p>
     </div>
