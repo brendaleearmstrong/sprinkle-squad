@@ -3,19 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { supabase, isSupabaseConfigured } from '@/lib/supabase';
 import { useToast } from '@/hooks/use-toast';
 import { AuthError, AuthApiError } from '@supabase/supabase-js';
-import { SignUpMetadata } from '@/types';
-
-interface ChildInfo {
-  username: string;
-  birthdate: string;
-}
-
-interface SignUpMetadata {
-  subscription_plan: 'single' | 'family';
-  children?: ChildInfo[];
-  username?: string;
-  birthdate?: string;
-}
+import { SignUpMetadata, ChildInfo } from '@/types';
 
 export const useAuth = () => {
   const [user, setUser] = useState(null);
