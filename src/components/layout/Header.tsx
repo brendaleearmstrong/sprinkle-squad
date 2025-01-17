@@ -3,7 +3,7 @@ import { IceCream, Star, Crown, Gift } from "lucide-react";
 
 export const Header = () => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-electric-purple/95 backdrop-blur-sm border-b border-soft-purple/20 shadow-lg">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-deep-purple backdrop-blur-sm border-b border-soft-purple/20 shadow-lg">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo Section */}

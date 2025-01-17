@@ -19,14 +19,15 @@ export default {
     },
     extend: {
       colors: {
-        // New Vibrant Color Palette
+        // New Vibrant Color Palette with Darker Purples
         "space-white": "#FFFFFF",
         "soft-white": "#F8F9FA",
         "neon-pink": "#FF1493",
         "hot-pink": "#FF69B4",
         "soft-pink": "#FFB6C1",
-        "electric-purple": "#9B30FF",
-        "soft-purple": "#E6E6FA",
+        "electric-purple": "#4A1D96", // Darker purple
+        "soft-purple": "#6B46C1", // Darker soft purple
+        "deep-purple": "#2D1657", // Very dark purple for backgrounds
         "neon-orange": "#FF6B35",
         "bright-orange": "#FF8C42",
         "neon-green": "#39FF14",
@@ -44,7 +45,7 @@ export default {
           foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "#00BFFF", // Bright blue as secondary
+          DEFAULT: "#4A1D96", // Darker purple as secondary
           foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
