@@ -12,40 +12,41 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-white">
-      {/* Background sparkles with increased visibility */}
+      {/* Reduced number of background sparkles with adjusted opacity */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(100)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <div
             key={`sparkle-${i}`}
             className="absolute animate-sprinkle-pop"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 5}s`,
-              animationDuration: `${2 + Math.random() * 3}s`,
-              transform: `scale(${0.8 + Math.random() * 2})`,
+              animationDelay: `${Math.random() * 8}s`,
+              animationDuration: `${3 + Math.random() * 4}s`,
+              opacity: '0.4',
+              transform: `scale(${0.5 + Math.random() * 1.5})`,
             }}
           >
-            {Math.random() > 0.5 ? (
+            {Math.random() > 0.7 ? (
               <Sparkles 
-                className={`w-6 h-6 sm:w-8 sm:h-8 ${[
-                  'text-neon-pink',
-                  'text-hot-pink',
-                  'text-neon-orange',
-                  'text-bright-blue',
-                  'text-neon-green',
-                  'text-electric-purple',
+                className={`w-4 h-4 sm:w-6 sm:h-6 ${[
+                  'text-neon-pink/40',
+                  'text-hot-pink/40',
+                  'text-neon-orange/40',
+                  'text-bright-blue/40',
+                  'text-neon-green/40',
+                  'text-electric-purple/40',
                 ][Math.floor(Math.random() * 6)]}`}
               />
             ) : (
               <Star 
-                className={`w-4 h-4 sm:w-6 sm:h-6 ${[
-                  'text-neon-pink',
-                  'text-hot-pink',
-                  'text-neon-orange',
-                  'text-bright-blue',
-                  'text-neon-green',
-                  'text-electric-purple',
+                className={`w-3 h-3 sm:w-4 sm:h-4 ${[
+                  'text-neon-pink/30',
+                  'text-hot-pink/30',
+                  'text-neon-orange/30',
+                  'text-bright-blue/30',
+                  'text-neon-green/30',
+                  'text-electric-purple/30',
                 ][Math.floor(Math.random() * 6)]}`}
               />
             )}
@@ -117,43 +118,38 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Footer with reduced sparkles */}
         <footer className="w-full bg-hot-pink text-space-white py-8 mt-auto relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={`footer-sparkle-${i}`}
-              className="absolute animate-float"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 3}s`,
-              }}
-            >
-              <Sparkles 
-                className={`w-4 h-4 ${[
-                  'text-space-white/30',
-                  'text-space-white/20',
-                  'text-space-white/40',
-                ][Math.floor(Math.random() * 3)]}`}
-              />
-            </div>
-          ))}
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center">
-            <p className="text-space-white/90 text-sm">
-              © 2025 Devera Tech. All rights reserved.
-            </p>
-            <div className="mt-4 flex justify-center space-x-4 text-space-white/80 text-sm">
-              <a href="#" className="hover:text-space-white transition-colors">Privacy Policy</a>
-              <span>•</span>
-              <a href="#" className="hover:text-space-white transition-colors">Terms of Service</a>
-              <span>•</span>
-              <a href="#" className="hover:text-space-white transition-colors">Contact Us</a>
+          <div className="absolute inset-0 pointer-events-none">
+            {[...Array(8)].map((_, i) => (
+              <div
+                key={`footer-sparkle-${i}`}
+                className="absolute animate-float"
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 3}s`,
+                  opacity: '0.2',
+                }}
+              >
+                <Sparkles className="w-4 h-4 text-space-white/20" />
+              </div>
+            ))}
+          </div>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="text-center">
+              <p className="text-space-white/90 text-sm">
+                © 2025 Devera Tech. All rights reserved.
+              </p>
+              <div className="mt-4 flex justify-center space-x-4 text-space-white/80 text-sm">
+                <a href="#" className="hover:text-space-white transition-colors">Privacy Policy</a>
+                <span>•</span>
+                <a href="#" className="hover:text-space-white transition-colors">Terms of Service</a>
+                <span>•</span>
+                <a href="#" className="hover:text-space-white transition-colors">Contact Us</a>
+              </div>
             </div>
           </div>
-        </div>
         </footer>
       </div>
     </div>
