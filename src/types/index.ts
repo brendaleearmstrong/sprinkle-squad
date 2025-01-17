@@ -39,12 +39,14 @@ export interface Reward {
   created_at: string;
 }
 
+export interface ChildInfo {
+  username: string;
+  birthdate: string;
+}
+
 export interface SignUpMetadata {
   subscription_plan: 'single' | 'family';
-  children?: Array<{
-    username: string;
-    birthdate: string;
-  }>;
+  children?: ChildInfo[];
   username?: string;
   birthdate?: string;
 }
