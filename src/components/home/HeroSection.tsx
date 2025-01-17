@@ -1,8 +1,21 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, Star, Smile } from "lucide-react";
 
 export const HeroSection = () => {
   return (
     <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-8 pt-8">
+      <div className="relative inline-block">
+        <div className="flex items-center justify-center gap-2 mb-4">
+          <Star className="w-8 h-8 text-neon-orange animate-spin-slow" />
+          <span className="text-2xl font-display font-bold text-electric-purple">
+            Sprinkle Squadders
+          </span>
+          <Star className="w-8 h-8 text-neon-pink animate-spin-slow" style={{ animationDelay: '1s' }} />
+        </div>
+        <div className="absolute -top-2 right-1/4">
+          <Smile className="w-6 h-6 text-hot-pink animate-float" />
+        </div>
+      </div>
+
       <div className="relative inline-block w-full max-w-3xl">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight">
           <span className="bg-gradient-to-r from-neon-pink via-hot-pink to-neon-orange bg-clip-text text-transparent">
