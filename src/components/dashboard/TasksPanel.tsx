@@ -27,7 +27,7 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
                     <h4 className="font-display text-lg text-electric-purple flex items-center gap-2">
                       {task.title}
                       {task.completed ? (
-                        <CheckCircle className="h-4 w-4 text-neon-green" />
+                        <CheckCircle className="h-4 w-4 text-bright-blue" />
                       ) : (
                         <Clock className="h-4 w-4 text-neon-orange" />
                       )}
@@ -36,7 +36,7 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-neon-pink" />
                       <span className="text-gray-500">
-                        {task.category || 'Daily Task'}
+                        {task.frequency || 'Daily Task'}
                       </span>
                     </div>
                   </div>

@@ -38,14 +38,14 @@ export const QuickStats = ({
           </div>
         </div>
       </Card>
-      <Card className="p-4 bg-gradient-to-br from-neon-green/10 to-neon-green/5 hover:shadow-lg transition-shadow">
+      <Card className="p-4 bg-gradient-to-br from-bright-blue/10 to-electric-blue/5 hover:shadow-lg transition-shadow">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-neon-green/10 rounded-lg">
-            <Trophy className="h-6 w-6 text-neon-green" />
+          <div className="p-3 bg-bright-blue/10 rounded-lg">
+            <Trophy className="h-6 w-6 text-bright-blue" />
           </div>
           <div>
             <p className="text-sm text-muted-foreground">Completed</p>
-            <p className="text-2xl font-bold text-neon-green">{completedTasks}</p>
+            <p className="text-2xl font-bold text-bright-blue">{completedTasks}</p>
           </div>
         </div>
       </Card>
