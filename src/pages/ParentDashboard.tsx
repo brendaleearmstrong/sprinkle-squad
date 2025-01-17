@@ -10,7 +10,8 @@ import { SquadOverview } from "@/components/dashboard/SquadOverview";
 import { TasksPanel } from "@/components/dashboard/TasksPanel";
 import { NotificationsPanel } from "@/components/dashboard/NotificationsPanel";
 import type { Kid, Task } from "@/types";
-import { Loader2 } from "lucide-react";
+import { Loader2, Gift } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 const ParentDashboard = () => {
   const [children, setChildren] = useState<Kid[]>([]);
@@ -144,20 +145,39 @@ const ParentDashboard = () => {
         pendingTasks={tasks.filter(task => !task.completed).length}
       />
 
-      <div className="flex flex-wrap gap-4 mb-8">
-        <AddKidDialog onKidAdded={fetchChildren} />
-        <AddTaskDialog onTaskAdded={fetchTasks} />
-      </div>
+      {children.length === 0 ? (
+        <Card className="p-8 text-center bg-gradient-to-br from-space-white/10 to-neon-pink/5 backdrop-blur-sm border-2 border-neon-pink/20">
+          <Gift className="mx-auto h-12 w-12 text-neon-pink mb-4 animate-bounce" />
+          <h3 className="font-display text-2xl text-neon-pink mb-2">
+            Welcome to SprinkleSquad!
+          </h3>
+          <p className="font-body text-gray-600 mb-4">
+            Start by adding your children to manage their tasks and rewards! 🌟
+          </p>
+          <AddKidDialog onKidAdded={fetchChildren} />
+        </Card>
+      ) : (
+        <>
+          <div className="flex flex-wrap gap-4 mb-8">
+            <AddKidDialog onKidAdded={fetchChildren} />
+            <AddTaskDialog onTaskAdded={fetchTasks} />
+          </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-        <SquadOverview 
-          kids={children} 
-          tasks={tasks}
-          onSprinkleUpdate={fetchChildren}
-        />
-        <TasksPanel tasks={tasks} />
-        <NotificationsPanel />
-      </div>
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div className="xl:col-span-2">
+              <SquadOverview 
+                kids={children} 
+                tasks={tasks}
+                onSprinkleUpdate={fetchChildren}
+              />
+            </div>
+            <div className="space-y-6">
+              <TasksPanel tasks={tasks} />
+              <NotificationsPanel />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
