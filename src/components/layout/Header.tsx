@@ -12,28 +12,28 @@ export const Header = () => {
               className="w-8 h-8 text-space-white transform group-hover:rotate-12 transition-transform duration-300" 
               strokeWidth={2.5}
             />
-            <span className="font-display text-2xl font-bold bg-gradient-to-r from-space-white via-soft-pink to-space-white bg-clip-text text-transparent">
+            <span className="font-display text-xl sm:text-2xl font-bold bg-gradient-to-r from-space-white via-soft-pink to-space-white bg-clip-text text-transparent">
               SPRINKLESQUAD
             </span>
           </Link>
 
-          {/* Icons Section */}
-          <div className="flex items-center space-x-4">
-            <button className="p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
-              <Star className="w-6 h-6" />
-              <span className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-space-white text-electric-purple text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+          {/* Icons Section - Updated for better mobile display */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <button className="p-1.5 sm:p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
+              <Star className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="absolute -bottom-8 sm:-bottom-10 left-1/2 transform -translate-x-1/2 bg-space-white text-electric-purple text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                 Daily Bonus
               </span>
             </button>
-            <button className="p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
-              <Crown className="w-6 h-6" />
-              <span className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-space-white text-electric-purple text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            <button className="p-1.5 sm:p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
+              <Crown className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="absolute -bottom-8 sm:-bottom-10 left-1/2 transform -translate-x-1/2 bg-space-white text-electric-purple text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                 Leaderboard
               </span>
             </button>
-            <button className="p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
-              <Gift className="w-6 h-6" />
-              <span className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-space-white text-electric-purple text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            <button className="p-1.5 sm:p-2 text-space-white hover:text-soft-pink transition-colors duration-200 relative group">
+              <Gift className="w-5 h-5 sm:w-6 sm:h-6" />
+              <span className="absolute -bottom-8 sm:-bottom-10 left-1/2 transform -translate-x-1/2 bg-space-white text-electric-purple text-xs py-1 px-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
                 Special Rewards
               </span>
             </button>
