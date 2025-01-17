@@ -333,36 +333,50 @@ export type Database = {
       tasks: {
         Row: {
           category: Database["public"]["Enums"]["activity_category"] | null
+          challenge_type: string | null
           completed: boolean | null
           completed_at: string | null
           created_at: string
           description: string | null
           frequency: Database["public"]["Enums"]["task_frequency"] | null
           id: string
+          is_challenge: boolean | null
           kid_id: string | null
           level_required: number | null
           multiplier: number | null
           parent_id: string | null
           points: number
+          quality_bonus_percent: number | null
+          requires_photo: boolean | null
+          requires_verification: boolean | null
+          requires_video: boolean | null
           streak_count: number | null
+          streak_multiplier: number | null
           title: string
           validation_data: Json | null
           validation_type: Database["public"]["Enums"]["validation_type"] | null
         }
         Insert: {
           category?: Database["public"]["Enums"]["activity_category"] | null
+          challenge_type?: string | null
           completed?: boolean | null
           completed_at?: string | null
           created_at?: string
           description?: string | null
           frequency?: Database["public"]["Enums"]["task_frequency"] | null
           id?: string
+          is_challenge?: boolean | null
           kid_id?: string | null
           level_required?: number | null
           multiplier?: number | null
           parent_id?: string | null
           points?: number
+          quality_bonus_percent?: number | null
+          requires_photo?: boolean | null
+          requires_verification?: boolean | null
+          requires_video?: boolean | null
           streak_count?: number | null
+          streak_multiplier?: number | null
           title: string
           validation_data?: Json | null
           validation_type?:
@@ -371,18 +385,25 @@ export type Database = {
         }
         Update: {
           category?: Database["public"]["Enums"]["activity_category"] | null
+          challenge_type?: string | null
           completed?: boolean | null
           completed_at?: string | null
           created_at?: string
           description?: string | null
           frequency?: Database["public"]["Enums"]["task_frequency"] | null
           id?: string
+          is_challenge?: boolean | null
           kid_id?: string | null
           level_required?: number | null
           multiplier?: number | null
           parent_id?: string | null
           points?: number
+          quality_bonus_percent?: number | null
+          requires_photo?: boolean | null
+          requires_verification?: boolean | null
+          requires_video?: boolean | null
           streak_count?: number | null
+          streak_multiplier?: number | null
           title?: string
           validation_data?: Json | null
           validation_type?:
@@ -426,6 +447,15 @@ export type Database = {
         | "emotional_growth"
         | "friendship_family"
         | "learning_growth"
+        | "sparkle_scoops"
+        | "sweet_sprinkles"
+        | "brain_freeze_bonanza"
+        | "energy_explosion"
+        | "furry_friend_frostings"
+        | "green_sprinkle_goals"
+        | "colorful_creations"
+        | "sundae_specials"
+        | "friend_flavors"
       activity_type:
         | "cake_decorating"
         | "ice_cream_making"
