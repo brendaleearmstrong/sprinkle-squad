@@ -26,17 +26,17 @@ export const FeatureCards = () => {
   ];
 
   return (
-    <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
+    <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto mt-16">
       {features.map((feature, index) => (
         <div
           key={index}
-          className={`group relative overflow-hidden bg-gradient-to-br ${feature.gradient} backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-whipped-cream hover:border-berry-blast/20`}
+          className={`relative overflow-hidden bg-gradient-to-br ${feature.gradient} p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 group`}
         >
           {feature.bgIcon}
-          <div className="bg-gradient-to-br from-berry-blast to-mint-chip p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+          <div className="bg-white/20 backdrop-blur-sm p-4 rounded-2xl w-fit mx-auto mb-6 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300 shadow-lg">
             {feature.icon}
           </div>
-          <h3 className="font-display text-2xl font-bold mb-2 text-white relative z-10">
+          <h3 className="font-display text-2xl font-bold mb-3 text-white relative z-10">
             {feature.title}
           </h3>
           <p className="font-body text-lg text-white/90 relative z-10">{feature.description}</p>

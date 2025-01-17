@@ -14,7 +14,7 @@ export const BottomNav = () => {
   ];
 
   return (
-    <nav className="px-4 py-2">
+    <nav className="px-4 py-3">
       <div className="max-w-screen-xl mx-auto">
         <div className="flex justify-around items-center">
           {navItems.map((item) => {
@@ -31,9 +31,9 @@ export const BottomNav = () => {
                 )}
               >
                 <item.icon className="w-6 h-6 mb-1" />
-                <span className="text-xs">{item.label}</span>
+                <span className="text-xs font-medium">{item.label}</span>
                 {isActive && (
-                  <span className="absolute bottom-1 w-1 h-1 rounded-full bg-berry-blast animate-pulse" />
+                  <span className="absolute bottom-1 w-1.5 h-1.5 rounded-full bg-berry-blast animate-pulse" />
                 )}
               </Link>
             );
