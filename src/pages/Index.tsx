@@ -12,9 +12,9 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-white">
-      {/* Background sparkles */}
+      {/* Background sparkles with increased visibility and variety */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {[...Array(30)].map((_, i) => (
+        {[...Array(50)].map((_, i) => (
           <div
             key={`sparkle-${i}`}
             className="absolute animate-sprinkle-pop"
@@ -23,11 +23,12 @@ const Index = () => {
               top: `${Math.random() * 100}%`,
               animationDelay: `${Math.random() * 5}s`,
               animationDuration: `${2 + Math.random() * 3}s`,
+              transform: `scale(${0.5 + Math.random() * 1.5})`,
             }}
           >
             {Math.random() > 0.5 ? (
               <Sparkles 
-                className={`w-3 h-3 sm:w-4 sm:h-4 ${[
+                className={`w-4 h-4 sm:w-6 sm:h-6 ${[
                   'text-neon-pink',
                   'text-hot-pink',
                   'text-neon-orange',
@@ -37,7 +38,7 @@ const Index = () => {
               />
             ) : (
               <Star 
-                className={`w-2 h-2 sm:w-3 sm:h-3 ${[
+                className={`w-3 h-3 sm:w-5 sm:h-5 ${[
                   'text-neon-pink',
                   'text-hot-pink',
                   'text-neon-orange',
@@ -72,7 +73,7 @@ const Index = () => {
                 className="w-full bg-space-white text-neon-orange hover:bg-soft-white font-display text-xl py-6 rounded-xl shadow-lg transition-all duration-300 group-hover:scale-105 border-4 border-space-white"
               >
                 <Star className="mr-3 h-6 w-6 text-neon-orange group-hover:text-bright-orange animate-pulse" />
-                Join Now!
+                Sprinkler Login
               </Button>
             </div>
           </Link>
