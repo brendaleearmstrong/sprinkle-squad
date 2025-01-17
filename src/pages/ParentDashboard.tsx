@@ -32,7 +32,7 @@ const ParentDashboard = () => {
 
   const checkAuth = async () => {
     try {
-      const { data: { session } } = await supabase!.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession();
       if (!session) {
         toast({
           title: "Not authenticated",
@@ -93,7 +93,15 @@ const ParentDashboard = () => {
       return;
     }
 
-    setKids(data?.map(d => d.kid) || []);
+    // Transform the data to match the Kid type
+    const transformedKids: Kid[] = data?.map(d => ({
+      id: d.kid.id,
+      username: d.kid.username,
+      total_points: d.kid.total_points,
+      level: d.kid.level
+    })) || [];
+
+    setKids(transformedKids);
   };
 
   const fetchTasks = async () => {

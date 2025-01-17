@@ -11,11 +11,9 @@ export interface Task {
 
 export interface Kid {
   id: string;
-  username: string;
-  pin: string;
-  points: number;
-  parent_id: string;
-  created_at: string;
+  username: string | null;
+  total_points: number | null;
+  level: number | null;
 }
 
 export interface Parent {
@@ -39,4 +37,14 @@ export interface Reward {
   points_cost: number;
   parent_id: string;
   created_at: string;
+}
+
+export interface SignUpMetadata {
+  subscription_plan?: 'single' | 'family';
+  children?: Array<{
+    username: string;
+    birthdate: string;
+  }>;
+  username?: string;
+  birthdate?: string;
 }

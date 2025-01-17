@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import { Star, Heart, User, LockKeyhole, IceCream } from "lucide-react";
 import { Link } from "react-router-dom";
+import type { SignUpMetadata } from "@/types";
 
 const KidSignup = () => {
   const [username, setUsername] = useState("");
@@ -14,10 +15,11 @@ const KidSignup = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await signUp(username, pin, false, {
+    const metadata: SignUpMetadata = {
       username,
       birthdate,
-    });
+    };
+    await signUp(username, pin, false, metadata);
   };
 
   return (
