@@ -93,10 +93,10 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
     <Dialog>
       <DialogTrigger asChild>
         <Button 
-          className="bg-electric-blue hover:bg-electric-blue/90 text-white"
+          className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
           disabled={isUploading}
         >
-          <UserPlus className="mr-2" /> Add Child
+          <UserPlus className="mr-2 h-4 w-4" /> Add Child
         </Button>
       </DialogTrigger>
       <DialogContent>
@@ -142,7 +142,7 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
           </div>
           <Button 
             onClick={addKid} 
-            className="w-full bg-electric-blue hover:bg-electric-blue/90 text-white"
+            className="w-full bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
             disabled={isUploading}
           >
             {isUploading ? "Adding..." : "Add Child"}

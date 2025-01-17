@@ -257,14 +257,14 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
               <Button
                 size="sm"
                 onClick={() => handleSprinkleTransaction('add')}
-                className="bg-electric-blue hover:bg-electric-blue/90 text-white"
+                className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
               >
                 <Plus className="w-4 h-4 mr-1" /> Add
               </Button>
               <Button
                 size="sm"
                 onClick={() => handleSprinkleTransaction('remove')}
-                className="bg-deep-purple hover:bg-deep-purple/90 text-white"
+                className="bg-deep-purple hover:bg-deep-purple/90 text-white font-semibold shadow-md"
               >
                 <Minus className="w-4 h-4 mr-1" /> Remove
               </Button>
@@ -318,7 +318,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
               </DialogClose>
               <Button 
                 onClick={handleUpdateProfile}
-                className="bg-electric-blue hover:bg-electric-blue/90 text-white"
+                className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
               >
                 Save Changes
               </Button>
@@ -340,7 +340,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDeleteProfile}
-              className="bg-destructive hover:bg-destructive/90"
+              className="bg-destructive hover:bg-destructive/90 text-white font-semibold shadow-md"
             >
               Delete Profile
             </AlertDialogAction>
