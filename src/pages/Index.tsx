@@ -32,7 +32,6 @@ const Index = () => {
               animationDuration: `${2 + Math.random() * 3}s`,
             }}
           >
-            {/* Randomly choose between sprinkle shapes */}
             {Math.random() > 0.7 ? (
               <Star 
                 className={`w-3 h-3 ${[
