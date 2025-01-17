@@ -1,23 +1,23 @@
-import { IceCream, PartyPopper, Crown, Star, Heart, Gift, Sparkles, Trophy, Target, Users } from "lucide-react";
+import { IceCream, Heart, Star, Sparkles } from "lucide-react";
 
 export const FeatureCards = () => {
   const features = [
     {
-      icon: <Target className="w-10 h-10" />,
+      icon: <Heart className="w-10 h-10" />,
       title: "Personalized Goals",
       description: "Set custom tasks and goals tailored to your child's interests and abilities. Watch them grow with every achievement!",
       gradient: "from-neon-pink via-hot-pink to-electric-purple",
       animation: "hover:rotate-12"
     },
     {
-      icon: <PartyPopper className="w-10 h-10" />,
+      icon: <IceCream className="w-10 h-10" />,
       title: "Exciting Rewards",
       description: "Create meaningful rewards that motivate and inspire. From extra screen time to special family activities!",
       gradient: "from-neon-orange via-bright-orange to-hot-pink",
       animation: "hover:-rotate-12"
     },
     {
-      icon: <Crown className="w-10 h-10" />,
+      icon: <Star className="w-10 h-10" />,
       title: "Level Up System",
       description: "Kids progress through fun levels, unlocking new challenges and rewards as they grow. Watch their confidence soar!",
       gradient: "from-electric-purple via-bright-blue to-electric-blue",
@@ -31,14 +31,14 @@ export const FeatureCards = () => {
       animation: "hover:-rotate-6"
     },
     {
-      icon: <Trophy className="w-10 h-10" />,
+      icon: <Heart className="w-10 h-10" />,
       title: "Achievement Tracking",
       description: "Celebrate progress with beautiful charts and achievements. Perfect for parent-teacher meetings!",
       gradient: "from-hot-pink via-electric-purple to-bright-blue",
       animation: "hover:rotate-12"
     },
     {
-      icon: <Users className="w-10 h-10" />,
+      icon: <IceCream className="w-10 h-10" />,
       title: "Family Connection",
       description: "Strengthen family bonds through shared goals and celebrations. Create lasting memories together!",
       gradient: "from-electric-blue via-neon-pink to-neon-orange",
@@ -63,6 +63,26 @@ export const FeatureCards = () => {
           <p className="font-body text-xl text-space-white/90 relative z-10 leading-relaxed">
             {feature.description}
           </p>
+          
+          {/* Adding floating decorative elements */}
+          <div className="absolute -top-2 -right-2 text-space-white/30">
+            {index % 3 === 0 ? (
+              <Heart className="w-4 h-4 animate-float" />
+            ) : index % 3 === 1 ? (
+              <IceCream className="w-4 h-4 animate-spin-slow" />
+            ) : (
+              <Star className="w-4 h-4 animate-sprinkle-pop" />
+            )}
+          </div>
+          <div className="absolute -bottom-2 -left-2 text-space-white/30">
+            {index % 3 === 2 ? (
+              <Heart className="w-4 h-4 animate-float" />
+            ) : index % 3 === 0 ? (
+              <IceCream className="w-4 h-4 animate-spin-slow" />
+            ) : (
+              <Star className="w-4 h-4 animate-sprinkle-pop" />
+            )}
+          </div>
         </div>
       ))}
     </div>
