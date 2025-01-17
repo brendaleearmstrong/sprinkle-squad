@@ -11,9 +11,10 @@ interface AddKidDialogProps {
 }
 
 export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
-  const [newKid, setNewKid] = useState({ username: "", pin: "", birthdate: "", avatar: null as File | null });
+  const [newKid, setNewKid] = useState({ username: "", birthdate: "", avatar: null as File | null });
   const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -22,10 +23,27 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
   };
 
   const addKid = async () => {
+    if (!newKid.username || !newKid.birthdate) {
+      toast({
+        title: "Missing information",
+        description: "Please fill in all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setIsUploading(true);
-      const { data: userData } = await supabase.auth.getUser();
-      if (!userData.user) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast({
+          title: "Error",
+          description: "You must be logged in to add a child",
+          variant: "destructive",
+        });
+        return;
+      }
 
       let avatarUrl = null;
       if (newKid.avatar) {
@@ -45,14 +63,19 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
         avatarUrl = publicUrl;
       }
 
+      // Create the child profile
       const { data: profileData, error: profileError } = await supabase
         .from("profiles")
         .insert([
           {
             username: newKid.username,
             is_parent: false,
-            birthdate: newKid.birthdate || null,
+            birthdate: newKid.birthdate,
             avatar_url: avatarUrl,
+            total_points: 0,
+            level_number: 1,
+            level_name: 'Sprinkle Starter',
+            level_points_required: 100,
           },
         ])
         .select()
@@ -60,11 +83,12 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
 
       if (profileError) throw profileError;
 
+      // Create the parent-child relationship
       const { error: relationError } = await supabase
         .from("parent_kid_relationships")
         .insert([
           {
-            parent_id: userData.user.id,
+            parent_id: user.id,
             kid_id: profileData.id,
           },
         ]);
@@ -76,12 +100,14 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
         description: `Added ${newKid.username} to your squad!`,
       });
 
-      setNewKid({ username: "", pin: "", birthdate: "", avatar: null });
+      setNewKid({ username: "", birthdate: "", avatar: null });
       onKidAdded();
-    } catch (error) {
+      setOpen(false);
+    } catch (error: any) {
+      console.error('Error adding child:', error);
       toast({
         title: "Error",
-        description: "Couldn't add child",
+        description: error.message || "Couldn't add child",
         variant: "destructive",
       });
     } finally {
@@ -90,7 +116,7 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button 
           className="bg-electric-purple hover:bg-electric-purple/90 text-white font-semibold shadow-md"
@@ -112,6 +138,7 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
               value={newKid.username}
               onChange={(e) => setNewKid({ ...newKid, username: e.target.value })}
               placeholder="Enter child's name"
+              required
             />
           </div>
           <div>
@@ -120,6 +147,7 @@ export const AddKidDialog = ({ onKidAdded }: AddKidDialogProps) => {
               type="date"
               value={newKid.birthdate}
               onChange={(e) => setNewKid({ ...newKid, birthdate: e.target.value })}
+              required
             />
           </div>
           <div>
