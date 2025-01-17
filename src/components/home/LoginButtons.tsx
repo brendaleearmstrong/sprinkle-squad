@@ -9,9 +9,9 @@ export const LoginButtons = () => {
         <Button
           variant="default"
           size="lg"
-          className="w-full bg-gradient-to-r from-neon-pink via-hot-pink to-electric-purple hover:opacity-90 text-space-white font-display text-2xl py-8 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
+          className="w-full bg-neon-pink text-space-white font-display text-2xl py-8 rounded-2xl shadow-xl transition-all duration-300"
         >
-          <Crown className="mr-3 h-7 w-7 group-hover:rotate-12 transition-transform duration-300" />
+          <Crown className="mr-3 h-7 w-7 text-space-white group-hover:text-soft-pink transition-colors duration-300" />
           Parent Login
         </Button>
       </Link>
@@ -20,9 +20,9 @@ export const LoginButtons = () => {
         <Button
           variant="outline"
           size="lg"
-          className="w-full border-4 border-electric-blue bg-gradient-to-r from-space-white to-soft-white backdrop-blur-sm text-electric-blue hover:text-space-white hover:bg-gradient-to-r hover:from-electric-blue hover:to-bright-blue font-display text-2xl py-8 rounded-2xl shadow-xl group-hover:shadow-2xl transition-all duration-300 transform group-hover:-translate-y-1"
+          className="w-full border-4 border-electric-blue bg-space-white text-electric-blue font-display text-2xl py-8 rounded-2xl shadow-xl transition-all duration-300"
         >
-          <Star className="mr-3 h-7 w-7 group-hover:rotate-12 transition-transform duration-300" />
+          <Star className="mr-3 h-7 w-7 text-electric-blue group-hover:text-bright-blue transition-colors duration-300" />
           Sprinkle Login
         </Button>
       </Link>
