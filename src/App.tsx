@@ -10,6 +10,9 @@ import KidLogin from "./pages/KidLogin";
 import ParentDashboard from "./pages/ParentDashboard";
 import KidDashboard from "./pages/KidDashboard";
 import ParentSignup from "./pages/ParentSignup";
+import DailyBonus from "./pages/DailyBonus";
+import Leaderboard from "./pages/Leaderboard";
+import SpecialRewards from "./pages/SpecialRewards";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,9 @@ const App = () => (
             <Route path="/parent-dashboard" element={<ParentDashboard />} />
             <Route path="/kid-dashboard" element={<KidDashboard />} />
             <Route path="/parent-signup" element={<ParentSignup />} />
+            <Route path="/daily-bonus" element={<DailyBonus />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/special-rewards" element={<SpecialRewards />} />
           </Route>
         </Routes>
       </BrowserRouter>
