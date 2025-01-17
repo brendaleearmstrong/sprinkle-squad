@@ -50,18 +50,24 @@ export type Database = {
           avatar_url: string | null
           created_at: string
           id: string
+          level: number | null
+          total_points: number | null
           username: string | null
         }
         Insert: {
           avatar_url?: string | null
           created_at?: string
           id: string
+          level?: number | null
+          total_points?: number | null
           username?: string | null
         }
         Update: {
           avatar_url?: string | null
           created_at?: string
           id?: string
+          level?: number | null
+          total_points?: number | null
           username?: string | null
         }
         Relationships: []
@@ -107,8 +113,10 @@ export type Database = {
           completed_at: string | null
           created_at: string
           description: string | null
+          frequency: Database["public"]["Enums"]["task_frequency"] | null
           id: string
           kid_id: string | null
+          level_required: number | null
           parent_id: string | null
           points: number
           title: string
@@ -118,8 +126,10 @@ export type Database = {
           completed_at?: string | null
           created_at?: string
           description?: string | null
+          frequency?: Database["public"]["Enums"]["task_frequency"] | null
           id?: string
           kid_id?: string | null
+          level_required?: number | null
           parent_id?: string | null
           points?: number
           title: string
@@ -129,8 +139,10 @@ export type Database = {
           completed_at?: string | null
           created_at?: string
           description?: string | null
+          frequency?: Database["public"]["Enums"]["task_frequency"] | null
           id?: string
           kid_id?: string | null
+          level_required?: number | null
           parent_id?: string | null
           points?: number
           title?: string
@@ -160,7 +172,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      task_frequency: "daily" | "weekly" | "monthly"
     }
     CompositeTypes: {
       [_ in never]: never
