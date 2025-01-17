@@ -4,7 +4,7 @@ import { Star, Users, Sparkles, Heart, ListTodo, Gift, User, PiggyBank, Trophy, 
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-between p-4 bg-gradient-to-br from-soft-pink via-soft-purple to-soft-blue relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-between p-4 relative overflow-hidden">
       {/* Animated sprinkles background */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(20)].map((_, i) => (
@@ -19,8 +19,15 @@ const Index = () => {
           >
             <div className={`
               w-3 h-3 rounded-full 
-              ${['bg-pink-400', 'bg-purple-400', 'bg-blue-400', 'bg-yellow-400'][Math.floor(Math.random() * 4)]}
-              opacity-40 shadow-lg
+              ${[
+                'bg-sprinkle-rainbow-red',
+                'bg-sprinkle-rainbow-orange',
+                'bg-sprinkle-rainbow-yellow',
+                'bg-sprinkle-rainbow-green',
+                'bg-sprinkle-rainbow-blue',
+                'bg-sprinkle-rainbow-purple'
+              ][Math.floor(Math.random() * 6)]}
+              opacity-60 shadow-lg
             `} />
           </div>
         ))}
@@ -31,12 +38,12 @@ const Index = () => {
         {/* Hero section with sprinkle bowl illustration */}
         <div className="space-y-6">
           <div className="relative inline-block">
-            <div className="absolute -inset-4 bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200 rounded-full blur-xl opacity-70 animate-pulse" />
-            <h1 className="relative text-6xl md:text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-primary animate-float">
+            <div className="absolute -inset-4 bg-gradient-to-r from-berry-blast via-mint-chip to-cherry-top rounded-full blur-xl opacity-70 animate-pulse" />
+            <h1 className="relative text-6xl md:text-7xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-cherry-top via-mint-chip to-berry-blast animate-float">
               🍨 SprinkleSquad
             </h1>
           </div>
-          <p className="text-xl md:text-2xl font-body text-gray-700 max-w-2xl mx-auto leading-relaxed font-semibold">
+          <p className="text-xl md:text-2xl font-body text-chocolate-swirl max-w-2xl mx-auto leading-relaxed font-semibold">
             Turn everyday tasks into a sweet adventure! Collect magical ✨sprinkles✨ and watch your rewards stack up like a perfect ice cream sundae! 
           </p>
         </div>
@@ -62,17 +69,17 @@ const Index = () => {
           ].map((feature, index) => (
             <div
               key={index}
-              className="group bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20 hover:border-primary/20 relative overflow-hidden"
+              className="group bg-whipped-cream/90 backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-caramel-drizzle/20 hover:border-berry-blast/20 relative overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/0" />
+              <div className="absolute inset-0 bg-gradient-to-b from-whipped-cream/5 to-whipped-cream/0" />
               <div className="relative">
-                <div className="bg-gradient-to-br from-primary to-secondary p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                <div className="bg-gradient-to-br from-berry-blast to-mint-chip p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-berry-blast to-mint-chip bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="font-body text-lg text-gray-700 font-medium">{feature.description}</p>
+                <p className="font-body text-lg text-chocolate-swirl font-medium">{feature.description}</p>
               </div>
             </div>
           ))}
@@ -84,9 +91,8 @@ const Index = () => {
             <Button
               variant="default"
               size="lg"
-              className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-bold"
+              className="w-full bg-gradient-to-r from-berry-blast to-mint-chip hover:opacity-90 text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-bold"
             >
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==')] opacity-10" />
               <Users className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
               I'm a Parent
             </Button>
@@ -96,9 +102,8 @@ const Index = () => {
             <Button
               variant="outline"
               size="lg"
-              className="w-full border-2 border-secondary/30 bg-white/90 backdrop-blur-sm text-secondary hover:bg-secondary hover:text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-bold"
+              className="w-full border-2 border-mint-chip/30 bg-whipped-cream/90 backdrop-blur-sm text-mint-chip hover:bg-mint-chip hover:text-white font-display text-lg py-8 rounded-2xl shadow-lg group-hover:shadow-2xl transition-all duration-300 relative overflow-hidden font-bold"
             >
-              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9ImN1cnJlbnRDb2xvciIvPjwvc3ZnPg==')] opacity-5" />
               <Star className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
               I'm a Kid
             </Button>
@@ -126,17 +131,17 @@ const Index = () => {
           ].map((feature, index) => (
             <div
               key={index}
-              className="group bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-white/20 hover:border-primary/20 relative overflow-hidden"
+              className="group bg-whipped-cream/90 backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-caramel-drizzle/20 hover:border-berry-blast/20 relative overflow-hidden"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-white/0" />
+              <div className="absolute inset-0 bg-gradient-to-b from-whipped-cream/5 to-whipped-cream/0" />
               <div className="relative">
-                <div className="bg-gradient-to-br from-primary to-secondary p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
+                <div className="bg-gradient-to-br from-berry-blast to-mint-chip p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
                   {feature.icon}
                 </div>
-                <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-berry-blast to-mint-chip bg-clip-text text-transparent">
                   {feature.title}
                 </h3>
-                <p className="font-body text-lg text-gray-700 font-medium">{feature.description}</p>
+                <p className="font-body text-lg text-chocolate-swirl font-medium">{feature.description}</p>
               </div>
             </div>
           ))}
@@ -144,13 +149,13 @@ const Index = () => {
       </div>
 
       {/* Bottom Navigation Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-primary/90 to-secondary/90 backdrop-blur-lg border-t border-white/20 p-4 z-50 shadow-lg">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-berry-blast/90 to-mint-chip/90 backdrop-blur-lg border-t border-whipped-cream/20 p-4 z-50 shadow-lg">
         <div className="max-w-md mx-auto flex justify-around items-center">
           <Link to="/tasks" className="group">
             <Button
               variant="ghost"
               size="icon"
-              className="flex flex-col items-center gap-2 hover:bg-white/20 transition-colors"
+              className="flex flex-col items-center gap-2 hover:bg-whipped-cream/20 transition-colors"
             >
               <ListTodo className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
               <span className="text-sm font-bold text-white">Tasks</span>
@@ -161,7 +166,7 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="flex flex-col items-center gap-2 hover:bg-white/20 transition-colors"
+              className="flex flex-col items-center gap-2 hover:bg-whipped-cream/20 transition-colors"
             >
               <Gift className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
               <span className="text-sm font-bold text-white">Rewards</span>
@@ -172,7 +177,7 @@ const Index = () => {
             <Button
               variant="ghost"
               size="icon"
-              className="flex flex-col items-center gap-2 hover:bg-white/20 transition-colors"
+              className="flex flex-col items-center gap-2 hover:bg-whipped-cream/20 transition-colors"
             >
               <User className="w-8 h-8 text-white group-hover:scale-110 transition-transform" />
               <span className="text-sm font-bold text-white">Profile</span>
