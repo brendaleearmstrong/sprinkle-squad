@@ -1,12 +1,15 @@
 export interface Task {
   id: string;
   title: string;
-  description: string;
+  description: string | null;
   points: number;
-  completed: boolean;
-  user_id: string;
-  parent_id: string;
+  completed: boolean | null;
+  kid_id: string | null;
+  parent_id: string | null;
   created_at: string;
+  completed_at: string | null;
+  frequency: 'daily' | 'weekly' | 'monthly' | null;
+  level_required: number | null;
 }
 
 export interface Kid {
@@ -33,9 +36,20 @@ export interface Profile {
 export interface Reward {
   id: string;
   title: string;
-  description: string;
-  points_cost: number;
-  parent_id: string;
+  description: string | null;
+  points_required: number;
+  parent_id: string | null;
+  created_at: string;
+  level_required: number | null;
+}
+
+export interface SprinkleTransaction {
+  id: string;
+  sender_id: string;
+  receiver_id: string;
+  amount: number;
+  transaction_type: 'gift' | 'trade';
+  message: string | null;
   created_at: string;
 }
 

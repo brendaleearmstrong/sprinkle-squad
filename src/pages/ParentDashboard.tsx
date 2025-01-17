@@ -140,7 +140,12 @@ const ParentDashboard = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {kids.map((kid) => (
-          <KidCard key={kid.id} kid={kid} tasks={tasks} />
+          <KidCard 
+            key={kid.id} 
+            kid={kid} 
+            tasks={tasks} 
+            onSprinkleUpdate={fetchKids}
+          />
         ))}
       </div>
 
