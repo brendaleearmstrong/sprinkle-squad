@@ -3,22 +3,56 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Star, Plus, Gift, Trophy } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { Star, Plus, Gift, Trophy, Loader2 } from "lucide-react";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import type { Kid, Task } from "@/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useNavigate } from "react-router-dom";
 
 const ParentDashboard = () => {
   const [kids, setKids] = useState<Kid[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
   const [newTask, setNewTask] = useState({ title: "", description: "", points: 0 });
   const [newKid, setNewKid] = useState({ username: "", pin: "" });
+  const [loading, setLoading] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetchKids();
-    fetchTasks();
+    if (!isSupabaseConfigured()) {
+      toast({
+        title: "Not configured",
+        description: "Please connect to Supabase first",
+        variant: "destructive",
+      });
+      setLoading(false);
+      return;
+    }
+
+    checkAuth();
+    fetchData();
   }, []);
+
+  const checkAuth = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      toast({
+        title: "Not authenticated",
+        description: "Please login first",
+        variant: "destructive",
+      });
+      navigate("/parent-login");
+      return;
+    }
+  };
+
+  const fetchData = async () => {
+    try {
+      await Promise.all([fetchKids(), fetchTasks()]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchKids = async () => {
     const { data: userData } = await supabase.auth.getUser();
@@ -125,6 +159,28 @@ const ParentDashboard = () => {
     setNewTask({ title: "", description: "", points: 0 });
     fetchTasks();
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (!isSupabaseConfigured()) {
+    return (
+      <Card className="p-8 text-center bg-soft-cream">
+        <Gift className="mx-auto h-12 w-12 text-candy-yellow mb-4" />
+        <h3 className="font-bubblegum text-2xl text-sprinkle-pink mb-2">
+          Connect to Supabase
+        </h3>
+        <p className="font-comic text-gray-600">
+          Please connect to Supabase to manage your SprinkleSquad! 🌟
+        </p>
+      </Card>
+    );
+  }
 
   return (
     <div className="container mx-auto p-4 space-y-6">
