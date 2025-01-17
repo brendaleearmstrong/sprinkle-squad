@@ -36,7 +36,7 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
                     <div className="flex items-center gap-2 text-sm">
                       <Calendar className="h-4 w-4 text-neon-pink" />
                       <span className="text-gray-500">
-                        {task.frequency || 'Daily Task'}
+                        {task.category || 'Daily Task'}
                       </span>
                     </div>
                   </div>
@@ -47,7 +47,7 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
                     >
                       {task.completed ? "Completed" : "Pending"}
                     </Badge>
-                    <div className="flex items-center gap-1 text-neon-pink">
+                    <div className="flex items-center gap-1 text-bright-blue">
                       <Star className="h-4 w-4" />
                       <span>{task.points}</span>
                     </div>

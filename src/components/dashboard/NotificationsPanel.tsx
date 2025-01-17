@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Bell, Star, Trophy, Calendar } from "lucide-react";
+import { Bell, Star, Trophy, Calendar, BellRing } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const NotificationsPanel = () => {
@@ -12,7 +12,7 @@ export const NotificationsPanel = () => {
       description: "Sarah reached Level 5",
       time: "2 hours ago",
       icon: Trophy,
-      color: "text-neon-orange",
+      color: "text-bright-blue",
     },
     {
       id: 2,
@@ -21,7 +21,7 @@ export const NotificationsPanel = () => {
       description: "Math homework finished",
       time: "3 hours ago",
       icon: Star,
-      color: "text-neon-pink",
+      color: "text-electric-purple",
     },
     {
       id: 3,
@@ -30,15 +30,15 @@ export const NotificationsPanel = () => {
       description: "Keep the momentum going!",
       time: "5 hours ago",
       icon: Calendar,
-      color: "text-electric-purple",
+      color: "text-hot-pink",
     },
   ];
 
   return (
     <Card className="col-span-full xl:col-span-1 shadow-lg hover:shadow-xl transition-shadow">
-      <CardHeader className="bg-gradient-to-r from-neon-pink to-hot-pink">
+      <CardHeader className="bg-gradient-to-r from-electric-purple to-deep-purple">
         <CardTitle className="text-2xl font-display text-soft-white flex items-center gap-2">
-          <Bell className="h-6 w-6" />
+          <BellRing className="h-6 w-6" />
           Notifications
         </CardTitle>
       </CardHeader>
@@ -51,7 +51,7 @@ export const NotificationsPanel = () => {
                 className="p-4 hover:shadow-md transition-shadow animate-fade-in"
               >
                 <div className="flex items-start gap-4">
-                  <div className={`${notification.color} p-2 rounded-full bg-gray-100`}>
+                  <div className={`${notification.color} p-2 rounded-lg bg-gray-50`}>
                     <notification.icon className="h-5 w-5" />
                   </div>
                   <div className="flex-1 space-y-1">

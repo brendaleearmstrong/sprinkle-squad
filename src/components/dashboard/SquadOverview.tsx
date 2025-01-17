@@ -23,13 +23,13 @@ export const SquadOverview = ({ kids, tasks, onSprinkleUpdate }: SquadOverviewPr
           />
         ))
       ) : (
-        <Card className="col-span-full p-8 text-center bg-gradient-to-br from-space-white/10 to-electric-purple/5 backdrop-blur-sm border-2 border-neon-pink/20">
-          <Gift className="mx-auto h-12 w-12 text-neon-pink mb-4 animate-bounce" />
-          <h3 className="font-display text-2xl text-neon-pink mb-2">
+        <Card className="col-span-full p-8 text-center bg-gradient-to-br from-space-white/10 to-electric-purple/5 backdrop-blur-sm border-2 border-electric-purple/20">
+          <Gift className="mx-auto h-12 w-12 text-electric-purple mb-4 animate-bounce" />
+          <h3 className="font-display text-2xl text-electric-purple mb-2">
             Welcome to SprinkleSquad!
           </h3>
-          <p className="font-body text-soft-white mb-4">
-            Start by adding your kids to manage their tasks and rewards! 🌟
+          <p className="font-body text-gray-600 mb-4">
+            Start by adding your children to manage their tasks and rewards! 🌟
           </p>
           <AddKidDialog onKidAdded={onSprinkleUpdate} />
         </Card>

@@ -6,7 +6,7 @@ export const DashboardHeader = () => {
     <div className="w-full mb-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-4xl font-display font-bold bg-gradient-to-r from-electric-purple to-soft-purple bg-clip-text text-transparent">
+          <h1 className="text-4xl font-display font-bold text-electric-purple">
             Parent Dashboard
           </h1>
           <p className="text-muted-foreground mt-2">
@@ -14,8 +14,12 @@ export const DashboardHeader = () => {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="outline" size="icon">
-            <Bell className="h-5 w-5" />
+          <Button 
+            variant="outline" 
+            size="icon"
+            className="bg-white hover:bg-gray-50"
+          >
+            <Bell className="h-5 w-5 text-electric-purple" />
           </Button>
         </div>
       </div>
