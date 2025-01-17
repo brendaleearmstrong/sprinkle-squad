@@ -89,8 +89,8 @@ export const useAuthActions = () => {
     try {
       console.log('Starting signup process with metadata:', metadata);
 
-      // First, create the auth user
-      const { data: authData, error: signUpError } = await supabase.auth.signUp({
+      // First, create the auth user and get the session
+      const { data: { session, user }, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -103,17 +103,27 @@ export const useAuthActions = () => {
 
       if (signUpError) throw signUpError;
 
-      if (!authData.user) {
+      if (!user) {
         throw new Error('User creation failed');
       }
 
-      console.log('Auth user created successfully:', authData.user.id);
+      console.log('Auth user created successfully:', user.id);
+
+      // Wait for session to be established
+      if (!session) {
+        console.log('Waiting for session...');
+        const { data: { session: newSession }, error: sessionError } = await supabase.auth.getSession();
+        if (sessionError) throw sessionError;
+        if (!newSession) {
+          throw new Error('Failed to establish session');
+        }
+      }
 
       // Now create the profile using the RLS policy
       const { error: profileError } = await supabase
         .from('profiles')
         .insert({
-          id: authData.user.id,
+          id: user.id,
           email: email,
           is_parent: isParent,
           username: metadata?.username,
