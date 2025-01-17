@@ -10,7 +10,7 @@ export const BottomNav = () => {
   const navItems = [
     { icon: Home, label: "Home", path: "/", hoverColor: "hover:text-neon-green" },
     { icon: Trophy, label: "Tasks", path: user?.user_metadata?.is_parent ? "/parent-dashboard" : "/kid-dashboard", hoverColor: "hover:text-neon-orange" },
-    { icon: Gift, label: "Rewards", path: "/rewards", hoverColor: "hover:text-hot-pink" },
+    { icon: Gift, label: "Rewards", path: "/special-rewards", hoverColor: "hover:text-hot-pink" },
     { icon: User, label: "Profile", path: "/profile", hoverColor: "hover:text-bright-blue" },
     { icon: Settings, label: "Settings", path: "/settings", hoverColor: "hover:text-electric-blue" },
   ];
