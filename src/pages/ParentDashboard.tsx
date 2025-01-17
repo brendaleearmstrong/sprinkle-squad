@@ -76,7 +76,8 @@ const ParentDashboard = () => {
           total_points,
           level_number,
           level_name,
-          level_points_required
+          level_points_required,
+          avatar_url
         )
       `)
       .eq("parent_id", userData.user.id);
@@ -97,7 +98,8 @@ const ParentDashboard = () => {
         total_points: item.kid.total_points || 0,
         level_number: item.kid.level_number || 1,
         level_name: item.kid.level_name || 'Sprinkle Starter',
-        level_points_required: item.kid.level_points_required || 100
+        level_points_required: item.kid.level_points_required || 100,
+        avatar_url: item.kid.avatar_url
       }));
       setChildren(transformedChildren);
     }

@@ -58,10 +58,11 @@ const ParentSignup = () => {
       }
     }
 
-    await signUp(email, password, true, {
+    await signUp(email, password, {
       subscription_plan: subscriptionPlan,
       children: subscriptionPlan === "family" ? children : [],
       username: username,
+      is_parent: true,
     });
   };
 
