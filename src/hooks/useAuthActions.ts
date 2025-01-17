@@ -20,36 +20,63 @@ export const useAuthActions = () => {
     }
 
     try {
-      // First attempt to sign in
+      // First attempt to sign in with auth
       const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
 
-      if (authError) throw authError;
-
-      if (authData.user) {
-        // After successful auth, get the user's profile
-        const { data: profileData, error: profileError } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', authData.user.id)
-          .maybeSingle();
-
-        if (profileError) {
-          console.error('Profile lookup error:', profileError);
-          throw profileError;
-        }
-
-        const isParent = profileData?.is_parent;
-        
+      if (authError) {
+        console.error('Auth error:', authError);
         toast({
-          title: "Welcome back! 🌟",
-          description: "Successfully logged in",
+          title: "Login failed",
+          description: getErrorMessage(authError),
+          variant: "destructive",
         });
-        
-        navigate(isParent ? '/parent-dashboard' : '/kid-dashboard');
+        return;
       }
+
+      if (!authData.user) {
+        toast({
+          title: "Login failed",
+          description: "User not found",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // After successful auth, get the user's profile
+      const { data: profileData, error: profileError } = await supabase
+        .from('profiles')
+        .select('is_parent')
+        .eq('id', authData.user.id)
+        .maybeSingle();
+
+      if (profileError) {
+        console.error('Profile lookup error:', profileError);
+        toast({
+          title: "Profile error",
+          description: "Could not fetch user profile",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (!profileData) {
+        toast({
+          title: "Profile not found",
+          description: "Please contact support",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Welcome back! 🌟",
+        description: "Successfully logged in",
+      });
+      
+      navigate(profileData.is_parent ? '/parent-dashboard' : '/kid-dashboard');
     } catch (error) {
       console.error('Sign in error:', error);
       toast({
