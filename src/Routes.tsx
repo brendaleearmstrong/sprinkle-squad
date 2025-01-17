@@ -1,4 +1,4 @@
-import { Routes as RouterRoutes, Route } from "react-router-dom";
+import { Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "./components/layout/MainLayout";
 import Index from "./pages/Index";
 import ParentLogin from "./pages/ParentLogin";
@@ -11,12 +11,35 @@ import Leaderboard from "./pages/Leaderboard";
 import SpecialRewards from "./pages/SpecialRewards";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import { supabase } from "@/lib/supabase";
+import { useEffect, useState } from "react";
 
 export const Routes = () => {
+  const [isParent, setIsParent] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    checkUserType();
+  }, []);
+
+  const checkUserType = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('is_parent')
+        .eq('id', user.id)
+        .maybeSingle();
+      
+      setIsParent(profile?.is_parent ?? null);
+    }
+  };
+
   return (
     <RouterRoutes>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<Index />} />
+        <Route path="/" element={
+          isParent ? <Navigate to="/parent-dashboard" /> : <Index />
+        } />
         <Route path="/parent-login" element={<ParentLogin />} />
         <Route path="/kid-login" element={<KidLogin />} />
         <Route path="/parent-dashboard" element={<ParentDashboard />} />
