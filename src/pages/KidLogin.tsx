@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
-import { Star, Sparkles } from "lucide-react";
+import { Star, Sparkles, Heart, IceCream } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const KidLogin = () => {
@@ -56,15 +56,27 @@ const KidLogin = () => {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-yellow via-soft-green to-soft-blue">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-10 left-10 w-8 h-8 text-yellow-400 animate-sprinkle-pop">
-          <Star />
-        </div>
-        <div className="absolute bottom-20 right-10 w-8 h-8 text-green-400 animate-sprinkle-pop" style={{ animationDelay: "0.5s" }}>
-          <Sparkles />
-        </div>
-        <div className="absolute top-20 right-20 w-8 h-8 text-blue-400 animate-sprinkle-pop" style={{ animationDelay: "1s" }}>
-          <Star />
-        </div>
+        {[...Array(25)].map((_, i) => (
+          <div
+            key={`sparkle-${i}`}
+            className="absolute animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              opacity: '0.4',
+              transform: `scale(${0.5 + Math.random() * 1.5})`,
+            }}
+          >
+            {i % 3 === 0 ? (
+              <Heart className="w-4 h-4 text-neon-pink/40" />
+            ) : i % 3 === 1 ? (
+              <IceCream className="w-4 h-4 text-neon-orange/40" />
+            ) : (
+              <Star className="w-4 h-4 text-bright-blue/40" />
+            )}
+          </div>
+        ))}
       </div>
 
       <div className="w-full max-w-md space-y-8">

@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
-import { Star, Sparkles, Heart, User, LockKeyhole, ArrowLeft } from "lucide-react";
+import { Star, Sparkles, Heart, User, LockKeyhole, ArrowLeft, IceCream } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 const ParentLogin = () => {
   const [email, setEmail] = useState("");
@@ -35,15 +35,27 @@ const ParentLogin = () => {
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-purple via-soft-pink to-soft-blue overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute top-20 left-[10%] w-8 h-8 text-primary animate-float">
-          <Star className="w-full h-full" />
-        </div>
-        <div className="absolute bottom-32 right-[15%] w-6 h-6 text-secondary animate-float" style={{ animationDelay: "0.5s" }}>
-          <Heart className="w-full h-full" />
-        </div>
-        <div className="absolute top-40 right-[20%] w-10 h-10 text-primary/50 animate-float" style={{ animationDelay: "1s" }}>
-          <Sparkles className="w-full h-full" />
-        </div>
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={`sparkle-${i}`}
+            className="absolute animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              opacity: '0.4',
+              transform: `scale(${0.5 + Math.random() * 1.5})`,
+            }}
+          >
+            {i % 3 === 0 ? (
+              <Heart className="w-4 h-4 text-neon-pink/40" />
+            ) : i % 3 === 1 ? (
+              <IceCream className="w-4 h-4 text-neon-orange/40" />
+            ) : (
+              <Star className="w-4 h-4 text-bright-blue/40" />
+            )}
+          </div>
+        ))}
       </div>
 
       <div className="w-full max-w-md space-y-6 relative z-10">
