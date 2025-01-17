@@ -223,20 +223,21 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
   };
 
   return (
-    <Card className="overflow-hidden group hover:shadow-xl transition-shadow">
-      <CardHeader className="bg-gradient-to-r from-neon-pink to-hot-pink">
+    <Card className="overflow-hidden group hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in">
+      <CardHeader className="bg-gradient-to-r from-electric-purple via-soft-purple to-hot-pink p-6">
         <CardTitle className="text-white flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {renderAvatar()}
-            <span>{kid.username}</span>
+            <div className="p-2 bg-white/10 rounded-full backdrop-blur-sm">
+              {renderAvatar()}
+            </div>
+            <span className="font-display text-xl">{kid.username}</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
             <DialogTrigger asChild>
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="text-white hover:bg-white/20"
-                onClick={() => setIsEditing(true)}
+                className="text-white hover:bg-white/20 transition-colors"
               >
                 <Pencil className="w-4 h-4" />
               </Button>
@@ -245,7 +246,7 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
               <Button 
                 variant="ghost" 
                 size="icon"
-                className="text-white hover:bg-white/20"
+                className="text-white hover:bg-white/20 transition-colors"
               >
                 <UserX className="w-4 h-4" />
               </Button>
@@ -254,28 +255,35 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
         </CardTitle>
       </CardHeader>
 
-      <CardContent className="p-6">
-        <div className="bg-soft-white rounded-lg p-4">
-          <div className="flex items-center justify-between mb-2">
-            <div className="flex items-center gap-2">
-              <Trophy className="text-electric-purple h-6 w-6" />
-              <span className="font-display text-xl">{kid.level_name}</span>
+      <CardContent className="p-6 space-y-6">
+        <div className="bg-gradient-to-br from-background to-gray-50 rounded-xl p-6 shadow-sm">
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-electric-purple/10 rounded-lg">
+                <Trophy className="text-electric-purple h-6 w-6" />
+              </div>
+              <div>
+                <span className="font-display text-xl text-electric-purple">{kid.level_name}</span>
+                <p className="text-sm text-gray-500">Level {kid.level_number}</p>
+              </div>
             </div>
-            <span className="text-sm text-gray-500">Level {kid.level_number}</span>
+            <Star className="text-yellow-400 h-6 w-6 animate-pulse" />
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
-            <div 
-              className="bg-gradient-to-r from-electric-purple to-soft-purple h-2.5 rounded-full transition-all duration-500"
-              style={{ width: `${calculateLevelProgress()}%` }}
-            />
-          </div>
-          <div className="flex justify-between text-sm text-gray-600">
-            <span>{kid.total_points || 0} sprinkles</span>
-            <span>{kid.level_points_required ? `Next level: ${kid.level_points_required}` : 'Max level reached!'}</span>
+          <div className="space-y-2">
+            <div className="w-full bg-gray-100 rounded-full h-3">
+              <div 
+                className="bg-gradient-to-r from-electric-purple to-soft-purple h-3 rounded-full transition-all duration-500 animate-pulse"
+                style={{ width: `${calculateLevelProgress()}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>{kid.total_points || 0} sprinkles</span>
+              <span>{kid.level_points_required ? `Next level: ${kid.level_points_required}` : 'Max level reached!'}</span>
+            </div>
           </div>
         </div>
 
-        <div className="bg-soft-white rounded-lg p-4 mt-4">
+        <div className="bg-gradient-to-br from-background to-gray-50 rounded-xl p-6 shadow-sm">
           <div className="flex gap-2">
             <Input
               type="number"
@@ -283,19 +291,19 @@ export const KidCard = ({ kid, tasks, onSprinkleUpdate, onKidDeleted }: KidCardP
               value={sprinkleAmount}
               onChange={(e) => setSprinkleAmount(e.target.value)}
               placeholder="Amount"
-              className="w-24"
+              className="w-24 border-electric-purple/20 focus:border-electric-purple"
             />
             <Button
               size="sm"
               onClick={() => handleSprinkleTransaction('add')}
-              className="bg-hot-pink hover:bg-hot-pink/90 text-white font-semibold shadow-md"
+              className="bg-gradient-to-r from-neon-pink to-hot-pink hover:opacity-90 text-white font-semibold shadow-md transition-all duration-300"
             >
               <Plus className="w-4 h-4 mr-1" /> Add
             </Button>
             <Button
               size="sm"
               onClick={() => handleSprinkleTransaction('remove')}
-              className="bg-neon-pink hover:bg-neon-pink/90 text-white font-semibold shadow-md"
+              className="bg-gradient-to-r from-electric-purple to-deep-purple hover:opacity-90 text-white font-semibold shadow-md transition-all duration-300"
             >
               <Minus className="w-4 h-4 mr-1" /> Remove
             </Button>

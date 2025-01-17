@@ -75,44 +75,46 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
   };
 
   return (
-    <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <CardHeader className="bg-gradient-to-r from-electric-purple to-deep-purple p-6">
-        <CardTitle className="text-2xl font-display text-space-white flex items-center gap-3">
-          <ClipboardList className="h-6 w-6" />
+    <Card className="shadow-lg hover:shadow-xl transition-all duration-300 animate-fade-in">
+      <CardHeader className="bg-gradient-to-r from-electric-purple via-soft-purple to-deep-purple p-6">
+        <CardTitle className="text-2xl font-display text-white flex items-center gap-3">
+          <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+            <ClipboardList className="h-6 w-6" />
+          </div>
           Task Management
         </CardTitle>
       </CardHeader>
       <CardContent className="p-6">
-        <ScrollArea className="h-[400px] pr-4">
+        <ScrollArea className="h-[500px] pr-4">
           <div className="space-y-4">
             {tasks.map((task) => (
               <Card 
                 key={task.id} 
-                className="group p-4 hover:shadow-md transition-all duration-300 border-l-4 hover:border-l-8 border-l-electric-purple"
+                className="group p-6 hover:shadow-md transition-all duration-300 border-l-4 hover:border-l-8 border-l-electric-purple animate-fade-in"
               >
                 <div className="flex items-start justify-between">
-                  <div className="space-y-2">
+                  <div className="space-y-3">
                     <h4 className="font-display text-lg text-electric-purple flex items-center gap-2 group-hover:text-soft-purple transition-colors">
                       {task.title}
                       {task.completed ? (
-                        <CheckCircle className="h-4 w-4 text-neon-green animate-pulse" />
+                        <CheckCircle className="h-5 w-5 text-neon-green animate-pulse" />
                       ) : (
-                        <Clock className="h-4 w-4 text-neon-orange animate-pulse" />
+                        <Clock className="h-5 w-5 text-neon-orange animate-pulse" />
                       )}
                     </h4>
                     <p className="text-sm text-gray-600">{task.description}</p>
-                    <div className="flex items-center gap-3 text-sm">
-                      <div className="flex items-center gap-1 text-gray-500">
+                    <div className="flex items-center gap-4 text-sm">
+                      <div className="flex items-center gap-2 px-3 py-1 bg-electric-purple/5 rounded-full">
                         <Calendar className="h-4 w-4 text-hot-pink" />
-                        <span>{task.category || 'Daily Task'}</span>
+                        <span className="text-gray-600">{task.category || 'Daily Task'}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-bright-blue">
-                        <Star className="h-4 w-4" />
-                        <span className="font-semibold">{task.points}</span>
+                      <div className="flex items-center gap-2 px-3 py-1 bg-hot-pink/5 rounded-full">
+                        <Star className="h-4 w-4 text-electric-purple" />
+                        <span className="font-semibold text-electric-purple">{task.points}</span>
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-col items-end gap-2">
+                  <div className="flex flex-col items-end gap-3">
                     <Badge 
                       variant={task.completed ? "secondary" : "default"}
                       className={`animate-fade-in ${
@@ -124,12 +126,12 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
                       {task.completed ? "Completed" : "Pending"}
                     </Badge>
                     <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Dialog open={isEditing} onOpenChange={setIsEditing}>
+                      <Dialog>
                         <DialogTrigger asChild>
                           <Button
                             variant="ghost"
                             size="icon"
-                            className="hover:bg-electric-purple/10 hover:text-electric-purple"
+                            className="hover:bg-electric-purple/10 hover:text-electric-purple transition-colors"
                             onClick={() => setEditingTask(task)}
                           >
                             <Pencil className="h-4 w-4" />
@@ -196,7 +198,7 @@ export const TasksPanel = ({ tasks }: TasksPanelProps) => {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="hover:bg-destructive/10 hover:text-destructive"
+                        className="hover:bg-destructive/10 hover:text-destructive transition-colors"
                         onClick={() => handleDeleteTask(task.id)}
                       >
                         <Trash2 className="h-4 w-4" />
