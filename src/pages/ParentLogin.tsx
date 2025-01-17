@@ -4,10 +4,11 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import { Star, Sparkles, Heart, User, LockKeyhole, Crown, IceCream, Plus, Users, Sprout } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/components/ui/use-toast";
 
 interface ChildInfo {
   username: string;
@@ -23,21 +24,40 @@ const ParentLogin = () => {
   const [subscriptionPlan, setSubscriptionPlan] = useState<SubscriptionPlan>("single");
   const [children, setChildren] = useState<ChildInfo[]>([{ username: "", birthdate: "" }]);
   const { signIn, signUp } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (isSignUp) {
-      await signUp(email, password, true, {
-        subscription_plan: subscriptionPlan,
-        children: children,
+    try {
+      if (isSignUp) {
+        await signUp(email, password, true, {
+          subscription_plan: subscriptionPlan,
+          children: children,
+        });
+        toast({
+          title: "Account created!",
+          description: "Please check your email to verify your account.",
+        });
+      } else {
+        await signIn(email, password);
+        toast({
+          title: "Welcome back!",
+          description: "Successfully logged in",
+        });
+        navigate("/parent-dashboard");
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "An error occurred",
+        variant: "destructive",
       });
-    } else {
-      await signIn(email, password);
     }
   };
 
   const addChild = () => {
-    if (subscriptionPlan === "family") {
+    if (subscriptionPlan === "family" && children.length < 4) {
       setChildren([...children, { username: "", birthdate: "" }]);
     }
   };
