@@ -14,11 +14,13 @@ interface ChildInfo {
   birthdate: string;
 }
 
+type SubscriptionPlan = "single" | "family";
+
 const ParentLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
-  const [subscriptionPlan, setSubscriptionPlan] = useState("single");
+  const [subscriptionPlan, setSubscriptionPlan] = useState<SubscriptionPlan>("single");
   const [children, setChildren] = useState<ChildInfo[]>([{ username: "", birthdate: "" }]);
   const { signIn, signUp } = useAuth();
 
@@ -46,9 +48,10 @@ const ParentLogin = () => {
     setChildren(updatedChildren);
   };
 
+  // ... keep existing code (JSX for the form and UI elements)
+
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-br from-soft-yellow via-soft-green to-soft-blue">
-      {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         {[...Array(25)].map((_, i) => (
           <div
@@ -130,7 +133,7 @@ const ParentLogin = () => {
                   <Label className="text-lg font-medium text-gray-700">Choose your plan</Label>
                   <RadioGroup
                     value={subscriptionPlan}
-                    onValueChange={setSubscriptionPlan}
+                    onValueChange={(value: SubscriptionPlan) => setSubscriptionPlan(value)}
                     className="grid grid-cols-2 gap-4"
                   >
                     <div className="relative">
