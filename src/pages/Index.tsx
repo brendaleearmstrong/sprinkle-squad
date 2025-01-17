@@ -11,7 +11,9 @@ import {
   Crown,
   CheckCircle2,
   Rocket,
-  PartyPopper
+  PartyPopper,
+  Cake,
+  Cookie
 } from "lucide-react";
 
 const Index = () => {
@@ -30,22 +32,47 @@ const Index = () => {
               animationDuration: `${2 + Math.random() * 3}s`,
             }}
           >
-            <div 
-              className={`
-                w-2 h-2 rounded-full shadow-lg
-                ${[
-                  'bg-sprinkle-rainbow-red',
-                  'bg-sprinkle-rainbow-orange',
-                  'bg-sprinkle-rainbow-yellow',
-                  'bg-sprinkle-rainbow-green',
-                  'bg-sprinkle-rainbow-blue',
-                  'bg-sprinkle-rainbow-purple'
-                ][Math.floor(Math.random() * 6)]}
-              `}
-              style={{
-                transform: `rotate(${Math.random() * 360}deg)`
-              }}
-            />
+            {/* Randomly choose between sprinkle, star, and heart shapes */}
+            {Math.random() > 0.7 ? (
+              <Star 
+                className={`w-3 h-3 ${[
+                  'text-sprinkle-rainbow-red',
+                  'text-sprinkle-rainbow-orange',
+                  'text-sprinkle-rainbow-yellow',
+                  'text-sprinkle-rainbow-green',
+                  'text-sprinkle-rainbow-blue',
+                  'text-sprinkle-rainbow-purple'
+                ][Math.floor(Math.random() * 6)]}`}
+              />
+            ) : Math.random() > 0.4 ? (
+              <Heart 
+                className={`w-2 h-2 ${[
+                  'text-sprinkle-rainbow-red',
+                  'text-sprinkle-rainbow-orange',
+                  'text-sprinkle-rainbow-yellow',
+                  'text-sprinkle-rainbow-green',
+                  'text-sprinkle-rainbow-blue',
+                  'text-sprinkle-rainbow-purple'
+                ][Math.floor(Math.random() * 6)]}`}
+              />
+            ) : (
+              <div 
+                className={`
+                  w-2 h-2 rounded-full shadow-lg
+                  ${[
+                    'bg-sprinkle-rainbow-red',
+                    'bg-sprinkle-rainbow-orange',
+                    'bg-sprinkle-rainbow-yellow',
+                    'bg-sprinkle-rainbow-green',
+                    'bg-sprinkle-rainbow-blue',
+                    'bg-sprinkle-rainbow-purple'
+                  ][Math.floor(Math.random() * 6)]}
+                `}
+                style={{
+                  transform: `rotate(${Math.random() * 360}deg)`
+                }}
+              />
+            )}
           </div>
         ))}
       </div>
@@ -69,31 +96,38 @@ const Index = () => {
         {[
           {
             icon: <IceCream className="w-8 h-8" />,
+            bgIcon: <Cake className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8 transform rotate-12" />,
             title: "Fun Challenges",
-            description: "Complete tasks styled as delicious ice cream flavors!"
+            description: "Complete tasks styled as delicious ice cream flavors!",
+            gradient: "from-berry-blast/20 to-mint-chip/20"
           },
           {
             icon: <PartyPopper className="w-8 h-8" />,
+            bgIcon: <Cookie className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8 transform -rotate-12" />,
             title: "Earn Rewards",
-            description: "Collect sprinkle points and unlock sweet prizes!"
+            description: "Collect sprinkle points and unlock sweet prizes!",
+            gradient: "from-cherry-top/20 to-waffle-cone/20"
           },
           {
             icon: <Crown className="w-8 h-8" />,
+            bgIcon: <IceCream className="w-32 h-32 opacity-5 absolute -bottom-8 -right-8" />,
             title: "Level Up",
-            description: "Watch your ice cream tower grow as you progress!"
+            description: "Watch your ice cream tower grow as you progress!",
+            gradient: "from-mint-chip/20 to-berry-blast/20"
           }
         ].map((feature, index) => (
           <div
             key={index}
-            className="group bg-whipped-cream/90 backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-caramel-drizzle/20 hover:border-berry-blast/20"
+            className={`group relative overflow-hidden bg-gradient-to-br ${feature.gradient} backdrop-blur-md p-6 rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 border border-caramel-drizzle/20 hover:border-berry-blast/20`}
           >
+            {feature.bgIcon}
             <div className="bg-gradient-to-br from-berry-blast to-mint-chip p-4 rounded-2xl w-fit mx-auto mb-4 text-white transform group-hover:scale-110 group-hover:rotate-12 transition-all duration-300">
               {feature.icon}
             </div>
-            <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-berry-blast to-mint-chip bg-clip-text text-transparent">
+            <h3 className="font-display text-2xl font-bold mb-2 bg-gradient-to-r from-berry-blast to-mint-chip bg-clip-text text-transparent relative z-10">
               {feature.title}
             </h3>
-            <p className="font-body text-lg text-chocolate-swirl">{feature.description}</p>
+            <p className="font-body text-lg text-chocolate-swirl relative z-10">{feature.description}</p>
           </div>
         ))}
       </div>
