@@ -13,10 +13,10 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-white">
       {/* Background sparkles */}
-      <div className="fixed inset-0 pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        {[...Array(30)].map((_, i) => (
           <div
-            key={`static-${i}`}
+            key={`sparkle-${i}`}
             className="absolute animate-sprinkle-pop"
             style={{
               left: `${Math.random() * 100}%`,
@@ -25,21 +25,25 @@ const Index = () => {
               animationDuration: `${2 + Math.random() * 3}s`,
             }}
           >
-            {Math.random() > 0.6 ? (
+            {Math.random() > 0.5 ? (
+              <Sparkles 
+                className={`w-3 h-3 sm:w-4 sm:h-4 ${[
+                  'text-neon-pink',
+                  'text-hot-pink',
+                  'text-neon-orange',
+                  'text-bright-blue',
+                  'text-neon-green',
+                ][Math.floor(Math.random() * 5)]}`}
+              />
+            ) : (
               <Star 
                 className={`w-2 h-2 sm:w-3 sm:h-3 ${[
                   'text-neon-pink',
                   'text-hot-pink',
                   'text-neon-orange',
-                ][Math.floor(Math.random() * 3)]}`}
-              />
-            ) : (
-              <Heart 
-                className={`w-1.5 h-1.5 sm:w-2 sm:h-2 ${[
-                  'text-neon-pink',
-                  'text-hot-pink',
-                  'text-neon-orange',
-                ][Math.floor(Math.random() * 3)]}`}
+                  'text-bright-blue',
+                  'text-neon-green',
+                ][Math.floor(Math.random() * 5)]}`}
               />
             )}
           </div>
@@ -137,8 +141,30 @@ const Index = () => {
       </div>
 
       {/* Static Footer with hot pink background */}
-      <footer className="w-full bg-hot-pink text-space-white py-8 mt-auto">
-        <div className="container mx-auto px-4">
+      <footer className="w-full bg-hot-pink text-space-white py-8 mt-auto relative overflow-hidden">
+        {/* Animated sprinkles in footer */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={`footer-sparkle-${i}`}
+              className="absolute animate-float"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+              }}
+            >
+              <Sparkles 
+                className={`w-4 h-4 ${[
+                  'text-space-white/30',
+                  'text-space-white/20',
+                  'text-space-white/40',
+                ][Math.floor(Math.random() * 3)]}`}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="text-center">
             <p className="text-space-white/90 text-sm">
               © 2025 Devera Tech. All rights reserved.
