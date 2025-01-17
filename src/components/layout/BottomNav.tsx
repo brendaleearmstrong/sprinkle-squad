@@ -1,13 +1,15 @@
 import { Link, useLocation } from "react-router-dom";
 import { Home, Trophy, Gift, User, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 
 export const BottomNav = () => {
   const location = useLocation();
+  const { user } = useAuth();
 
   const navItems = [
     { icon: Home, label: "Home", path: "/", hoverColor: "hover:text-neon-green" },
-    { icon: Trophy, label: "Tasks", path: "/kid-dashboard", hoverColor: "hover:text-neon-orange" },
+    { icon: Trophy, label: "Tasks", path: user?.user_metadata?.is_parent ? "/parent-dashboard" : "/kid-dashboard", hoverColor: "hover:text-neon-orange" },
     { icon: Gift, label: "Rewards", path: "/rewards", hoverColor: "hover:text-hot-pink" },
     { icon: User, label: "Profile", path: "/profile", hoverColor: "hover:text-bright-blue" },
     { icon: Settings, label: "Settings", path: "/settings", hoverColor: "hover:text-electric-blue" },

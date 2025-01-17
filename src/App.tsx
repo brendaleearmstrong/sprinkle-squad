@@ -13,6 +13,8 @@ import ParentSignup from "./pages/ParentSignup";
 import DailyBonus from "./pages/DailyBonus";
 import Leaderboard from "./pages/Leaderboard";
 import SpecialRewards from "./pages/SpecialRewards";
+import Profile from "./pages/Profile";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,8 @@ const App = () => (
             <Route path="/daily-bonus" element={<DailyBonus />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/special-rewards" element={<SpecialRewards />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/settings" element={<Settings />} />
           </Route>
         </Routes>
       </BrowserRouter>
