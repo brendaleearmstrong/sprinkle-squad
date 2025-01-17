@@ -17,6 +17,7 @@ const KidSignup = () => {
     e.preventDefault();
     const metadata: SignUpMetadata = {
       subscription_plan: 'single',
+      children: [],
       username,
       birthdate,
     };

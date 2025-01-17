@@ -84,13 +84,12 @@ const ParentDashboard = () => {
       return;
     }
 
-    // Transform the data to match the Kid type
-    const transformedKids: Kid[] = data?.map(({ kid }) => ({
+    const transformedKids: Kid[] = (data || []).map(({ kid }) => ({
       id: kid.id,
       username: kid.username,
       total_points: kid.total_points,
       level: kid.level
-    })) || [];
+    }));
 
     setKids(transformedKids);
   };
