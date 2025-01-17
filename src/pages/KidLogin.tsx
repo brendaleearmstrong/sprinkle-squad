@@ -86,11 +86,13 @@ const KidLogin = () => {
               SprinkleSquad
             </h1>
           </Link>
-          <h2 className="text-3xl font-display font-bold text-gray-800 animate-float">
-            Kid Login
+          <h2 className="text-3xl font-display font-bold bg-gradient-to-r from-neon-pink via-hot-pink to-neon-orange bg-clip-text text-transparent animate-float">
+            Sprinkler Login
           </h2>
-          <p className="text-xl text-gray-600 font-body">
-            Ready for an adventure? Let's go! ✨
+          <p className="text-xl text-gray-600 font-body flex items-center justify-center gap-2">
+            <IceCream className="w-5 h-5 text-neon-orange animate-spin-slow" />
+            Ready for a sweet adventure? Let's go! ✨
+            <Heart className="w-5 h-5 text-hot-pink animate-float" />
           </p>
         </div>
         
@@ -126,7 +128,7 @@ const KidLogin = () => {
               className="w-full py-6 text-lg bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-white font-display transition-opacity"
             >
               <Star className="mr-2 h-6 w-6" />
-              Start Playing!
+              Start Your Adventure!
             </Button>
           </form>
         </Card>
