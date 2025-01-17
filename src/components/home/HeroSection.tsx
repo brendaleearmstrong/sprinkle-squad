@@ -1,18 +1,28 @@
-import { Sparkles, Star, Smile } from "lucide-react";
+import { Sparkles, Star, Heart, IceCream } from "lucide-react";
 
 export const HeroSection = () => {
   return (
     <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-8 pt-8">
       <div className="relative inline-block">
-        <div className="flex items-center justify-center gap-2 mb-4">
-          <Star className="w-8 h-8 text-neon-orange animate-spin-slow" />
-          <span className="text-2xl font-display font-bold text-electric-purple">
-            Sprinkle Squadders
+        <div className="flex items-center justify-center gap-3 mb-4">
+          <Heart className="w-6 h-6 text-hot-pink animate-float" />
+          <IceCream className="w-7 h-7 text-neon-orange animate-spin-slow" />
+          <span className="text-3xl font-display font-bold bg-gradient-to-r from-neon-pink via-hot-pink to-electric-purple bg-clip-text text-transparent">
+            Hi Sprinkle Squad!
           </span>
-          <Star className="w-8 h-8 text-neon-pink animate-spin-slow" style={{ animationDelay: '1s' }} />
+          <Star className="w-6 h-6 text-neon-pink animate-float" style={{ animationDelay: '0.5s' }} />
+          <Heart className="w-6 h-6 text-hot-pink animate-float" style={{ animationDelay: '1s' }} />
         </div>
-        <div className="absolute -top-2 right-1/4">
-          <Smile className="w-6 h-6 text-hot-pink animate-float" />
+        
+        {/* Floating confetti-like elements */}
+        <div className="absolute -top-4 -left-8">
+          <Sparkles className="w-5 h-5 text-neon-orange animate-sprinkle-pop" />
+        </div>
+        <div className="absolute -top-6 -right-4">
+          <Star className="w-4 h-4 text-electric-purple animate-float" />
+        </div>
+        <div className="absolute -bottom-2 right-1/4">
+          <Heart className="w-4 h-4 text-hot-pink animate-sprinkle-pop" style={{ animationDelay: '0.3s' }} />
         </div>
       </div>
 
