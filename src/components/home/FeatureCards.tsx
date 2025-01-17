@@ -1,4 +1,4 @@
-import { IceCream, PartyPopper, Crown, Cake, Cookie } from "lucide-react";
+import { IceCream, PartyPopper, Crown, Cake, Cookie, Star, Heart, Smile } from "lucide-react";
 
 export const FeatureCards = () => {
   const features = [
@@ -7,26 +7,47 @@ export const FeatureCards = () => {
       bgIcon: <Cake className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8 transform rotate-12" />,
       title: "Fun Challenges",
       description: "Complete tasks styled as delicious dessert flavors!",
-      gradient: "from-mint-chip to-vanilla-cream"
+      gradient: "from-mint-chip/80 to-vanilla-cream"
     },
     {
       icon: <PartyPopper className="w-8 h-8 sm:w-10 sm:h-10" />,
       bgIcon: <Cookie className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8 transform -rotate-12" />,
       title: "Earn Rewards",
       description: "Collect sprinkle points and unlock sweet prizes!",
-      gradient: "from-caramel-drizzle to-vanilla-cream"
+      gradient: "from-caramel-drizzle/80 to-vanilla-cream"
     },
     {
       icon: <Crown className="w-8 h-8 sm:w-10 sm:h-10" />,
-      bgIcon: <IceCream className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8" />,
+      bgIcon: <Star className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8" />,
       title: "Level Up",
       description: "Watch your dessert tower grow as you progress!",
-      gradient: "from-berry-blast to-vanilla-cream"
+      gradient: "from-berry-blast/80 to-vanilla-cream"
+    },
+    {
+      icon: <Heart className="w-8 h-8 sm:w-10 sm:h-10" />,
+      bgIcon: <IceCream className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8 transform rotate-45" />,
+      title: "Share Joy",
+      description: "Send sprinkles to friends and family!",
+      gradient: "from-sprinkle-rainbow-purple/80 to-vanilla-cream"
+    },
+    {
+      icon: <Star className="w-8 h-8 sm:w-10 sm:h-10" />,
+      bgIcon: <Cookie className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8 transform -rotate-45" />,
+      title: "Daily Surprises",
+      description: "Discover new tasks and special rewards every day!",
+      gradient: "from-sprinkle-rainbow-orange/80 to-vanilla-cream"
+    },
+    {
+      icon: <Smile className="w-8 h-8 sm:w-10 sm:h-10" />,
+      bgIcon: <Heart className="w-24 h-24 sm:w-32 sm:h-32 opacity-5 absolute -bottom-8 -right-8" />,
+      title: "Family Fun",
+      description: "Bond with your family through exciting challenges!",
+      gradient: "from-sprinkle-rainbow-blue/80 to-vanilla-cream"
     }
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-5xl mx-auto mt-12 sm:mt-16 lg:mt-20 px-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 max-w-6xl mx-auto mt-12 sm:mt-16 lg:mt-20 px-4">
       {features.map((feature, index) => (
         <div
           key={index}
