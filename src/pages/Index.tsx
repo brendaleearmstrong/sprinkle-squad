@@ -1,7 +1,7 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureCards } from "@/components/home/FeatureCards";
 import { LoginButtons } from "@/components/home/LoginButtons";
-import { Heart, Star, Sparkles, Crown, CreditCard } from "lucide-react";
+import { Heart, Star, Sparkles, Crown, CreditCard, Gift, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useState } from "react";
