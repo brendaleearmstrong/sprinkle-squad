@@ -20,9 +20,9 @@ export const LoginButtons = () => {
         <Button
           variant="outline"
           size="lg"
-          className="w-full border-4 border-electric-blue bg-space-white text-electric-blue font-display text-2xl py-8 rounded-2xl shadow-xl transition-all duration-300"
+          className="w-full border-4 border-neon-orange bg-space-white text-neon-orange font-display text-2xl py-8 rounded-2xl shadow-xl transition-all duration-300"
         >
-          <Star className="mr-3 h-7 w-7 text-electric-blue group-hover:text-bright-blue transition-colors duration-300" />
+          <Star className="mr-3 h-7 w-7 text-neon-orange group-hover:text-bright-orange transition-colors duration-300" />
           Sprinkle Login
         </Button>
       </Link>
