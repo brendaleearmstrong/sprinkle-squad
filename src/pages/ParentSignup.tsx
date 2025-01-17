@@ -7,6 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ParentInfoForm } from "@/components/signup/ParentInfoForm";
 import { SubscriptionPlan } from "@/components/signup/SubscriptionPlan";
 import { ChildrenForm } from "@/components/signup/ChildrenForm";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface ChildInfo {
   username: string;
@@ -66,77 +67,79 @@ const ParentSignup = () => {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-start p-4 bg-gradient-to-br from-electric-purple/5 via-soft-purple/5 to-neon-pink/5">
-      {/* Header Section */}
-      <div className="text-center space-y-4 mb-8 w-full max-w-7xl">
-        <Link to="/" className="inline-block">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-electric-purple hover:text-electric-purple/90 transition-colors">
-            SprinkleSquad
-          </h1>
-        </Link>
-        <h2 className="text-2xl md:text-3xl font-display font-bold bg-gradient-to-r from-neon-pink via-hot-pink to-neon-orange bg-clip-text text-transparent">
-          Join the Squad!
-        </h2>
-        <p className="text-lg md:text-xl text-electric-purple/80 font-body flex items-center justify-center gap-2">
-          <Crown className="w-5 h-5 text-neon-orange animate-spin-slow" />
-          Create your family's sprinkle adventure!
-          <Heart className="w-5 h-5 text-hot-pink animate-float" />
-        </p>
-      </div>
+    <ScrollArea className="h-[calc(100vh-4rem)] w-full">
+      <div className="min-h-screen w-full flex flex-col items-center justify-start p-4 md:p-6 lg:p-8 bg-gradient-to-br from-electric-purple/5 via-soft-purple/5 to-neon-pink/5">
+        {/* Header Section */}
+        <div className="text-center space-y-4 mb-8 w-full max-w-7xl">
+          <Link to="/" className="inline-block">
+            <h1 className="text-4xl md:text-5xl font-display font-bold text-electric-purple hover:text-electric-purple/90 transition-colors">
+              SprinkleSquad
+            </h1>
+          </Link>
+          <h2 className="text-2xl md:text-3xl font-display font-bold bg-gradient-to-r from-neon-pink via-hot-pink to-neon-orange bg-clip-text text-transparent">
+            Join the Squad!
+          </h2>
+          <p className="text-lg md:text-xl text-electric-purple/80 font-body flex items-center justify-center gap-2">
+            <Crown className="w-5 h-5 text-neon-orange animate-spin-slow" />
+            Create your family's sprinkle adventure!
+            <Heart className="w-5 h-5 text-hot-pink animate-float" />
+          </p>
+        </div>
 
-      {/* Main Form */}
-      <div className="w-full max-w-7xl p-6 bg-white/90 backdrop-blur shadow-xl border-2 border-secondary/10 rounded-lg">
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Parent Information */}
-            <div className="space-y-6">
-              <ParentInfoForm
-                username={username}
-                setUsername={setUsername}
-                email={email}
-                setEmail={setEmail}
-                password={password}
-                setPassword={setPassword}
-                confirmPassword={confirmPassword}
-                setConfirmPassword={setConfirmPassword}
-              />
-              <SubscriptionPlan
-                subscriptionPlan={subscriptionPlan}
-                setSubscriptionPlan={setSubscriptionPlan}
+        {/* Main Form */}
+        <div className="w-full max-w-7xl p-4 md:p-6 lg:p-8 bg-white/90 backdrop-blur shadow-xl border-2 border-secondary/10 rounded-lg mb-8">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Left Column - Parent Information */}
+              <div className="space-y-6">
+                <ParentInfoForm
+                  username={username}
+                  setUsername={setUsername}
+                  email={email}
+                  setEmail={setEmail}
+                  password={password}
+                  setPassword={setPassword}
+                  confirmPassword={confirmPassword}
+                  setConfirmPassword={setConfirmPassword}
+                />
+                <SubscriptionPlan
+                  subscriptionPlan={subscriptionPlan}
+                  setSubscriptionPlan={setSubscriptionPlan}
+                  setChildren={setChildren}
+                />
+              </div>
+
+              {/* Right Column - Children Section */}
+              <ChildrenForm
+                children={children}
                 setChildren={setChildren}
+                subscriptionPlan={subscriptionPlan}
               />
             </div>
 
-            {/* Right Column - Children Section */}
-            <ChildrenForm
-              children={children}
-              setChildren={setChildren}
-              subscriptionPlan={subscriptionPlan}
-            />
-          </div>
-
-          {/* Submit Button */}
-          <div className="pt-6">
-            <Button 
-              type="submit"
-              className="w-full py-4 text-lg bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-white font-display transition-all duration-300"
-            >
-              <Crown className="mr-2 h-5 w-5" />
-              Start Your Family's Adventure
-            </Button>
-
-            <div className="text-center mt-4">
-              <Link
-                to="/parent-login"
-                className="text-sm text-electric-purple hover:text-secondary transition-colors"
+            {/* Submit Button */}
+            <div className="pt-6">
+              <Button 
+                type="submit"
+                className="w-full py-6 text-lg bg-gradient-to-r from-secondary to-primary hover:opacity-90 text-white font-display transition-all duration-300"
               >
-                Already have an account? Sign in
-              </Link>
+                <Crown className="mr-2 h-5 w-5" />
+                Start Your Family's Adventure
+              </Button>
+
+              <div className="text-center mt-4">
+                <Link
+                  to="/parent-login"
+                  className="text-sm text-electric-purple hover:text-secondary transition-colors"
+                >
+                  Already have an account? Sign in
+                </Link>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 };
 
