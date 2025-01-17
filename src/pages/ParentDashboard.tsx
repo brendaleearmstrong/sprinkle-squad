@@ -9,6 +9,7 @@ import { QuickStats } from "@/components/dashboard/QuickStats";
 import { SquadOverview } from "@/components/dashboard/SquadOverview";
 import { TasksPanel } from "@/components/dashboard/TasksPanel";
 import { NotificationsPanel } from "@/components/dashboard/NotificationsPanel";
+import { RewardsPanel } from "@/components/dashboard/RewardsPanel";
 import type { Kid, Task } from "@/types";
 import { Loader2, Gift } from "lucide-react";
 import { Card } from "@/components/ui/card";
@@ -16,6 +17,7 @@ import { Card } from "@/components/ui/card";
 const ParentDashboard = () => {
   const [children, setChildren] = useState<Kid[]>([]);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [rewards, setRewards] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -66,7 +68,7 @@ const ParentDashboard = () => {
 
   const fetchData = async () => {
     try {
-      await Promise.all([fetchChildren(), fetchTasks()]);
+      await Promise.all([fetchChildren(), fetchTasks(), fetchRewards()]);
     } catch (error) {
       toast({
         title: "Error",
@@ -144,6 +146,28 @@ const ParentDashboard = () => {
     setTasks(data || []);
   };
 
+  const fetchRewards = async () => {
+    const { data: userData } = await supabase.auth.getUser();
+    if (!userData.user) return;
+
+    const { data, error } = await supabase
+      .from("rewards")
+      .select("*")
+      .eq("parent_id", userData.user.id)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      toast({
+        title: "Error",
+        description: "Couldn't load rewards",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setRewards(data || []);
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -191,6 +215,7 @@ const ParentDashboard = () => {
             </div>
             <div className="space-y-6">
               <TasksPanel tasks={tasks} />
+              <RewardsPanel rewards={rewards} onRewardDeleted={fetchRewards} />
               <NotificationsPanel />
             </div>
           </div>
