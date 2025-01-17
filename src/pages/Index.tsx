@@ -108,6 +108,37 @@ const Index = () => {
         {/* Hero Section with CTAs moved up */}
         <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-4 pb-8">
           <HeroSection />
+
+          {/* Newsletter Section - Moved above the fold */}
+          <div className="mt-8 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-br from-electric-purple to-soft-purple p-8 rounded-3xl shadow-xl transform hover:scale-[1.02] transition-all duration-300">
+              <h3 className="text-3xl font-display text-space-white mb-4 text-center flex items-center justify-center gap-3">
+                <Sparkles className="h-8 w-8 text-neon-pink animate-pulse" />
+                Join the Adventure!
+              </h3>
+              <p className="text-space-white/90 text-center mb-6">
+                Subscribe now to get magical updates and special rewards!
+              </p>
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="flex-1 h-12 text-lg bg-space-white border-2 border-space-white/20"
+                  required
+                />
+                <Button 
+                  type="submit"
+                  size="lg"
+                  className="h-12 px-8 bg-neon-pink hover:bg-hot-pink text-space-white font-display flex items-center gap-2 transform hover:scale-105 transition-all duration-300"
+                >
+                  <Send className="h-5 w-5" />
+                  Subscribe
+                </Button>
+              </form>
+            </div>
+          </div>
           
           {/* Main CTAs - Side by side on desktop */}
           <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
