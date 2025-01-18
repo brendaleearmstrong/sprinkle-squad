@@ -1,6 +1,6 @@
 import { Routes as RouterRoutes, Route, Navigate } from "react-router-dom";
 import { MainLayout } from "./components/layout/MainLayout";
-import Index from "./pages/Index";
+import { Index } from "./pages/Index";
 import ParentLogin from "./pages/ParentLogin";
 import KidLogin from "./pages/KidLogin";
 import ParentDashboard from "./pages/ParentDashboard";
