@@ -44,21 +44,21 @@ export const Header = () => {
               <div className="hidden sm:flex items-center mr-6 space-x-4">
                 <Link 
                   to="/parent-login"
-                  className="text-space-white hover:text-neon-pink transition-colors duration-200"
+                  className="text-space-white hover:text-neon-pink transition-colors duration-200 font-display"
                 >
                   Parent Login
                 </Link>
                 <span className="text-space-white/50">|</span>
                 <Link 
                   to="/kid-login"
-                  className="text-space-white hover:text-neon-pink transition-colors duration-200"
+                  className="text-space-white hover:text-neon-pink transition-colors duration-200 font-display"
                 >
                   Sprinkle Login
                 </Link>
               </div>
             )}
 
-            {/* Existing Icons */}
+            {/* Navigation Icons */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               <Link 
                 to="/daily-bonus"
