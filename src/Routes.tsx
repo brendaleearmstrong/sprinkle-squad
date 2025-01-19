@@ -13,9 +13,13 @@ import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import { supabase } from "@/lib/supabase";
 import { useEffect, useState } from "react";
+import { ComingSoon } from "./pages/ComingSoon";
 
 export const Routes = () => {
   const [isParent, setIsParent] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem("preview-authenticated") === "true";
+  });
 
   useEffect(() => {
     checkUserType();
@@ -33,6 +37,10 @@ export const Routes = () => {
       setIsParent(profile?.is_parent ?? null);
     }
   };
+
+  if (!isAuthenticated) {
+    return <ComingSoon onAuthenticate={() => setIsAuthenticated(true)} />;
+  }
 
   return (
     <RouterRoutes>
