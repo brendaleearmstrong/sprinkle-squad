@@ -22,6 +22,17 @@ interface SettingsContextType {
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
 
+const DEFAULT_SETTINGS: Settings = {
+  notifications: "all",
+  soundEffects: true,
+  darkMode: false,
+  parentalControls: {
+    pinRequired: false,
+    pin: null,
+    restrictedFeatures: [],
+  },
+};
+
 export function SettingsProvider({ children }: { children: React.ReactNode }) {
   const [settings, setSettings] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
@@ -42,7 +53,6 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
   }, [settings?.darkMode]);
 
   const initializeSounds = () => {
-    // Pre-load sound effects
     const sounds = {
       success: '/sounds/success.mp3',
       error: '/sounds/error.mp3',
@@ -61,25 +71,57 @@ export function SettingsProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const createDefaultSettings = async (userId: string) => {
+    try {
+      const { error } = await supabase
+        .from('user_settings')
+        .insert([
+          {
+            id: userId,
+            notifications: DEFAULT_SETTINGS.notifications,
+            sound_effects: DEFAULT_SETTINGS.soundEffects,
+            dark_mode: DEFAULT_SETTINGS.darkMode,
+            parental_controls: DEFAULT_SETTINGS.parentalControls,
+          }
+        ]);
+
+      if (error) throw error;
+      
+      return DEFAULT_SETTINGS;
+    } catch (error) {
+      console.error('Error creating default settings:', error);
+      throw error;
+    }
+  };
+
   const fetchSettings = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) return;
+      if (!user) {
+        setLoading(false);
+        return;
+      }
 
       const { data, error } = await supabase
         .from('user_settings')
         .select('*')
         .eq('id', user.id)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
 
-      setSettings({
-        notifications: data.notifications,
-        soundEffects: data.sound_effects,
-        darkMode: data.dark_mode,
-        parentalControls: data.parental_controls,
-      });
+      if (!data) {
+        // Create default settings if none exist
+        const defaultSettings = await createDefaultSettings(user.id);
+        setSettings(defaultSettings);
+      } else {
+        setSettings({
+          notifications: data.notifications,
+          soundEffects: data.sound_effects,
+          darkMode: data.dark_mode,
+          parentalControls: data.parental_controls,
+        });
+      }
     } catch (error) {
       console.error('Error fetching settings:', error);
       toast({
