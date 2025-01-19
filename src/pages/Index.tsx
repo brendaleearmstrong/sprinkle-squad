@@ -12,8 +12,7 @@ import {
   PartyPopper,
   Snowflake,
   Sun,
-  Moon,
-  Smile
+  Zap
 } from "lucide-react";
 
 // Background decoration components
@@ -56,100 +55,6 @@ const BackgroundHeart = ({ className }: { className?: string }) => (
 const BackgroundCake = ({ className }: { className?: string }) => (
   <div className={`absolute pointer-events-none animate-float ${className}`}>
     <Cake className="w-6 h-6" />
-  </div>
-);
-
-const BackgroundPartyPopper = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-sprinkle-pop ${className}`}>
-    <PartyPopper className="w-5 h-5" />
-  </div>
-);
-
-const BackgroundSnowflake = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-spin-slow ${className}`}>
-    <Snowflake className="w-4 h-4" />
-  </div>
-);
-
-const BackgroundSun = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-spin-slow ${className}`}>
-    <Sun className="w-6 h-6 opacity-20" />
-  </div>
-);
-
-export const Index = () => {
-  return (
-    <div className="relative min-h-screen bg-gradient-to-b from-space-white to-soft-white overflow-hidden">
-      {/* Background decorations */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Clouds Layer */}
-        <BackgroundCloud className="top-[5%] left-[10%] text-soft-purple delay-[800ms]" />
-        <BackgroundCloud className="top-[15%] right-[15%] text-electric-purple delay-[1200ms]" />
-        <BackgroundCloud className="top-[45%] left-[20%] text-soft-purple delay-[2000ms]" />
-        <BackgroundCloud className="bottom-[20%] right-[25%] text-electric-purple delay-[1600ms]" />
-        <BackgroundCloud className="bottom-[40%] left-[35%] text-soft-purple delay-[2400ms]" />
-        
-        {/* Ice Creams Layer */}
-        <BackgroundIceCream className="top-[8%] left-[25%] text-neon-pink delay-[300ms]" />
-        <BackgroundIceCream className="top-[30%] right-[8%] text-hot-pink delay-[900ms]" />
-        <BackgroundIceCream className="bottom-[15%] left-[15%] text-neon-orange delay-[1500ms]" />
-        <BackgroundIceCream className="bottom-[35%] right-[20%] text-bright-orange delay-[2100ms]" />
-        <BackgroundIceCream className="top-[60%] left-[45%] text-neon-pink delay-[2700ms]" />
-        <BackgroundIceCream className="bottom-[50%] right-[40%] text-hot-pink delay-[3000ms]" />
-        
-        {/* Cakes Layer */}
-        <BackgroundCake className="top-[12%] left-[30%] text-neon-pink delay-[400ms]" />
-        <BackgroundCake className="top-[45%] right-[25%] text-hot-pink delay-[1100ms]" />
-        <BackgroundCake className="bottom-[25%] left-[40%] text-electric-purple delay-[1800ms]" />
-        <BackgroundCake className="bottom-[60%] right-[35%] text-neon-orange delay-[2500ms]" />
-        
-        {/* Party Poppers (
-
-You're right - let's add more playful icons to make the background even more fun for kids. I notice we can add more variety using Lucide icons like `Candy`, `IceCream`, and `Sparkles` for confetti effects. While there isn't a specific cupcake or rainbow icon in the Lucide library, we can create patterns with the available icons to achieve a similar festive effect.
-
-<lov-code>
-Let's update the Index.tsx file to include more animated decorations:
-
-<lov-write file_path="src/pages/Index.tsx">
-import { HeroSection } from "@/components/home/HeroSection";
-import { FeatureCards } from "@/components/home/FeatureCards";
-import { LoginButtons } from "@/components/home/LoginButtons";
-import { Star, Sparkles, Heart, IceCream, Cloud, Candy, PartyPopper, Snowflake, Sun, Zap } from "lucide-react";
-
-// Background decoration components
-const BackgroundSprinkle = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-float ${className}`}>
-    <Star className="w-4 h-4" />
-  </div>
-);
-
-const BackgroundSparkle = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-sprinkle-pop ${className}`}>
-    <Sparkles className="w-3 h-3" />
-  </div>
-);
-
-const BackgroundIceCream = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-float ${className}`}>
-    <IceCream className="w-6 h-6" />
-  </div>
-);
-
-const BackgroundCloud = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-float ${className}`}>
-    <Cloud className="w-8 h-8 opacity-20" />
-  </div>
-);
-
-const BackgroundCandy = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-spin-slow ${className}`}>
-    <Candy className="w-5 h-5" />
-  </div>
-);
-
-const BackgroundHeart = ({ className }: { className?: string }) => (
-  <div className={`absolute pointer-events-none animate-float ${className}`}>
-    <Heart className="w-4 h-4" />
   </div>
 );
 
