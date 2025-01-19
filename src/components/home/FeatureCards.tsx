@@ -1,90 +1,54 @@
-import { IceCream, Heart, Star, Sparkles } from "lucide-react";
+import { Heart, IceCream, Star } from "lucide-react";
 
 export const FeatureCards = () => {
-  const features = [
-    {
-      icon: <Heart className="w-10 h-10" />,
-      title: "Personalized Goals",
-      description: "Set custom tasks and goals tailored to your child's interests and abilities. Watch them grow with every achievement!",
-      gradient: "from-neon-pink via-hot-pink to-electric-purple",
-      animation: "hover:rotate-12"
-    },
-    {
-      icon: <IceCream className="w-10 h-10" />,
-      title: "Exciting Rewards",
-      description: "Create meaningful rewards that motivate and inspire. From extra screen time to special family activities!",
-      gradient: "from-neon-orange via-bright-orange to-hot-pink",
-      animation: "hover:-rotate-12"
-    },
-    {
-      icon: <Star className="w-10 h-10" />,
-      title: "Level Up System",
-      description: "Kids progress through fun levels, unlocking new challenges and rewards as they grow. Watch their confidence soar!",
-      gradient: "from-electric-purple via-bright-blue to-electric-blue",
-      animation: "hover:rotate-6"
-    },
-    {
-      icon: <Sparkles className="w-10 h-10" />,
-      title: "Sprinkle Economy",
-      description: "Teach valuable lessons about earning, saving, and spending with our fun sprinkle-based reward system!",
-      gradient: "from-neon-green via-bright-blue to-electric-blue",
-      animation: "hover:-rotate-6"
-    },
-    {
-      icon: <Heart className="w-10 h-10" />,
-      title: "Achievement Tracking",
-      description: "Celebrate progress with beautiful charts and achievements. Perfect for parent-teacher meetings!",
-      gradient: "from-hot-pink via-electric-purple to-bright-blue",
-      animation: "hover:rotate-12"
-    },
-    {
-      icon: <IceCream className="w-10 h-10" />,
-      title: "Family Connection",
-      description: "Strengthen family bonds through shared goals and celebrations. Create lasting memories together!",
-      gradient: "from-electric-blue via-neon-pink to-neon-orange",
-      animation: "hover:-rotate-12"
-    }
-  ];
-
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4 pb-20">
-      {features.map((feature, index) => (
-        <div
-          key={index}
-          className={`group relative overflow-hidden bg-gradient-to-br ${feature.gradient} p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2`}
-        >
-          <div className="absolute inset-0 bg-space-white/5 backdrop-blur-[2px] rounded-3xl" />
-          <div className={`bg-space-white/90 backdrop-blur-sm p-5 rounded-2xl w-fit mx-auto mb-8 transform transition-all duration-500 ${feature.animation} group-hover:scale-110 shadow-lg`}>
-            {feature.icon}
-          </div>
-          <h3 className="font-display text-3xl font-bold mb-4 text-space-white relative z-10">
-            {feature.title}
-          </h3>
-          <p className="font-body text-xl text-space-white/90 relative z-10 leading-relaxed">
-            {feature.description}
-          </p>
-          
-          {/* Adding floating decorative elements */}
-          <div className="absolute -top-2 -right-2 text-space-white/30">
-            {index % 3 === 0 ? (
-              <Heart className="w-4 h-4 animate-float" />
-            ) : index % 3 === 1 ? (
-              <IceCream className="w-4 h-4 animate-spin-slow" />
-            ) : (
-              <Star className="w-4 h-4 animate-sprinkle-pop" />
-            )}
-          </div>
-          <div className="absolute -bottom-2 -left-2 text-space-white/30">
-            {index % 3 === 2 ? (
-              <Heart className="w-4 h-4 animate-float" />
-            ) : index % 3 === 0 ? (
-              <IceCream className="w-4 h-4 animate-spin-slow" />
-            ) : (
-              <Star className="w-4 h-4 animate-sprinkle-pop" />
-            )}
+    <div className="w-full max-w-7xl mx-auto px-4 py-12 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {/* Personalized Goals Card */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-neon-pink to-hot-pink p-6 shadow-lg transition-transform hover:scale-105">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="rounded-full bg-white/90 p-3 backdrop-blur-sm">
+              <Heart className="h-8 w-8 text-neon-pink" />
+            </div>
+            <h3 className="text-2xl font-display font-bold text-white">
+              Personalized Goals
+            </h3>
+            <p className="text-center text-white/90 leading-relaxed">
+              Set custom tasks and goals tailored to your child's interests and abilities. Watch them grow with every achievement!
+            </p>
           </div>
         </div>
-      ))}
+
+        {/* Exciting Rewards Card */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-neon-orange to-bright-orange p-6 shadow-lg transition-transform hover:scale-105">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="rounded-full bg-white/90 p-3 backdrop-blur-sm">
+              <IceCream className="h-8 w-8 text-neon-orange" />
+            </div>
+            <h3 className="text-2xl font-display font-bold text-white">
+              Exciting Rewards
+            </h3>
+            <p className="text-center text-white/90 leading-relaxed">
+              Create meaningful rewards that motivate and inspire. From extra screen time to special family activities!
+            </p>
+          </div>
+        </div>
+
+        {/* Level Up System Card */}
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-electric-blue to-bright-blue p-6 shadow-lg transition-transform hover:scale-105">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="rounded-full bg-white/90 p-3 backdrop-blur-sm">
+              <Star className="h-8 w-8 text-electric-blue" />
+            </div>
+            <h3 className="text-2xl font-display font-bold text-white">
+              Level Up System
+            </h3>
+            <p className="text-center text-white/90 leading-relaxed">
+              Kids progress through fun levels, unlocking new challenges and rewards as they grow. Watch their confidence soar!
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
