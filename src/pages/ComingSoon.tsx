@@ -23,8 +23,7 @@ export const ComingSoon = ({ onAuthenticate }: ComingSoonProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Replace these with your desired credentials
-    if (username === "sprinkle" && password === "squad2024") {
+    if (username === "Bendiksen" && password === "@Ragnar2024*") {
       localStorage.setItem("preview-authenticated", "true");
       onAuthenticate();
     } else {
