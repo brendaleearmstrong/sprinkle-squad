@@ -2,7 +2,7 @@ import { Sparkles, Star, Heart, IceCream } from "lucide-react";
 
 export const HeroSection = () => {
   return (
-    <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-8 pt-8">
+    <div className="relative z-10 w-full max-w-4xl mx-auto text-center space-y-8 pt-20">
       <div className="relative inline-block">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Heart className="w-6 h-6 text-hot-pink animate-float" />

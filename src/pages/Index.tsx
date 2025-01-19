@@ -1,7 +1,6 @@
 import { HeroSection } from "@/components/home/HeroSection";
 import { FeatureCards } from "@/components/home/FeatureCards";
 import { LoginButtons } from "@/components/home/LoginButtons";
-import { TestingPanel } from "@/components/testing/TestingPanel";
 
 export const Index = () => {
   return (
@@ -9,9 +8,6 @@ export const Index = () => {
       <HeroSection />
       <FeatureCards />
       <LoginButtons />
-      <div className="container mx-auto px-4 py-8">
-        <TestingPanel />
-      </div>
     </div>
   );
 };
