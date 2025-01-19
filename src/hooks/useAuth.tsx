@@ -29,8 +29,37 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     });
 
     // Listen for auth changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setUser(session?.user ?? null);
+      
+      // If we have a new session, ensure user settings exist
+      if (session?.user) {
+        const { data: settings } = await supabase
+          .from('user_settings')
+          .select('*')
+          .eq('id', session.user.id)
+          .maybeSingle();
+        
+        // If no settings exist, create default settings
+        if (!settings) {
+          await supabase
+            .from('user_settings')
+            .insert([
+              {
+                id: session.user.id,
+                notifications: 'all',
+                sound_effects: true,
+                dark_mode: false,
+                parental_controls: {
+                  pin: null,
+                  pin_required: false,
+                  restricted_features: []
+                }
+              }
+            ]);
+        }
+      }
+      
       setLoading(false);
     });
 
