@@ -23,7 +23,7 @@ export const ComingSoon = ({ onAuthenticate }: ComingSoonProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (username === "Bendiksen" && password === "@Ragnar2024*") {
+    if (username === "admin" && password === "test123") {
       localStorage.setItem("preview-authenticated", "true");
       onAuthenticate();
     } else {
@@ -97,7 +97,7 @@ export const ComingSoon = ({ onAuthenticate }: ComingSoonProps) => {
 
         <div className="text-center mt-6">
           <p className="text-sm text-electric-purple/60">
-            Contact the SprinkleSquad team for access credentials
+            Use username: <strong>admin</strong> and password: <strong>test123</strong>
           </p>
         </div>
       </div>
