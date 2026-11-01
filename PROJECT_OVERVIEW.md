@@ -1,5 +1,7 @@
 # SprinkleSquad — Project Overview
 
+_Last updated: 1 November 2026_
+
 SprinkleSquad is a gamified chore-and-rewards web app for families. Parents ("the Squad") create tasks and rewards for their children; kids ("Sprinklers") complete tasks to earn **sprinkles** (points), level up, and redeem rewards. The whole experience is themed around sweets — cupcakes, ice cream, sundaes and sprinkles — with bright gradients, playful animations and sound effects aimed at young children.
 
 The app was generated and iterated in [Lovable](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493), so changes pushed to this repo sync back to the Lovable project and vice versa.
@@ -142,7 +144,7 @@ public/
 
 ## Status and known gaps
 
-The app is a working prototype, last updated September 2025. Notable unfinished or rough areas:
+As of 1 November 2026 the app is a working prototype; the last code change was in September 2025. Notable unfinished or rough areas (see [NEW_FEATURES.md](NEW_FEATURES.md) for the planned work):
 
 - **AI features are stubs.** `AIRecommendations` returns static suggestions ("until the OpenAI integration is complete"), and `EmotionDetector` only simulates detection pending camera access.
 - **`/daily-bonus` page** shows a success toast but has a `TODO` for the actual claim logic (the kid-dashboard `DailyBonus` component does write to the database).
