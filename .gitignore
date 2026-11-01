@@ -6,20 +6,63 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+bun-debug.log*
 
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build output
 dist
 dist-ssr
+build
 *.local
+*.tsbuildinfo
+
+# Vite cache
+.vite
+node_modules/.vite
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Supabase local development
+supabase/.branches
+supabase/.temp
+supabase/.env
+supabase/functions/.env
+supabase/seed.local.sql
+
+# Testing
+coverage
+.nyc_output
+playwright-report
+test-results
+
+# Caches
+.cache
+.eslintcache
+.stylelintcache
+
+# Deployment platforms
+.vercel
+.netlify
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
 .idea
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-.env
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
