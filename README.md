@@ -1,69 +1,129 @@
-# Welcome to your Lovable project
+# 🧁 SprinkleSquad
 
-## Project info
+**A gamified chore-and-rewards app for families.**
 
-**URL**: https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493
+Parents (the *Squad*) set up tasks and rewards; kids (the *Sprinklers*) complete tasks to earn **sprinkles**, level up, and redeem rewards. Everything is themed around sweets — cupcakes, ice cream and sundaes — with bright gradients, playful animations and sound effects designed for young children.
 
-## How can I edit this code?
+> **Status:** working prototype. See [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md) for a full walkthrough and [NEW_FEATURES.md](NEW_FEATURES.md) for the roadmap.
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493) and start prompting.
+**For parents**
+- Sign up with email and password, choose a plan (*Single Sprinkler* or *Family*) and add children in one flow
+- Squad overview with quick stats for every linked kid
+- Create tasks with points, frequency (daily, weekly, monthly, once), category, required level and validation type
+- Define rewards, gift sprinkles, and see notifications
 
-Changes made via Lovable will be committed automatically to this repo.
+**For kids**
+- Simple login with a username and PIN
+- Personal task list for earning sprinkles
+- **Cupcake Buddy** — an animated mascot with encouraging suggestions
+- **Daily Bonus** — a once-a-day sprinkle reward
+- Leaderboard, reward catalogue, and levels
 
-**Use your preferred IDE**
+**Sweet-themed task categories**
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+| Category | Focus |
+|---|---|
+| Sparkle Scoops | Daily chores |
+| Sweet Sprinkles | Kindness and helping others |
+| Brain Freeze Bonanza | Learning |
+| Energy Explosion | Physical activity |
+| Furry Friend Frostings | Pet care |
+| Green Sprinkle Goals | Eco-friendly tasks |
+| Colorful Creations | Arts and crafts |
+| Sundae Specials | Special achievements |
+| Friend Flavors | Social skills |
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## Tech stack
+
+| Layer | Tools |
+|---|---|
+| Build | Vite 5 (React SWC) |
+| UI | React 18, TypeScript, Tailwind CSS, shadcn/ui (Radix), lucide-react |
+| Animation | framer-motion |
+| Routing | react-router-dom v6 |
+| Data | @tanstack/react-query, supabase-js |
+| Forms | react-hook-form, zod |
+| Backend | Supabase (Postgres, Auth, Storage) |
+| Charts | recharts |
+
+---
+
+## Getting started
+
+**Requirements:** Node.js 18+ and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+git clone https://github.com/brendaleearmstrong/sprinkle-squad.git
+cd sprinkle-squad
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The dev server prints a local URL (by default `http://localhost:8080`).
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+| Script | What it does |
+|---|---|
+| `npm run dev` | Start the development server with hot reload |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | Run ESLint |
 
-**Use GitHub Codespaces**
+The app connects to a hosted Supabase project; the client is configured in `src/integrations/supabase/client.ts`.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## Project structure
 
-This project is built with .
+```
+src/
+├── App.tsx              # Providers: React Query, Router, Auth, Settings, Toaster
+├── Routes.tsx           # Route table
+├── pages/               # One file per route
+├── components/
+│   ├── home/            # Landing page sections
+│   ├── signup/          # Parent signup forms
+│   ├── dashboard/       # Parent dashboard (and kid/ for the kid dashboard)
+│   ├── ai/              # AI recommendations and mood check-in (in progress)
+│   ├── layout/          # Header, navigation, layout
+│   └── ui/              # shadcn/ui components
+├── hooks/               # Auth, settings, toast, mobile helpers
+├── integrations/supabase/  # Supabase client and generated types
+├── lib/  types/  utils/
+public/sounds/           # Sound effects
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## Data model
 
-Simply open [Lovable](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493) and click on Share -> Publish.
+Main Supabase tables: `profiles`, `parent_kid_relationships`, `tasks`, `task_history`, `rewards`, `reward_redemptions`, `sprinkle_transactions`, `activities` and `achievements`, plus an `avatars` storage bucket. Details are in [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md#data-model-supabase).
 
-## I want to use a custom domain - is that possible?
+---
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## Roadmap
+
+Highlights from [NEW_FEATURES.md](NEW_FEATURES.md):
+
+1. **Foundations** — real authentication, safer kid sign-in, task approval flow, reward redemption, working daily bonus
+2. **Engagement** — AI-powered Cupcake Buddy, mood check-in, achievements, levels, notifications, mini-activities
+3. **Growth** — subscriptions, family sharing, parent insights, task templates, installable PWA, accessibility and translations
+
+Because SprinkleSquad is built for children, privacy comes first: minimal data collection, parental consent, family-only visibility and row-level security.
+
+---
+
+## Deployment
+
+`npm run build` produces a static site in `dist/` that can be hosted on any static host (Netlify, Vercel, Cloudflare Pages, etc.). Configure the host to serve `index.html` for all routes so client-side routing works.
+
+---
+
+## License
+
+Released under the [MIT License](LICENSE).
