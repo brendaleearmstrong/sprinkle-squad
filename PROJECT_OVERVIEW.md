@@ -4,8 +4,6 @@ _Last updated: 1 November 2026_
 
 SprinkleSquad is a gamified chore-and-rewards web app for families. Parents ("the Squad") create tasks and rewards for their children; kids ("Sprinklers") complete tasks to earn **sprinkles** (points), level up, and redeem rewards. The whole experience is themed around sweets — cupcakes, ice cream, sundaes and sprinkles — with bright gradients, playful animations and sound effects aimed at young children.
 
-The app was generated and iterated in [Lovable](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493), so changes pushed to this repo sync back to the Lovable project and vice versa.
-
 ---
 
 ## Tech stack
