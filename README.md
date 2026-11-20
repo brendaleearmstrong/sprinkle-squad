@@ -1,69 +1,85 @@
-# Welcome to your Lovable project
+# 🧁 SprinkleSquad
 
-## Project info
+A gamified chore-and-rewards web app for families. Parents (**the Squad**) set tasks and rewards; kids (**Sprinklers**) complete tasks to earn **sprinkles**, level up, climb the leaderboard and redeem rewards. Everything is themed around sweets: cupcakes, ice cream, sundaes and sprinkles.
 
-**URL**: https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493
+> **Status:** working prototype. See [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md) for how the app works today and [NEW_FEATURES.md](NEW_FEATURES.md) for the roadmap.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+**For parents**
+- Sign up with email on a *Single Sprinkler* or *Family* plan and add children during sign-up
+- Squad overview with quick stats and a card for each kid (avatar, points, level)
+- Create tasks with points, frequency, category, required level and validation type (parent approval, photo, timer or none)
+- Define rewards and gift sprinkles to kids
 
-**Use Lovable**
+**For kids**
+- Simple username + PIN login
+- Personal task list for earning sprinkles
+- **Cupcake Buddy**, an animated mascot with encouraging suggestions
+- Daily bonus, leaderboard and special-rewards catalogue
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493) and start prompting.
+**Task categories:** Sparkle Scoops (chores), Sweet Sprinkles (kindness), Brain Freeze Bonanza (learning), Energy Explosion (exercise), Furry Friend Frostings (pet care), Green Sprinkle Goals (eco), Colorful Creations (arts & crafts), Sundae Specials (milestones) and Friend Flavors (social skills).
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech stack
 
-**Use your preferred IDE**
+| Layer | Tools |
+|---|---|
+| Build | Vite 5, TypeScript |
+| UI | React 18, Tailwind CSS 3, shadcn/ui (Radix), lucide-react, framer-motion |
+| Routing & data | react-router-dom v6, TanStack Query |
+| Forms | react-hook-form, zod |
+| Backend | Supabase (Postgres, Auth, Storage) |
+| Charts | recharts |
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Getting started
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requires Node.js 18+ and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+git clone https://github.com/brendaleearmstrong/sprinkle-squad.git
+cd sprinkle-squad
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The app connects to the existing hosted Supabase project, so no `.env` file is needed to run it locally.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+| Script | What it does |
+|---|---|
+| `npm run dev` | Start the local dev server |
+| `npm run build` | Production build |
+| `npm run build:dev` | Development-mode build |
+| `npm run preview` | Preview the production build |
+| `npm run lint` | Run ESLint |
 
-**Use GitHub Codespaces**
+## Project structure
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```
+src/
+├── pages/          # Routes: landing, parent/kid login & signup, dashboards,
+│                   # leaderboard, rewards, daily bonus, profile, settings
+├── components/     # dashboard, home, layout, signup, ai and shadcn/ui components
+├── hooks/          # Auth, settings and data hooks
+├── integrations/   # Supabase client and generated types
+├── lib/ utils/     # Helpers
+└── types/          # Shared types (task categories, rewards)
+supabase/           # Supabase config
+```
 
-## What technologies are used for this project?
+## Data model
 
-This project is built with .
+Main Supabase tables: `profiles`, `parent_kid_relationships`, `tasks`, `task_history`, `rewards`, `reward_redemptions`, `sprinkle_transactions`, `activities` and `achievements`, plus an `avatars` storage bucket. Details are in [PROJECT_OVERVIEW.md](PROJECT_OVERVIEW.md#data-model-supabase).
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Known limitations
 
-## How can I deploy this project?
+- The "Coming Soon" preview screen is a client-side demo gate, not real security.
+- Kid sign-in uses the PIN as a Supabase password; a hashed-PIN flow is planned.
+- Task approval, reward redemption and the daily bonus are not yet complete end to end.
+- The AI Recommendations and Feeling Friend cards are placeholders.
+- SQL migrations are not yet checked into `supabase/migrations`.
 
-Simply open [Lovable](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493) and click on Share -> Publish.
+These are covered in Phase 1 of [NEW_FEATURES.md](NEW_FEATURES.md).
 
-## I want to use a custom domain - is that possible?
+## Development and deployment
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+The project was created with [Lovable](https://lovable.dev/projects/624060d4-4a20-423d-a000-ed45d319d493). Changes pushed to this repo sync to the Lovable project, and edits made in Lovable are committed here automatically. To deploy, open the Lovable project and choose **Share → Publish**.
